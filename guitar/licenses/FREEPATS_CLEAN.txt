@@ -1,0 +1,16 @@
+Funk Clean guitar samples
+
+Source: FreePats FSBS Electric Guitar Clean #1, bridge pickup, small SFZ set
+Creator: FreePats (direct sampling of a Fender electric guitar)
+Version: 2026-08-07
+URL: https://freepats.zenvoid.org/ElectricGuitar/clean-electric-guitar.html
+Repository: https://github.com/freepats/electric-guitar-FSBS-clean
+License: Creative Commons CC0 1.0 public domain dedication
+https://creativecommons.org/publicdomain/zero/1.0/
+
+This application uses the 12 sample files mapped by "EGuitarFSBS-clean bridge small 20260807.sfz".
+Each FLAC source was converted to mono MP3 at 44.1 kHz / 160 kbps, trimmed to 2.5 seconds,
+and faded during its final 0.25 seconds. The converted samples are assets/funk-*.mp3
+and are embedded into the clean bank in src/guitar-banks.js for standalone playback.
+Original sample note mapping: C2=36, F2=41, A2=45, C3=48, E3=52, G3=55,
+B3=59, E4=64, G4=67, B4=71, D5=74, G#5=80.

@@ -1,0 +1,37 @@
+Guitar Studio — Additional guitar sounds
+
+FluidR3 General MIDI soundfont by Frank Wen.
+Original copyright (c) 2000-2002, 2008 Frank Wen.
+MP3 rendering/distribution: MIDI.js Soundfonts / Benjamin Gleitzman.
+Repository: https://github.com/gleitz/midi-js-soundfonts
+Instrument data: https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/
+
+The distributor's README identifies the FluidR3 MP3 collection as
+Creative Commons Attribution 3.0 Unported (CC BY 3.0):
+https://creativecommons.org/licenses/by/3.0/
+Legal text: https://creativecommons.org/licenses/by/3.0/legalcode
+This application retains that attribution and license. No endorsement by
+Frank Wen, Benjamin Gleitzman or any contributor is implied.
+
+Included instruments: acoustic_guitar_nylon, acoustic_guitar_steel,
+electric_guitar_jazz, electric_guitar_clean, overdriven_guitar.
+Changes: selected 25 notes per instrument (MIDI 40–88 in whole-tone steps),
+retained their original MP3 bytes, and repackaged them as embedded data.
+Playback applies amplitude, velocity-dependent filtering, envelopes,
+pitch interpolation and the user's effect settings.
+
+When sharing audio that incorporates these samples, retain appropriate
+credit, link to the source/license, and indicate your processing/arrangement.
+Suggested credit (adapt to your use):
+"Guitar samples: FluidR3 by Frank Wen; MP3 rendering via MIDI.js Soundfonts
+by Benjamin Gleitzman, CC BY 3.0. Selection/processing in Guitar Studio."
+MIDI exports contain note/control data, not these recordings.
+
+Original Fluid acknowledgements (as reproduced by MuseScore):
+Suren M. Seron, Scott Hanan, Steve Aupperle, Chris Gillman, Alex Taubr,
+Chris Prola, Andrew Klenk, Winfried Hubbe, Dylan, Tim, Gort, Uros Katic,
+Ethan Winer (http://www.ethanwiner.com).
+
+The original FluidR3 release and MIDI.js repository code also carry MIT
+notices. See MIDIJS_LICENSE.txt and FLUIDR3_MIT.txt alongside this file.
+The existing REALWOOD/percussion source notes remain in CREDITS.md.

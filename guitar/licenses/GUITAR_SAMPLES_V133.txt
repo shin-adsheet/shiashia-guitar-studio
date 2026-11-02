@@ -1,0 +1,13 @@
+Guitar samples in assets/audio-v133 (v133)
+
+acoustic133: derived from Karoryfer Samples "Shinyguitar" (D. Smolken) - CC0 1.0 Universal
+  https://github.com/sfzinstruments/karoryfer.shinyguitar
+electric133: derived from Karoryfer Samples "Emilyguitar" (D. Smolken) - CC0 1.0 Universal
+  https://github.com/sfzinstruments/karoryfer.emilyguitar
+nylon133: derived from FreePats project "Spanish classical guitar" - CC0 1.0 Universal
+  https://github.com/freepats/spanish-classical-guitar
+  (body hits and muted strokes derived from Shinyguitar, CC0)
+
+Processing: trimming, EQ, level matching per velocity layer, measured pitch correction,
+derived articulations (bridge mute, harmonics, dead notes), MP3 encoding.
+CC0: no attribution required; credit is given as a courtesy.
