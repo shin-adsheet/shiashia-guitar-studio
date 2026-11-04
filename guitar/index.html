@@ -3103,6 +3103,34 @@ body:has(.app[data-view=play]){overflow-y:hidden;overscroll-behavior-y:none}
 /* v145 fix: on 320-360px phones the SPECIAL label was cut to "SPECIA" */
 @media (max-width:360px){#gameView .player-special-tag{font-size:6px;letter-spacing:0;overflow:visible;white-space:nowrap}}
 
+/* ---------- v146 game spectacle (game-fx.js) ---------- */
+.gfx-layer{position:fixed;inset:0;z-index:9800;pointer-events:none;overflow:hidden}
+.gfx-flash{position:absolute;inset:0;opacity:0;animation:gfx-flash .45s ease-out forwards}
+@keyframes gfx-flash{0%{opacity:var(--op,.5)}100%{opacity:0}}
+.gfx-shock{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 18px #3cc9ff,inset 0 0 12px #d36bff;animation:gfx-shock .65s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes gfx-shock{0%{transform:scale(.2);opacity:1}100%{transform:scale(7);opacity:0}}
+.gfx-spark{position:absolute;margin:-3px 0 0 -3px;border-radius:2px;animation:gfx-spark .6s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes gfx-spark{0%{transform:translate(0,0) rotate(0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(.2);opacity:0}}
+.gfx-shake{animation:gfx-shake .3s linear}
+@keyframes gfx-shake{0%,100%{transform:none}20%{transform:translate(calc(var(--shake)*-1),var(--shake))}40%{transform:translate(var(--shake),calc(var(--shake)*-.6))}60%{transform:translate(calc(var(--shake)*-.6),calc(var(--shake)*.4))}80%{transform:translate(calc(var(--shake)*.3),0)}}
+.gfx-confetti{position:absolute;inset:0;width:100%;height:100%}
+.gfx-banner{position:absolute;left:0;right:0;top:34%;height:150px;display:grid;place-items:center;text-align:center}
+.gfx-band{position:absolute;left:-20%;right:-20%;height:44px;transform:skewY(-8deg) translateX(-120%);animation:gfx-band 1.3s cubic-bezier(.16,1,.3,1) forwards}
+.gfx-band.a{top:22px;background:#3cc9ff;animation-delay:0s}
+.gfx-band.b{top:56px;height:40px;background:#16152a;border-top:3px solid #fff;border-bottom:3px solid #d36bff;animation-delay:.04s}
+.gfx-band.c{top:92px;height:18px;background:#d36bff;animation-delay:.08s}
+@keyframes gfx-band{0%{transform:skewY(-8deg) translateX(-120%)}25%{transform:skewY(-8deg) translateX(0)}75%{transform:skewY(-8deg) translateX(3%);opacity:1}100%{transform:skewY(-8deg) translateX(120%);opacity:0}}
+.gfx-banner b{position:relative;z-index:2;font:italic 900 clamp(40px,13vw,74px)/1 "Avenir Next Condensed","Arial Black","Helvetica Neue",sans-serif;letter-spacing:-.02em;color:#fff;-webkit-text-stroke:2px #090816;paint-order:stroke fill;text-shadow:-4px 0 #d36bff,4px 0 #3cc9ff,0 6px 0 #090816;transform:skewX(-10deg);animation:gfx-word 1.3s cubic-bezier(.16,1,.3,1) forwards}
+.gfx-banner small{position:absolute;z-index:2;top:120px;font-weight:800;font-size:15px;letter-spacing:.08em;color:#fff;padding:3px 12px;background:#090816;border-radius:4px;opacity:0;animation:gfx-sub 1.3s ease .18s forwards}
+@keyframes gfx-word{0%{transform:skewX(-10deg) scale(2.4);opacity:0;filter:blur(6px)}18%{transform:skewX(-10deg) scale(.94);opacity:1;filter:none}26%{transform:skewX(-10deg) scale(1.04)}34%,78%{transform:skewX(-10deg) scale(1);opacity:1}100%{transform:skewX(-10deg) scale(1.12);opacity:0}}
+@keyframes gfx-sub{0%{opacity:0;transform:translateY(6px)}20%,80%{opacity:1;transform:none}100%{opacity:0}}
+.gfx-ring{position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px;border-radius:50%;border:4px solid #e3cf93;animation:gfx-shock .9s cubic-bezier(.16,1,.3,1) .1s forwards;opacity:0}
+.gfx-banner.gfx-complete{top:28%}
+.gfx-complete .gfx-band.a{background:#e3cf93}.gfx-complete .gfx-band.c{background:#8ff0c4}
+.gfx-complete b{text-shadow:-4px 0 #e3cf93,4px 0 #ff8ad8,0 6px 0 #090816;animation-duration:2.6s}
+.gfx-complete .gfx-band,.gfx-complete small{animation-duration:2.6s}
+@media (prefers-reduced-motion:reduce){.gfx-layer{display:none}}
+
 /* ---------- launch opening (about 3 s) ---------- */
 .gs-opening{position:fixed;inset:0;z-index:10000;background:#07070f;overflow:hidden;color:#fff;cursor:pointer;
  clip-path:polygon(0 0,100% 0,100% 100%,0 100%);transition:clip-path .42s cubic-bezier(.7,0,.2,1),opacity .26s linear}
@@ -9568,11 +9596,12 @@ function checkTours(){
 function decorateSettings(){
  const title=$('#sheetTitle'),body=$('#sheetBody');if(!title||!body||title.textContent!=='音・演奏の設定'||body.querySelector('.onboard-settings'))return;
  const view=$('#app')?.dataset.view,id=view==='cards'?(currentTourId()||'game'):view,box=doc.createElement('div');box.className='onboard-settings';
- box.innerHTML='<button class="secondary" data-ob="tour">この画面の使い方を見る</button><button class="secondary" data-ob="plan">'+(Plan.isPro()?'有料版を使っています':'有料版（書き出し・広告なし）')+'</button><label class="onboard-toggle"><input type="checkbox" data-ob="opening" '+(store.get('gs.opening.v1',true)?'checked':'')+'>起動時のオープニングを流す</label><a class="onboard-link" href="privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>';
+ box.innerHTML='<button class="secondary" data-ob="tour">この画面の使い方を見る</button><button class="secondary" data-ob="plan">'+(Plan.isPro()?'有料版を使っています':'有料版（書き出し・広告なし）')+'</button><label class="onboard-toggle"><input type="checkbox" data-ob="opening" '+(store.get('gs.opening.v1',true)?'checked':'')+'>起動時のオープニングを流す</label><label class="onboard-toggle"><input type="checkbox" data-ob="uisound" '+(root.GuitarUISound?.enabled()!==false?'checked':'')+'>メニューの操作音（クリック音）</label><a class="onboard-link" href="privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>';
  body.prepend(box);
  box.querySelector('[data-ob=tour]').onclick=()=>{$('#sheetClose')?.click();setTimeout(()=>{const tid=id==='cards'?'game':id;if(!startTour(tid,{force:true}))startTour(currentTourId()||tid,{force:true});},350);};
  box.querySelector('[data-ob=plan]').onclick=()=>showUpgrade('settings');
  box.querySelector('[data-ob=opening]').onchange=e=>store.set('gs.opening.v1',e.target.checked);
+ const ui=box.querySelector('[data-ob=uisound]');if(ui)ui.onchange=e=>{root.GuitarUISound?.setEnabled(e.target.checked);if(e.target.checked)root.GuitarUISound?.tick('confirm');};
 }
 
 /* ------------------------------------------------------------------ boot */
@@ -9661,5 +9690,264 @@ function mount(){
 function boot(){const game=$('#gameView'),sheet=$('#sheetBody');if(!game){setTimeout(boot,60);return;}let t;const obs=()=>{clearTimeout(t);t=setTimeout(mount,120);};new MutationObserver(obs).observe(game,{childList:true,subtree:true});if(sheet)new MutationObserver(obs).observe(sheet,{childList:true});mount();}
 root.GuitarShare={openShare,render,songInfo,defaultText};
 if(doc.readyState==='loading')doc.addEventListener('DOMContentLoaded',boot);else boot();
+})(typeof window!=='undefined'?window:globalThis);
+</script><script>/* Quiet interface clicks for menus, tabs, sheets and dialogs.
+   Controls that already make music (chords, strings, pads, cards, play/record, previews)
+   stay silent here so the click never sits on top of the guitar. Toggle: settings sheet. */
+(function(root){'use strict';
+const doc=root.document;if(!doc)return;
+const KEY='gs.uisound.v1';
+const enabled=()=>{try{return root.localStorage.getItem(KEY)!=='off';}catch(_){return true;}};
+const setEnabled=on=>{try{root.localStorage.setItem(KEY,on?'on':'off');}catch(_){}};
+// Buttons that produce or start sound on their own.
+const MUSICAL=[
+ '[data-instrument]','.roguecard','.materialcard','.chordhead','.accent-pad','.auto-pad','.pitch-control',
+ '#playButton','#songStartButton','#recordButton','#loopButton','#stopSoundButton',
+ '#playerListen','#playerLoop','#playerChords button','#playerPad_performance','#playerPad_groove','#playerPad_special',
+ '#effectListen','#quickPatterns button','#stringStage','#gesturePads .pitch-control',
+ '[data-deck=play]','[data-deck=listen]','[data-deck=loop]','.complete-play','.player-special','.stage-dancer',
+ '#deckLoop','#midiScroll','#midiKeys','canvas',
+ '#gameView [data-deck]','#gameView [data-deck-choice]','#gameView .tempo-option','.game-confirm-back .sheetbody button'
+].join(',');
+const CLOSE='#sheetClose,.plansheet-close,.tour-skip,.tour-prev,[data-deck=closeDetail],[data-deck=lobbyBack],[data-deck=tempoBack],[data-gate=game],.textbutton';
+let ctx=null,out=null,last=0;
+function context(){
+ if(ctx&&ctx.state!=='closed')return ctx;
+ const AC=root.AudioContext||root.webkitAudioContext;if(!AC)return null;
+ try{ctx=new AC({latencyHint:'interactive'});}catch(_){return null;}
+ out=ctx.createGain();out.gain.value=.9;out.connect(ctx.destination);return ctx;
+}
+// A short, soft "tick": a sine blip that drops in pitch, plus a tiny filtered noise edge.
+function tick(kind='tap'){
+ const c=context();if(!c)return;if(c.state==='suspended')c.resume().catch(()=>{});
+ const now=c.currentTime,t=now+.002;if(now-last<.035)return;last=now;
+ const f0={tap:1650,nav:1250,close:880,confirm:1900}[kind]||1650,peak={tap:.045,nav:.05,close:.04,confirm:.05}[kind]||.045;
+ const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f0*.62,t+.03);
+ g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+.002);g.gain.exponentialRampToValueAtTime(.0004,t+.045);
+ o.connect(g);g.connect(out);o.start(t);o.stop(t+.06);
+ const n=c.createBufferSource(),len=Math.floor(c.sampleRate*.012),b=c.createBuffer(1,len,c.sampleRate),d=b.getChannelData(0);
+ for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*(1-i/len);
+ const hp=c.createBiquadFilter(),ng=c.createGain();hp.type='highpass';hp.frequency.value=3200;ng.gain.value=peak*.35;
+ n.buffer=b;n.connect(hp);hp.connect(ng);ng.connect(out);n.start(t);
+ if(kind==='confirm'){const o2=c.createOscillator(),g2=c.createGain(),t2=t+.045;o2.type='sine';o2.frequency.setValueAtTime(f0*1.26,t2);g2.gain.setValueAtTime(0,t2);g2.gain.linearRampToValueAtTime(peak*.8,t2+.002);g2.gain.exponentialRampToValueAtTime(.0004,t2+.05);o2.connect(g2);g2.connect(out);o2.start(t2);o2.stop(t2+.07);}
+}
+function kindFor(el){
+ if(el.matches(CLOSE))return 'close';
+ if(el.closest('.bottomnav'))return 'nav';
+ if(el.matches('.primary,.plangate-primary,.tour-next,[data-deck=begin],[data-deck=chooseTempo],[type=submit]'))return 'confirm';
+ return 'tap';
+}
+doc.addEventListener('pointerdown',e=>{
+ if(!enabled()||e.button>0)return;
+ const el=e.target.closest?.('button,[role=button],summary,a.pill,.author-credit,select,label.onboard-toggle,input[type=checkbox]');
+ if(!el||el.disabled||el.getAttribute('aria-disabled')==='true')return;
+ if(el.matches(MUSICAL)||el.closest(MUSICAL))return;
+ tick(kindFor(el));
+},{capture:true,passive:true});
+// Keyboard activation of focused controls.
+doc.addEventListener('keydown',e=>{
+ if(!enabled()||(e.key!=='Enter'&&e.key!==' '))return;const el=doc.activeElement;
+ if(!el||!el.matches?.('button,[role=button],summary')||el.matches(MUSICAL)||el.closest(MUSICAL))return;tick(kindFor(el));
+},true);
+root.GuitarUISound={tick,enabled,setEnabled,context};
+})(typeof window!=='undefined'?window:globalThis);
+</script><script>/* GAME sound and spectacle: title BGM, button sounds, start jingle, card impact,
+   shuffle / rewind / sparkle, special whoosh, section clear, completion fanfare with confetti.
+   Everything is synthesized with Web Audio (no extra downloads) and watches the DOM,
+   so the game logic in deck.js is untouched. The BGM only plays on the title / deck / tempo
+   screens and stops the moment the app plays music. Settings: ゲームのBGM / ゲームの効果音. */
+(function(root){'use strict';
+const doc=root.document;if(!doc)return;
+const $=s=>doc.querySelector(s),$$=s=>[...doc.querySelectorAll(s)];
+const pref=(k,d=true)=>{try{const v=root.localStorage.getItem(k);return v==null?d:v==='on';}catch(_){return d;}};
+const setPref=(k,on)=>{try{root.localStorage.setItem(k,on?'on':'off');}catch(_){}};
+const BGM_KEY='gs.gamebgm.v1',SE_KEY='gs.gamese.v1';
+const reduce=()=>!!root.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+const visible=el=>!!el&&el.isConnected&&el.offsetParent!==null&&el.getBoundingClientRect().height>2;
+const midi=n=>440*2**((n-69)/12);
+
+/* ------------------------------------------------------------------ audio */
+let ctx=null,seBus=null,bgmBus=null,noiseBuf=null;
+function audio(){
+ if(ctx&&ctx.state!=='closed'&&seBus)return ctx;
+ ctx=root.GuitarUISound?.context?.()||null;
+ if(!ctx){const AC=root.AudioContext||root.webkitAudioContext;if(!AC)return null;try{ctx=new AC({latencyHint:'interactive'});}catch(_){return null;}}
+ const comp=ctx.createDynamicsCompressor();comp.threshold.value=-16;comp.ratio.value=4;comp.attack.value=.003;comp.release.value=.15;comp.connect(ctx.destination);
+ seBus=ctx.createGain();seBus.gain.value=.55;seBus.connect(comp);
+ bgmBus=ctx.createGain();bgmBus.gain.value=0;bgmBus.connect(comp);
+ const len=ctx.sampleRate;noiseBuf=ctx.createBuffer(1,len,ctx.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<len;i++)d[i]=Math.random()*2-1;
+ return ctx;
+}
+function ready(){const c=audio();if(!c)return null;if(c.state==='suspended')c.resume().catch(()=>{});return c;}
+function tone(bus,{type='square',f,f2,t,dur=.12,vol=.2,attack=.004,release=null,detune=0,lp=0}){
+ const o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+dur);o.detune.value=detune;
+ g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+attack);g.gain.exponentialRampToValueAtTime(.0005,t+(release??dur));
+ let node=o;if(lp){const f=ctx.createBiquadFilter();f.type='lowpass';f.frequency.value=lp;o.connect(f);node=f;}
+ node.connect(g);g.connect(bus);o.start(t);o.stop(t+(release??dur)+.02);
+}
+function noise(bus,{t,dur=.1,vol=.2,type='highpass',freq=4000,freq2=0,q=.8}){
+ const s=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain();s.buffer=noiseBuf;f.type=type;f.frequency.setValueAtTime(freq,t);if(freq2)f.frequency.exponentialRampToValueAtTime(freq2,t+dur);f.Q.value=q;
+ g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.003);g.gain.exponentialRampToValueAtTime(.0005,t+dur);
+ s.connect(f);f.connect(g);g.connect(bus);s.start(t,Math.random()*.5);s.stop(t+dur+.02);
+}
+function kick(bus,t,vol=.5){const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(45,t+.12);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0005,t+.22);o.connect(g);g.connect(bus);o.start(t);o.stop(t+.25);}
+
+/* ------------------------------------------------------------- sound effects */
+const SE={
+ pop(p=0){tone(seBus,{type:'square',f:midi(84+p),f2:midi(91+p),t:ctx.currentTime+.003,dur:.06,vol:.09,lp:5000});},
+ select(p=0){const t=ctx.currentTime+.003;tone(seBus,{type:'square',f:midi(79+p),t,dur:.05,vol:.08,lp:4500});tone(seBus,{type:'square',f:midi(86+p),t:t+.05,dur:.07,vol:.08,lp:4500});},
+ back(){const t=ctx.currentTime+.003;tone(seBus,{type:'triangle',f:midi(76),f2:midi(64),t,dur:.09,vol:.12});},
+ confirm(){const t=ctx.currentTime+.003;[72,76,79,84].forEach((n,i)=>tone(seBus,{type:'square',f:midi(n),t:t+i*.045,dur:.09,vol:.08,lp:5200}));},
+ powerUp(){const t=ctx.currentTime+.003;for(let i=0;i<10;i++)tone(seBus,{type:'square',f:midi(64+i*2),t:t+i*.028,dur:.05,vol:.07,lp:6000});noise(seBus,{t,dur:.35,vol:.05,type:'bandpass',freq:800,freq2:6000,q:1.2});},
+ start(){const t=ctx.currentTime+.01;
+  noise(seBus,{t,dur:.5,vol:.07,type:'bandpass',freq:500,freq2:7000,q:1});
+  const notes=[[67,0,.1],[72,.1,.1],[76,.2,.1],[79,.3,.1],[84,.42,.5]];
+  for(const [n,o,d] of notes){tone(seBus,{type:'square',f:midi(n),t:t+o,dur:d,vol:.1,lp:6000});tone(seBus,{type:'sawtooth',f:midi(n-12),t:t+o,dur:d,vol:.05,lp:2500,detune:6});}
+  kick(seBus,t+.42,.6);noise(seBus,{t:t+.42,dur:.9,vol:.12,type:'highpass',freq:5000});},
+ slam(size=1){const t=ctx.currentTime+.003;kick(seBus,t,.55*size);noise(seBus,{t,dur:.18,vol:.16*size,type:'bandpass',freq:1800,freq2:400,q:.7});tone(seBus,{type:'square',f:midi(88),f2:midi(76),t,dur:.08,vol:.05});noise(seBus,{t:t+.02,dur:.5,vol:.05*size,type:'highpass',freq:7000});},
+ swish(){const t=ctx.currentTime+.003;noise(seBus,{t,dur:.22,vol:.12,type:'bandpass',freq:900,freq2:5000,q:2});},
+ shuffle(){for(let i=0;i<4;i++){const t=ctx.currentTime+.003+i*.07;noise(seBus,{t,dur:.09,vol:.1,type:'bandpass',freq:1500+i*600,freq2:4000+i*500,q:2.5});}SE.select(5);},
+ rewind(){const t=ctx.currentTime+.003;tone(seBus,{type:'sawtooth',f:midi(84),f2:midi(60),t,dur:.25,vol:.05,lp:3000});noise(seBus,{t,dur:.25,vol:.06,type:'bandpass',freq:5000,freq2:800,q:2});},
+ sparkle(){const t=ctx.currentTime+.003;[88,91,95,100,103].forEach((n,i)=>tone(seBus,{type:'triangle',f:midi(n),t:t+i*.04,dur:.18,vol:.07}));},
+ special(){const t=ctx.currentTime+.003;noise(seBus,{t,dur:.35,vol:.14,type:'bandpass',freq:400,freq2:8000,q:1.4});setTimeout(()=>SE.slam(1.2),330);[76,83,88].forEach((n,i)=>tone(seBus,{type:'square',f:midi(n),t:t+.36+i*.05,dur:.2,vol:.07,lp:6000}));},
+ section(){const t=ctx.currentTime+.003;[79,84,88].forEach((n,i)=>tone(seBus,{type:'square',f:midi(n),t:t+i*.06,dur:.1,vol:.06,lp:5000}));},
+ fanfare(){const t=ctx.currentTime+.02,beat=.16;
+  const seq=[[60,64,67,0,1],[60,64,67,1,1],[60,64,67,2,1],[60,64,67,3,3],[56,60,63,6,3],[58,62,65,9,3],[60,64,67,12,8]];
+  for(const [a,b,c,s,l] of seq){for(const n of [a,b,c,a+12])tone(seBus,{type:'sawtooth',f:midi(n+12),t:t+s*beat,dur:l*beat,vol:.035,lp:3200,detune:(n%3-1)*5,release:l*beat+.1});tone(seBus,{type:'square',f:midi(c+24),t:t+s*beat,dur:l*beat*.9,vol:.05,lp:6000});}
+  kick(seBus,t+12*beat,.6);noise(seBus,{t:t+12*beat,dur:1.6,vol:.12,type:'highpass',freq:5500});
+  for(let i=0;i<12;i++)noise(seBus,{t:t+i*beat,dur:.05,vol:.05,type:'bandpass',freq:2500,q:1});}
+};
+function play(name,...a){if(!pref(SE_KEY))return;if(!ready())return;try{SE[name](...a);}catch(_){}}
+
+/* ---------------------------------------------------------------- title BGM */
+// A bright 8-bar chiptune loop (A minor). It follows the tempo picked on the tempo screen.
+const BGM={
+ chords:[[57,60,64],[53,57,60],[48,52,55],[55,59,62],[53,57,60],[55,59,62],[52,55,59],[57,60,64]],
+ lead:[76,-1,79,76, 74,-1,72,74, 76,-1,-1,72, 69,-1,-1,-1, 72,-1,74,72, 71,-1,67,69, 72,-1,74,-1, 76,-1,79,81,
+       84,-1,81,79, 76,-1,79,-1, 76,-1,74,72, 74,-1,-1,-1, 72,-1,71,69, 71,-1,72,74, 76,-1,74,71, 69,-1,-1,-1],
+ bass:[45,41,36,43,41,43,40,45]
+};
+let bgm={on:false,timer:null,step:0,next:0,bpm:132};
+function bgmStep(){
+ const c=ctx;if(!bgm.on||!c)return;const spb=60/bgm.bpm/4;
+ while(bgm.next<c.currentTime+.12){
+  const s=bgm.step%128,bar=Math.floor(s/16),inBar=s%16,t=bgm.next,ch=BGM.chords[bar%8];
+  // arpeggio
+  const arp=ch[[0,1,2,1][inBar%4]]+12+(inBar>=8?12:0);tone(bgmBus,{type:'square',f:midi(arp),t,dur:spb*.8,vol:.045,lp:3800});
+  // lead on 8ths
+  if(inBar%2===0){const ln=BGM.lead[(bar%8)*8+inBar/2];if(ln>0)tone(bgmBus,{type:'square',f:midi(ln),t,dur:spb*1.8,vol:.07,lp:5000,detune:3});}
+  // bass 8ths with octave jumps
+  if(inBar%2===0){const r=BGM.bass[bar%8]+(inBar%4===2?12:0);tone(bgmBus,{type:'triangle',f:midi(r),t,dur:spb*1.7,vol:.16});}
+  // drums
+  if(inBar===0||inBar===8||inBar===11)kick(bgmBus,t,.38);
+  if(inBar===4||inBar===12)noise(bgmBus,{t,dur:.12,vol:.12,type:'bandpass',freq:2200,q:.9});
+  if(inBar%2===0)noise(bgmBus,{t,dur:.035,vol:inBar%4===2?.06:.035,type:'highpass',freq:7500});
+  if(s%32===0)noise(bgmBus,{t,dur:.8,vol:.05,type:'highpass',freq:6000});
+  bgm.step++;bgm.next+=spb;
+ }
+}
+function bgmStart(){
+ if(bgm.on)return;const c=ready();if(!c||c.state!=='running')return;
+ bgm.on=true;bgm.step=0;bgm.next=c.currentTime+.06;
+ bgmBus.gain.cancelScheduledValues(c.currentTime);bgmBus.gain.setValueAtTime(bgmBus.gain.value,c.currentTime);bgmBus.gain.linearRampToValueAtTime(.42,c.currentTime+.8);
+ bgm.timer=setInterval(bgmStep,30);bgmStep();
+}
+function bgmStop(fast=false){
+ if(!bgm.on)return;bgm.on=false;clearInterval(bgm.timer);
+ if(ctx&&bgmBus){const t=ctx.currentTime;bgmBus.gain.cancelScheduledValues(t);bgmBus.gain.setValueAtTime(bgmBus.gain.value,t);bgmBus.gain.linearRampToValueAtTime(0,t+(fast?.08:.45));}
+}
+
+/* ------------------------------------------------------------------ visuals */
+let layer=null;
+function overlay(){
+ if(layer&&layer.isConnected)return layer;layer=doc.createElement('div');layer.className='gfx-layer';layer.setAttribute('aria-hidden','true');doc.body.append(layer);return layer;
+}
+function banner(text,{sub='',tone='start',ms=1300}={}){
+ if(reduce())return;const el=doc.createElement('div');el.className='gfx-banner gfx-'+tone;
+ el.innerHTML='<i class="gfx-band a"></i><i class="gfx-band b"></i><i class="gfx-band c"></i><b>'+text+'</b>'+(sub?'<small>'+sub+'</small>':'')+'<span class="gfx-ring"></span>';
+ overlay().append(el);setTimeout(()=>el.remove(),ms);
+}
+function burstAt(x,y,{count=26,colors=['#3cc9ff','#d36bff','#e3cf93','#ffffff'],ring=true,spread=1}={}){
+ if(reduce())return;const L=overlay();
+ if(ring){const r=doc.createElement('span');r.className='gfx-shock';r.style.left=x+'px';r.style.top=y+'px';L.append(r);setTimeout(()=>r.remove(),700);}
+ for(let i=0;i<count;i++){const p=doc.createElement('span'),a=Math.random()*Math.PI*2,d=(60+Math.random()*120)*spread,s=4+Math.random()*7;p.className='gfx-spark';
+  p.style.cssText='left:'+x+'px;top:'+y+'px;width:'+s+'px;height:'+s+'px;background:'+colors[i%colors.length]+';--dx:'+(Math.cos(a)*d).toFixed(1)+'px;--dy:'+(Math.sin(a)*d).toFixed(1)+'px;--r:'+((Math.random()*540-270)|0)+'deg;animation-duration:'+(450+Math.random()*350|0)+'ms';
+  L.append(p);setTimeout(()=>p.remove(),900);}
+}
+function shake(el,amount=1){if(!el||reduce())return;el.classList.remove('gfx-shake');void el.offsetWidth;el.style.setProperty('--shake',(4*amount)+'px');el.classList.add('gfx-shake');setTimeout(()=>el.classList.remove('gfx-shake'),320);}
+function flash(color='#ffffff',op=.55){if(reduce())return;const f=doc.createElement('span');f.className='gfx-flash';f.style.background=color;f.style.setProperty('--op',op);overlay().append(f);setTimeout(()=>f.remove(),450);}
+function confetti(ms=3200){
+ if(reduce())return;const c=doc.createElement('canvas');c.className='gfx-confetti';overlay().append(c);
+ const dpr=Math.min(2,root.devicePixelRatio||1),w=root.innerWidth,h=root.innerHeight;c.width=w*dpr;c.height=h*dpr;const g=c.getContext('2d');g.scale(dpr,dpr);
+ const cols=['#3cc9ff','#d36bff','#e3cf93','#8ff0c4','#ff8ad8','#ffffff'],ps=[];
+ for(let i=0;i<150;i++){const fromLeft=i%2===0;ps.push({x:fromLeft?-10:w+10,y:h*(.55+Math.random()*.3),vx:(fromLeft?1:-1)*(3+Math.random()*7),vy:-(7+Math.random()*9),r:Math.random()*6,vr:(Math.random()-.5)*.4,w:6+Math.random()*6,h:3+Math.random()*4,c:cols[i%cols.length]});}
+ const t0=performance.now();
+ (function frame(now){const k=(now-t0)/ms;if(k>=1||!c.isConnected){c.remove();return;}g.clearRect(0,0,w,h);
+  for(const p of ps){p.vy+=.28;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;g.save();g.globalAlpha=Math.min(1,(1-k)*2.2);g.translate(p.x,p.y);g.rotate(p.r);g.fillStyle=p.c;g.fillRect(-p.w/2,-p.h/2*Math.abs(Math.cos(p.r*2)),p.w,p.h*Math.abs(Math.cos(p.r*2))+.5);g.restore();}
+  requestAnimationFrame(frame);})(t0);
+}
+const center=el=>{const r=el.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2];};
+
+/* ------------------------------------------------------------------ wiring */
+doc.addEventListener('pointerdown',e=>{
+ ready();const el=e.target.closest?.('[data-deck],[data-deck-choice],.tempo-option,button');if(!el||el.disabled)return;
+ const inGame=el.closest('#gameView');const dialog=el.closest('.game-confirm-back');
+ if(dialog&&/はじめる/.test(el.innerText)){play('start');bgmStop(true);setTimeout(()=>{banner('GAME START',{sub:'カードを選んで1曲つくろう',tone:'start',ms:1350});flash('#ffffff',.5);},40);return;}
+ if(dialog&&/もどる|やめる/.test(el.innerText)){play('back');return;}
+ if(dialog&&/うん/.test(el.innerText)){play('sparkle');return;}
+ if(!inGame)return;
+ const action=el.dataset.deck;
+ if(el.dataset.deckChoice){play('select',(el.parentElement?[...el.parentElement.children].indexOf(el):0)*2);burstAt(...center(el),{count:10,ring:false,spread:.5});return;}
+ if(el.classList.contains('tempo-option')){const bpm=+(el.innerText.match(/\d+/)||[120])[0];play('select',Math.round((bpm-80)/20));return;}
+ switch(action){
+  case 'chooseDeck':case 'continue':play('powerUp');burstAt(...center(el),{count:18});break;
+  case 'chooseTempo':case 'begin':play('confirm');break;
+  case 'lobbyBack':case 'tempoBack':case 'closeDetail':play('back');break;
+  case 'randomTempo':play('sparkle');break;
+  case 'custom':case 'edit':case 'new':play('pop');break;
+  case 'use':{play('slam',el.classList.contains('player-special-use')?1.3:1);const stage=$('#gameView .queststage');if(stage){setTimeout(()=>{const [x,y]=center(stage);burstAt(x,y*0.98,{count:28});shake(stage,1);},120);}break;}
+  case 'swap':play('shuffle');break;
+  case 'redraw':play('shuffle');{const hand=$('#gameView .pattern-fan');if(hand)burstAt(...center(hand),{count:14,ring:false,colors:['#e3cf93','#ffffff']});}break;
+  case 'undo':play('rewind');break;
+  case 'random':play('sparkle');burstAt(...center(el),{count:16,ring:false,colors:['#e3cf93','#fff6c8','#ffffff']});break;
+  case 'finish':play('pop',3);break;
+  case 'playerSpecial':play('special');break;
+  case 'restart':play('pop');break;
+  case 'melody':case 'melodyReroll':play('sparkle');break;
+  case 'swapCard':break;
+  default:if(!['play','listen','loop'].includes(action)&&!el.classList.contains('roguecard'))play('pop');
+ }
+},{capture:true,passive:true});
+
+// State watcher: BGM on the title flow, section clears, and the completion celebration.
+let lastSection='',wasComplete=false,lastRound=null;
+function watch(){
+ const view=$('#app')?.dataset.view,game=$('#gameView');
+ const titleFlow=view==='cards'&&game&&!visible($('#gameView .handtable'))&&!visible($('#gameView .game-completion'))&&(visible($('#gameView [data-deck=chooseDeck]'))||visible($('#gameView [data-deck=continue]'))||visible($('#gameView [data-deck=chooseTempo]'))||visible($('#gameView [data-deck=begin]'))||(!$('#sheetBack')?.classList.contains('hidden')&&$('#sheetBack')?.classList.contains('game-confirm-back')));
+ const quiet=root.GuitarStudio?.getMode?.()&&root.GuitarStudio.getMode()!=='idle';
+ const tour=!!$('#gsTour'),opening=!!$('#gsOpening');
+ if(titleFlow&&!quiet&&!doc.hidden&&pref(BGM_KEY)&&!opening){bgmStart();}else bgmStop(quiet);
+ if(bgm.on&&tour)bgmBus.gain.setTargetAtTime(.18,ctx.currentTime,.2);else if(bgm.on)bgmBus.gain.setTargetAtTime(.42,ctx.currentTime,.3);
+ const tv=$('#tempoValue');if(tv){const b=+tv.textContent;if(b>=40&&b<=240)bgm.bpm=b;}else bgm.bpm=132;
+ // section change while building the song
+ const cur=$('#gameView .stage-section.current')?.innerText.replace(/\s+/g,' ').match(/いま\s*(\S+)/)?.[1]||'';
+ const round=$('#gameView .stage-turn')?.innerText||'';
+ if(visible($('#gameView .handtable'))&&cur&&lastSection&&cur!==lastSection&&round!==lastRound){play('section');const s=$('#gameView .stage-sections');if(s&&!reduce()){const r=s.getBoundingClientRect();burstAt(r.left+r.width*.4,r.top+20,{count:12,ring:false,colors:['#d6b5ff','#ffffff']});}}
+ if(cur)lastSection=cur;lastRound=round;
+ const complete=visible($('#gameView .game-completion'));
+ if(complete&&!wasComplete){play('fanfare');setTimeout(()=>{banner('SONG COMPLETE',{sub:'1曲できあがり',tone:'complete',ms:2600});confetti();flash('#fff3c4',.45);},120);}
+ wasComplete=complete;
+}
+setInterval(watch,300);
+doc.addEventListener('visibilitychange',()=>{if(doc.hidden)bgmStop(true);});
+
+/* --------------------------------------------------------------- settings */
+function decorate(){
+ const box=$('#sheetBody .onboard-settings');if(!box||box.querySelector('[data-gfx]'))return;
+ const add=(key,label)=>{const l=doc.createElement('label');l.className='onboard-toggle';l.innerHTML='<input type="checkbox" data-gfx="'+key+'" '+(pref(key)?'checked':'')+'>'+label;box.append(l);l.querySelector('input').onchange=e=>{setPref(key,e.target.checked);if(key===BGM_KEY&&!e.target.checked)bgmStop();if(key===SE_KEY&&e.target.checked)play('confirm');};};
+ add(BGM_KEY,'ゲームのBGM（タイトル画面）');add(SE_KEY,'ゲームの効果音・演出の音');
+}
+const sb=$('#sheetBody');if(sb)new MutationObserver(()=>setTimeout(decorate,0)).observe(sb,{childList:true});
+root.GuitarGameFX={bgmPlaying:()=>bgm.on,bgmTempo:()=>bgm.bpm,play,bgmStart,bgmStop,banner,burstAt,confetti,flash,SE};
 })(typeof window!=='undefined'?window:globalThis);
 </script></body></html>
