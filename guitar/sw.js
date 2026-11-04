@@ -1,6 +1,6 @@
 /* Cache only this application's shell; never upload projects. */
 'use strict';
-const PREFIX='guitar-studio-'+encodeURIComponent(self.registration.scope)+'-',CACHE=PREFIX+'v193',CORE=['index.html','manifest.webmanifest','icon-192.png','icon-512.png'];
+const PREFIX='guitar-studio-'+encodeURIComponent(self.registration.scope)+'-',CACHE=PREFIX+'v194',CORE=['index.html','manifest.webmanifest','icon-192.png','icon-512.png'];
 const page=new URL('index.html',self.registration.scope).href;
 const isApp=r=>r.ok&&!r.redirected&&(r.headers.get('Content-Type')||'').includes('text/html');
 self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);for(const name of CORE){const url=new URL(name,self.registration.scope).href,response=await fetch(url,{cache:'reload'});if(!response.ok||response.redirected||(name==='index.html'&&!isApp(response)))throw Error('App shell unavailable');await cache.put(url,response);}await self.skipWaiting();})()));

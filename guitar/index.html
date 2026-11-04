@@ -3290,6 +3290,130 @@ body:has(.app[data-view=play]){overflow-y:hidden;overscroll-behavior-y:none}
 .author-credit:focus-visible{outline:2px solid #3cc9ff;outline-offset:2px}
 #gameView .lobby-actions .author-credit{grid-column:1/-1;margin-top:6px}
 #gameView .game-completion .author-credit{margin:10px auto 2px}
+
+/* ---------- CHAOS MODE ---------- */
+/* lobby entry */
+#gameView .lobby-actions .chaos-start{grid-column:1/-1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:50px;margin-top:2px;border-radius:12px;border:2px solid #ff3b6b;background:linear-gradient(110deg,#2a0f24,#3a0d2c 45%,#1a0d2e);color:#fff;overflow:hidden;cursor:pointer;box-shadow:0 0 18px #ff3b6b55,inset 0 0 22px #ff3b6b33}
+#gameView .lobby-actions .chaos-start:before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 3px,#ffffff08 3px 4px);pointer-events:none}
+#gameView .lobby-actions .chaos-start small{font-size:11px;font-weight:700;color:#ffb3c6;letter-spacing:.04em}
+.cs-glitch{position:relative;font:italic 900 20px/1 "Avenir Next Condensed","Arial Black","Helvetica Neue",sans-serif;letter-spacing:.06em}
+.cs-glitch:before,.cs-glitch:after{content:attr(data-text);position:absolute;inset:0;opacity:.8}
+.cs-glitch:before{color:#3cc9ff;transform:translate(-2px,0);clip-path:inset(0 0 55% 0);animation:cs-g1 2.4s steps(1) infinite}
+.cs-glitch:after{color:#ff3b6b;transform:translate(2px,0);clip-path:inset(55% 0 0 0);animation:cs-g2 2.4s steps(1) infinite}
+@keyframes cs-g1{0%,86%,100%{transform:translate(-2px,0)}88%{transform:translate(-6px,-1px)}92%{transform:translate(3px,1px)}}
+@keyframes cs-g2{0%,86%,100%{transform:translate(2px,0)}89%{transform:translate(6px,1px)}93%{transform:translate(-3px,0)}}
+
+/* HUD over the song-position bar */
+#gameView.chaos-on{position:relative}
+#gameView.chaos-on .game-position{visibility:hidden}
+.chaos-hud{position:absolute;z-index:30;height:30px;display:flex;align-items:center;gap:6px;pointer-events:auto}
+.ch-gauge{position:relative;flex:1 1 auto;min-width:96px;height:22px;border-radius:7px;background:#1a0f22;border:1.5px solid #ffffff33;overflow:hidden}
+.ch-fill{position:absolute;left:0;top:0;bottom:0;width:70%;background:linear-gradient(90deg,#ff3b6b,#ffb347 45%,#e3cf93 70%,#8ff0c4);transition:width .45s cubic-bezier(.16,1,.3,1);box-shadow:0 0 12px #ff3b6b88}
+.ch-num{position:absolute;right:7px;top:0;line-height:20px;font:900 14px/20px "Arial Black",sans-serif;color:#fff;text-shadow:0 1px 0 #000}
+.ch-label{position:absolute;left:7px;top:0;line-height:20px;font-size:10px;font-weight:800;color:#fff;text-shadow:0 1px 0 #000a;letter-spacing:.06em}
+.ch-chips{display:flex;gap:3px;max-width:46%;overflow-x:auto;scrollbar-width:none}
+.ch-chips::-webkit-scrollbar{display:none}
+.ch-chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:3px;height:22px;padding:0 7px;border-radius:6px;border:1px solid #ffffff2e;background:#24182f;color:#fff;font-size:10.5px;font-weight:800;white-space:nowrap;cursor:pointer}
+.ch-chip svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ch-curse{background:#3b0d2a;border-color:#ff3b6b;color:#ffb3c6;animation:ch-pulse .9s ease-in-out infinite alternate}
+.ch-req{background:#123a2e;border-color:#57e3c4;color:#bff7e8}
+.ch-wild{background:#3a250c;border-color:#ffb347;color:#ffe2b3}
+.ch-rush{background:#3a0c0c;border-color:#ff5a5a;color:#ffd0d0}
+.ch-boss{background:#2b0f3d;border-color:#d36bff;color:#f0d6ff;animation:ch-pulse 1.2s ease-in-out infinite alternate}
+.ch-relic{background:#1d1f33;border-color:#e3cf9966;color:#e3cf93;padding:0 5px}
+.ch-relic span{display:none}
+@keyframes ch-pulse{from{box-shadow:0 0 0 #0000}to{box-shadow:0 0 10px currentColor}}
+.ch-fans{flex:0 0 auto;display:flex;align-items:center;gap:3px;height:22px;padding:0 7px;border-radius:6px;background:#2a1430;border:1px solid #ff8ad866;color:#ff8ad8;font:900 13px/1 "Arial Black",sans-serif}
+.ch-fans svg{width:13px;height:13px;fill:#ff8ad8}
+.ch-timer{position:absolute;left:0;right:0;bottom:-5px;height:4px;border-radius:2px;background:#ffffff14;overflow:hidden}
+.ch-timer i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#3cc9ff,#d36bff);transition:width .1s linear}
+.ch-timer.urgent i{background:#ff3b6b;box-shadow:0 0 10px #ff3b6b}
+
+/* stage states */
+#gameView.chaos-on .queststage{box-shadow:inset 0 0 0 2px #ff3b6b55,inset 0 0 40px #ff3b6b22;transition:box-shadow .3s}
+#gameView.chaos-on .queststage:after{content:'';position:absolute;inset:0;pointer-events:none;z-index:6;background:repeating-linear-gradient(0deg,transparent 0 3px,#ffffff06 3px 4px);mix-blend-mode:screen}
+#gameView.chaos-fever .queststage{box-shadow:inset 0 0 0 3px #e3cf93,inset 0 0 60px #e3cf9955;animation:chaos-fever 1s ease-in-out infinite alternate}
+@keyframes chaos-fever{from{filter:saturate(1.1)}to{filter:saturate(1.45) brightness(1.08)}}
+#gameView.chaos-danger .queststage{box-shadow:inset 0 0 0 3px #ff3b6b,inset 0 0 70px #ff000066;animation:chaos-danger 1.4s ease-in-out infinite}
+@keyframes chaos-danger{0%,100%{filter:saturate(.6)}50%{filter:saturate(.9) brightness(1.05)}}
+#gameView.chaos-urgent .queststage{animation:chaos-urgent .5s steps(2) infinite}
+@keyframes chaos-urgent{0%{box-shadow:inset 0 0 0 3px #ff3b6b,inset 0 0 50px #ff3b6b88}50%{box-shadow:inset 0 0 0 1px #ff3b6b55}}
+
+/* cards */
+#gameView .roguecard.chaos-cursed{outline:3px solid #ff3b6b;outline-offset:-2px;animation:chaos-cursed 1s ease-in-out infinite alternate;z-index:5}
+#gameView .roguecard.chaos-cursed:after{content:'呪い';position:absolute;left:50%;top:-6px;transform:translateX(-50%);padding:1px 8px;border-radius:5px;background:#ff3b6b;color:#fff;font-size:11px;font-weight:900;letter-spacing:.1em;z-index:3}
+@keyframes chaos-cursed{from{filter:drop-shadow(0 0 2px #ff3b6b)}to{filter:drop-shadow(0 0 12px #ff3b6b) hue-rotate(-15deg)}}
+#gameView .roguecard.chaos-locked{filter:grayscale(.85) brightness(.55)!important}
+#gameView .roguecard.chaos-wanted{outline:3px solid #57e3c4;outline-offset:-2px;filter:drop-shadow(0 0 10px #57e3c4)}
+#gameView .roguecard.chaos-wanted:after{content:'リクエスト';position:absolute;left:50%;top:-6px;transform:translateX(-50%);padding:1px 6px;border-radius:5px;background:#57e3c4;color:#0b2a22;font-size:10px;font-weight:900;white-space:nowrap;z-index:3}
+#gameView .roguecard.chaos-nope{animation:chaos-nope .35s linear}
+@keyframes chaos-nope{0%,100%{translate:0}25%{translate:-6px}50%{translate:5px}75%{translate:-3px}}
+#deckSelection [data-deck-variation].chaos-locked{opacity:.35;pointer-events:none}
+
+/* popups */
+.chaos-pop{position:absolute;left:50%;top:calc(32% + var(--y,0px));z-index:40;transform:translateX(-50%);padding:4px 12px;border-radius:8px;font:900 15px/1.3 "Hiragino Sans","Noto Sans JP",sans-serif;white-space:nowrap;pointer-events:none;animation:chaos-pop 1.3s cubic-bezier(.16,1,.3,1) forwards;text-shadow:0 2px 0 #000a}
+.chaos-pop-up{color:#8ff0c4}.chaos-pop-down{color:#ff6b8a}.chaos-pop-fan{color:#ff8ad8}.chaos-pop-info{color:#fff;background:#120f1fe6;font-size:13px;font-weight:700;white-space:normal;max-width:86%;text-align:center}
+@keyframes chaos-pop{0%{opacity:0;transform:translate(-50%,10px) scale(.8)}15%{opacity:1;transform:translate(-50%,0) scale(1.08)}25%{transform:translate(-50%,0) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-22px)}}
+
+/* overlays */
+.chaos-layer{position:fixed;inset:0;z-index:9700;pointer-events:none}
+.chaos-event{position:absolute;left:0;right:0;top:24%;display:grid;place-items:center;pointer-events:none;animation:ce-in .45s cubic-bezier(.16,1,.3,1)}
+.chaos-event.out{animation:ce-out .35s ease-in forwards}
+@keyframes ce-in{from{opacity:0;transform:translateX(60%) skewX(-12deg)}to{opacity:1;transform:none}}
+@keyframes ce-out{to{opacity:0;transform:translateX(-60%) skewX(12deg)}}
+.ce-card{position:relative;display:flex;align-items:center;gap:12px;width:min(360px,92vw);padding:14px 16px 14px 10px;border-radius:16px;background:#1b0d1f;border:2px solid #ff3b6b;box-shadow:0 18px 50px #000b,0 0 30px #ff3b6b66;overflow:hidden;transform:skewX(-6deg)}
+.chaos-good .ce-card{border-color:#57e3c4;box-shadow:0 18px 50px #000b,0 0 30px #57e3c466;background:#0f1d1c}
+.ce-stripes{position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 18px,#ffffff08 18px 20px);pointer-events:none}
+.ce-card img{flex:0 0 82px;width:82px;height:82px;object-fit:cover;object-position:50% 15%;border-radius:10px;transform:skewX(6deg) scale(1.15)}
+.ce-text{position:relative;transform:skewX(6deg);min-width:0}
+.ce-text small{display:block;font:italic 900 12px/1 "Arial Black",sans-serif;letter-spacing:.14em;color:#ff6b8a}
+.chaos-good .ce-text small{color:#57e3c4}
+.ce-text b{display:block;margin-top:4px;font-size:21px;line-height:1.2;color:#fff;font-weight:900}
+.ce-text p{margin:4px 0 0;font-size:13px;line-height:1.5;color:#e7dff0}
+.chaos-modal{position:fixed;inset:0;display:grid;place-items:center;padding:16px;background:#07040cd0;pointer-events:auto;animation:fade-in .2s ease}
+.chaos-modal.out{opacity:0;transition:opacity .2s}
+@keyframes fade-in{from{opacity:0}}
+.cm-box{position:relative;width:min(380px,100%);max-height:88vh;overflow:auto;padding:22px 18px 18px;border-radius:20px;background:linear-gradient(170deg,#24132c,#140f22);border:2px solid #ff3b6b88;color:#f4f2ff;text-align:center;box-shadow:0 30px 80px #000c;animation:cm-pop .4s cubic-bezier(.16,1,.3,1)}
+@keyframes cm-pop{from{transform:scale(.85) rotate(-2deg);opacity:0}}
+.cm-kicker{margin:0;font:italic 900 13px/1 "Arial Black",sans-serif;letter-spacing:.18em;color:#ff6b8a}
+.cm-kicker.cm-red{color:#ff3b6b;font-size:16px}
+.cm-box h2{margin:8px 0 6px;font-size:22px;line-height:1.3}
+.cm-sub{margin:0 0 12px;font-size:14px;line-height:1.65;color:#d9d3ea}
+.cm-note{margin:0 0 12px;font-size:12.5px;color:#a8a3cc}
+.cm-primary,.cm-secondary{display:block;width:100%;min-height:50px;margin-top:10px;border:0;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer}
+.cm-primary{background:linear-gradient(90deg,#ff3b6b,#d36bff);color:#fff;box-shadow:0 6px 20px #ff3b6b55}
+.cm-secondary{background:#2c2a44;color:#fff}
+.cm-rules{list-style:none;margin:12px 0 4px;padding:0;text-align:left;display:grid;gap:8px}
+.cm-rules li{padding:9px 11px;border-radius:10px;background:#ffffff0c;font-size:13.5px;line-height:1.6;color:#e2dcf2}
+.cm-rules b{color:#ffb3c6}
+.cm-relics{display:grid;gap:8px}
+.cm-relic{display:grid;grid-template-columns:40px 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;text-align:left;padding:10px 12px;border-radius:14px;border:1.5px solid #e3cf9966;background:#1d1a30;color:#fff;cursor:pointer;transition:transform .15s}
+.cm-relic:active{transform:scale(.97)}
+.cm-relic-ico{grid-row:1/3;width:36px;height:36px;padding:6px;border-radius:10px;background:#e3cf93;fill:none;stroke:#2a2414;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cm-relic b{font-size:15px}.cm-relic small{font-size:12.5px;color:#cfcbe8}
+.cm-items{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cm-item{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 10px 26px;border-radius:12px;border:1.5px solid #ff8ad855;background:#1d1a30;color:#fff;text-align:left;cursor:pointer}
+.cm-item b{font-size:13.5px}.cm-item small{font-size:11.5px;color:#cfcbe8;line-height:1.4}
+.cm-item span{position:absolute;right:8px;bottom:6px;font:900 13px/1 "Arial Black",sans-serif;color:#ff8ad8}
+.cm-item span:before{content:'ファン ';font:700 10px/1 sans-serif}
+.cm-item:disabled{opacity:.4}
+.cm-fans{color:#ff8ad8}
+.cm-boss .cm-box{border-color:#d36bff;box-shadow:0 30px 80px #000c,0 0 50px #d36bff66}
+.cm-boss-art{height:150px;margin:-10px 0 4px;display:grid;place-items:center}
+.cm-boss-art img{height:170px;filter:drop-shadow(0 0 18px #d36bff) saturate(1.3) hue-rotate(-20deg);animation:boss-float 1.6s ease-in-out infinite alternate}
+@keyframes boss-float{to{transform:translateY(-8px) scale(1.03)}}
+.cm-fail .cm-box{border-color:#ff3b6b}
+.cm-fail-art{width:140px;margin:4px auto 8px;filter:grayscale(.8) brightness(.8);transform:rotate(-8deg)}
+
+/* しあしあのひとこと */
+#gameView .shia-comment{position:absolute;left:8px;right:8px;bottom:30px;z-index:9;display:flex;align-items:flex-start;gap:8px;padding:8px 10px 8px 8px;border-radius:14px;border:1.5px solid #ffffff2a;background:#120f1fe8;color:#f4f2ff;text-align:left;cursor:pointer;box-shadow:0 10px 30px #000a;animation:sc-in .5s cubic-bezier(.16,1,.3,1) .7s both}
+@keyframes sc-in{from{opacity:0;transform:translateY(14px)}}
+#gameView .shia-comment img{flex:0 0 46px;width:46px;height:46px;border-radius:12px;object-fit:cover;object-position:50% 14%;background:linear-gradient(160deg,#4a2a86,#1a1a40)}
+.sc-body{display:flex;flex-direction:column;gap:1px;min-width:0}
+.sc-body b{font-size:11px;color:#c69bff;font-weight:900}
+.sc-text{font-size:13px;line-height:1.55;min-height:2.8em}
+.sc-body small{font-size:10px;color:#8b87a8}
+@media (prefers-reduced-motion:reduce){.chaos-event,.cm-box,#gameView.chaos-fever .queststage,#gameView.chaos-danger .queststage,#gameView.chaos-urgent .queststage{animation:none}}
 </style><script>window.GS_ADS={"client": "", "slots": {"start": "", "complete": ""}};</script></head>
 <body><div class="app" id="app">
 <header class="topbar"><button class="brand" id="projectButton" aria-label="プロジェクトを開く"><img class="brand-wordmark" src="assets/guitar-header-v120.webp" alt="しあしあのguitar studio" width="2172" height="585" draggable="false" decoding="async"></button><div class="topactions"><button class="iconbtn" id="undoButton" aria-label="元に戻す" data-icon="undo"></button><button class="iconbtn" id="songSaveLoad" aria-label="曲データを保存・読み込み" title="曲データを保存・読み込み" data-icon="save"></button><button class="iconbtn" id="exportButton" aria-label="MIDI・WAV・曲データを保存" data-icon="export"></button><button class="iconbtn" id="clearSongButton" aria-label="曲を空にする" title="曲を空にする" data-icon="trash"></button><button class="iconbtn" id="settingsButton" aria-label="設定" data-icon="settings"></button></div></header><span id="storageStatus" class="sr-only" role="status"></span>
@@ -9636,7 +9760,8 @@ function songInfo(){
 }
 function defaultText(info){
  const parts=[info.deck&&info.deck+'デッキ',info.bpm+' BPM',info.bars+'小節（'+info.length+'）'].filter(Boolean).join(' / ');
- return (info.game?'guitar questiで1曲できた！':'しあしあのguitar studioで曲を作ったよ！')+'\n'+(info.name?'「'+info.name+'」\n':'')+parts+'\n#'+HASHTAG+' #ギター #DTM\n'+SITE;
+ const said=root.GuitarShiaComment?.current?.()||'',quote=said?'しあしあ「'+(said.length>48?said.slice(0,47)+'…':said)+'」\n':'',chaos=root.GuitarShiaComment&&root.GuitarChaos?.run?.()?.cleared&&root.GuitarChaos.run().seed===info.s.game?.seed;
+ return (chaos?'カオスモードのライブを弾ききった！':info.game?'guitar questiで1曲できた！':'しあしあのguitar studioで曲を作ったよ！')+'\n'+(info.name?'「'+info.name+'」\n':'')+parts+'\n'+quote+'#'+HASHTAG+' #ギター #DTM\n'+SITE;
 }
 async function render(info){
  const W=1200,H=675,c=doc.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
@@ -9935,7 +10060,7 @@ function watch(){
  if(visible($('#gameView .handtable'))&&cur&&lastSection&&cur!==lastSection&&round!==lastRound){play('section');const s=$('#gameView .stage-sections');if(s&&!reduce()){const r=s.getBoundingClientRect();burstAt(r.left+r.width*.4,r.top+20,{count:12,ring:false,colors:['#d6b5ff','#ffffff']});}}
  if(cur)lastSection=cur;lastRound=round;
  const complete=visible($('#gameView .game-completion'));
- if(complete&&!wasComplete){play('fanfare');setTimeout(()=>{banner('SONG COMPLETE',{sub:'1曲できあがり',tone:'complete',ms:2600});confetti();flash('#fff3c4',.45);},120);}
+ if(complete&&!wasComplete){const chaos=root.GuitarChaos?.active?.();play('fanfare');setTimeout(()=>{banner(chaos?'LIVE CLEAR':'SONG COMPLETE',{sub:chaos?'カオスを弾ききった':'1曲できあがり',tone:'complete',ms:2600});confetti();flash('#fff3c4',.45);},120);}
  wasComplete=complete;
 }
 setInterval(watch,300);
@@ -9948,6 +10073,430 @@ function decorate(){
  add(BGM_KEY,'ゲームのBGM（タイトル画面）');add(SE_KEY,'ゲームの効果音・演出の音');
 }
 const sb=$('#sheetBody');if(sb)new MutationObserver(()=>setTimeout(decorate,0)).observe(sb,{childList:true});
-root.GuitarGameFX={bgmPlaying:()=>bgm.on,bgmTempo:()=>bgm.bpm,play,bgmStart,bgmStop,banner,burstAt,confetti,flash,SE};
+root.GuitarGameFX={synth:{ready,tone:(o)=>tone(seBus,o),noise:(o)=>noise(seBus,o),kick:(t,v)=>kick(seBus,t,v),now:()=>ctx?.currentTime||0,midi},shake,bgmPlaying:()=>bgm.on,bgmTempo:()=>bgm.bpm,play,bgmStart,bgmStop,banner,burstAt,confetti,flash,SE};
+})(typeof window!=='undefined'?window:globalThis);
+</script><script>/* CHAOS MODE — a card-roguelike live on top of the normal GAME.
+   Normal GAME stays exactly as it is. Chaos keeps its own run state (localStorage, keyed by the
+   game seed) and drives the board through the same buttons a player would press, so saves,
+   MIDI and the song rules are untouched.
+   Rules: tension gauge (0 = live failed), a tempo-locked countdown each turn (time out = a random
+   card is forced), random events (curses, crowd requests, tempo/key flips, wild arrange, rush),
+   two bosses (first chorus / last chorus), treasure and a fan shop between sections, run-only relics. */
+(function(root){'use strict';
+const doc=root.document;if(!doc)return;
+const $=s=>doc.querySelector(s),$$=s=>[...doc.querySelectorAll(s)];
+const visible=el=>!!el&&el.isConnected&&el.offsetParent!==null&&el.getBoundingClientRect().height>2;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const reduce=()=>!!root.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+const FX=()=>root.GuitarGameFX;
+const ART={bunny:'assets/special-bunny-v130.webp',cat:'assets/special-cat-v130.webp',fox:'assets/special-fox-v130.webp'};
+const STORE='gs.chaos.v1';
+const load=()=>{try{return JSON.parse(root.localStorage.getItem(STORE)||'{}');}catch(_){return {};}};
+const saveAll=o=>{try{root.localStorage.setItem(STORE,JSON.stringify(o));}catch(_){}};
+
+/* ---------------------------------------------------------------- relics */
+const RELICS={
+ metronome:{name:'メトロノーム',text:'制限時間が6拍のびる',glyph:'M4 20h16L15 4H9zM12 16l5-9'},
+ charm:{name:'魔除けのピック',text:'呪いを1回はじく',glyph:'M12 3c5 0 8 3 8 7 0 5-5 10-8 11-3-1-8-6-8-11 0-4 3-7 8-7z'},
+ mic:{name:'熱狂マイク',text:'リクエスト成功のテンションが1.5倍',glyph:'M9 3h6v9H9zM6 11a6 6 0 0 0 12 0M12 17v4M8 21h8'},
+ spare:{name:'予備の弦',text:'テンションが0になっても1回だけ復活',glyph:'M4 6h16M4 10h16M4 14h16M4 18h16'},
+ goldpick:{name:'金のピック',text:'ファンを手に入れるたび+1',glyph:'M12 21 4 8a8 6 0 0 1 16 0z'},
+ glove:{name:'早弾きグローブ',text:'QUICKのボーナスが+5になる',glyph:'M7 21V9l2-5 2 5V4l2 0v6l2-4 2 1v7l-2 7z'},
+ amp:{name:'真空管アンプ',text:'カードを出すたびテンション+2',glyph:'M3 6h18v13H3zM7 13a2 2 0 1 0 0 .1M15 10h3M15 14h3'},
+ phones:{name:'ヘッドホン',text:'毎ターンのテンション減少が半分',glyph:'M4 15v-3a8 8 0 0 1 16 0v3M4 14h3v6H4zM17 14h3v6h-3z'}
+};
+const icon=(d,cls='')=>'<svg class="'+cls+'" viewBox="0 0 24 24" aria-hidden="true"><path d="'+d+'"/></svg>';
+const KEYWORDS=['ベンド','リード','低音','パワー','打音','16分','8分','アルペジオ','ストローク','カッティング','ミュート','ブレイク','リフ','タイト','シンコペ','スライド','高音','余白','短く','交互','ボディ','ため'];
+
+/* ---------------------------------------------------------------- run */
+let run=null,pendingStart=false,lastRound=null,lastSection='',lastCard=null,pendingUse=null,turnStart=0,turnBeats=24,elapsedBeats=0,lastTick=0,overlayOpen=false,forcing=false,beatShown=-1,sectionCount=0;
+function newRun(seed,meta){
+ return {seed,active:true,tension:70,fans:0,relics:[],usedSpare:false,charm:0,curse:null,request:null,wild:null,rush:null,boss:null,bossesDone:[],failed:false,cleared:false,
+  stats:{events:0,curses:0,requestsOk:0,requestsNg:0,bosses:0,tempo:0,key:0,timeouts:0,quick:0,maxT:70,minT:70,shop:0},meta:meta||{}};
+}
+function persist(){if(!run)return;const all=load();all[run.seed]=run;const keys=Object.keys(all);if(keys.length>8)delete all[keys[0]];saveAll(all);}
+const active=()=>!!(run&&run.active&&!run.failed);
+function gameSeed(){try{return root.GuitarStudio?.getState?.().game?.seed??null;}catch(_){return null;}}
+function bpm(){return +($('#bpmLabel')?.textContent)||120;}
+function round(){const b=$('#gameView .stage-turn b');return b?+b.textContent:null;}
+function totalTurns(){const s=$('#gameView .stage-turn span');return s?+(s.textContent.match(/\d+/)||[16])[0]:16;}
+function section(){return $('#gameView .stage-section.current')?.innerText.replace(/\s+/g,' ').match(/いま\s*(\S+(?:\s2)?)/)?.[1]||'';}
+function onBoard(){return $('#app')?.dataset.view==='cards'&&visible($('#gameView .handtable'))&&!visible($('#gameView .game-completion'));}
+function cardName(el){return (el?.querySelector('strong,b,.cardname')?.innerText||el?.innerText||'').replace(/\s+/g,' ').trim();}
+function handCards(){return $$('#gameView .pattern-fan .roguecard, #gameView .stock-hand .roguecard').filter(visible);}
+
+/* ---------------------------------------------------------------- sound */
+const S={
+ alarm(){const s=FX()?.synth;if(!s?.ready())return;const t=s.now()+.003;for(let i=0;i<3;i++)s.tone({type:'square',f:1320,t:t+i*.12,dur:.07,vol:.07,lp:5000});},
+ tickBeat(urgent){const s=FX()?.synth;if(!s?.ready())return;const t=s.now()+.003;s.tone({type:'square',f:urgent?1568:1046,t,dur:.03,vol:urgent?.06:.03,lp:6000});},
+ curse(){const s=FX()?.synth;if(!s?.ready())return;const t=s.now()+.003;[[46,0],[47,0],[52,.02]].forEach(([n,o])=>s.tone({type:'sawtooth',f:s.midi(n),f2:s.midi(n-5),t:t+o,dur:.7,vol:.05,lp:1400}));s.noise({t,dur:.6,vol:.08,type:'lowpass',freq:600});s.kick(t,.6);},
+ cheer(){const s=FX()?.synth;if(!s?.ready())return;const t=s.now()+.003;s.noise({t,dur:1.1,vol:.1,type:'bandpass',freq:1200,freq2:2600,q:.5});[76,79,84,88].forEach((n,i)=>s.tone({type:'square',f:s.midi(n),t:t+i*.06,dur:.12,vol:.06,lp:6000}));},
+ boo(){const s=FX()?.synth;if(!s?.ready())return;const t=s.now()+.003;s.tone({type:'sawtooth',f:s.midi(52),f2:s.midi(45),t,dur:.6,vol:.06,lp:900});s.noise({t,dur:.6,vol:.06,type:'bandpass',freq:500,q:.6});},
+ coin(){const s=FX()?.synth;if(!s?.ready())return;const t=s.now()+.003;s.tone({type:'square',f:s.midi(83),t,dur:.06,vol:.06,lp:7000});s.tone({type:'square',f:s.midi(88),t:t+.06,dur:.18,vol:.06,lp:7000});},
+ boss(){const s=FX()?.synth;if(!s?.ready())return;const t=s.now()+.003;s.kick(t,.7);s.kick(t+.3,.7);[40,41,40,46].forEach((n,i)=>s.tone({type:'sawtooth',f:s.midi(n),t:t+i*.18,dur:.25,vol:.07,lp:1200}));s.noise({t:t+.6,dur:.9,vol:.1,type:'highpass',freq:4500});},
+ heart(){const s=FX()?.synth;if(!s?.ready())return;const t=s.now()+.003;s.kick(t,.35);s.kick(t+.16,.25);},
+ fail(){const s=FX()?.synth;if(!s?.ready())return;const t=s.now()+.003;[67,63,60,55].forEach((n,i)=>s.tone({type:'square',f:s.midi(n),t:t+i*.22,dur:.24,vol:.08,lp:3000}));s.noise({t:t+.88,dur:1.2,vol:.08,type:'lowpass',freq:800,freq2:120});}
+};
+
+/* ---------------------------------------------------------------- tension */
+function addT(n,label,{quiet=false}={}){
+ if(!active())return;const before=run.tension;run.tension=clamp(Math.round(run.tension+n),0,100);
+ run.stats.maxT=Math.max(run.stats.maxT,run.tension);run.stats.minT=Math.min(run.stats.minT,run.tension);
+ if(label&&!quiet)popup((n>0?'+':'')+Math.round(n)+' '+label,n>=0?'up':'down');
+ if(run.tension<=0&&before>0){
+  if(run.relics.includes('spare')&&!run.usedSpare){run.usedSpare=true;run.tension=40;setTimeout(()=>{eventCard({title:'予備の弦！',text:'切れた弦をすばやく交換。テンション40で復活',art:'fox',tone:'good'});S.cheer();},300);}
+  else failRun();
+ }
+ persist();hud();
+}
+function addFans(n){if(!active())return;const extra=run.relics.includes('goldpick')?1:0;run.fans+=n+extra;S.coin();popup('ファン +'+(n+extra),'fan');persist();hud();}
+
+/* ---------------------------------------------------------------- HUD */
+let hudEl=null,timerEl=null;
+function ensureHud(){
+ const game=$('#gameView');if(!game)return null;
+ if(!hudEl||!hudEl.isConnected){hudEl=doc.createElement('div');hudEl.id='chaosHud';hudEl.className='chaos-hud';hudEl.innerHTML='<div class="ch-gauge"><i class="ch-fill"></i><b class="ch-num"></b><span class="ch-label">テンション</span></div><div class="ch-chips"></div><div class="ch-fans"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg><b></b></div><div class="ch-timer"><i></i></div>';game.prepend(hudEl);}
+ return hudEl;
+}
+function hud(){
+ const on=active()&&onBoard(),game=$('#gameView');
+ game?.classList.toggle('chaos-on',on);
+ if(!on){hudEl?.remove();game?.classList.remove('chaos-fever','chaos-danger');return;}
+ const h=ensureHud();if(!h)return;
+ h.querySelector('.ch-fill').style.width=run.tension+'%';h.querySelector('.ch-num').textContent=run.tension;
+ h.querySelector('.ch-fans b').textContent=run.fans;
+ game.classList.toggle('chaos-fever',run.tension>=80);game.classList.toggle('chaos-danger',run.tension<=25);
+ const chips=[];
+ if(run.curse)chips.push(['curse','呪い','次は「'+run.curse.slice(0,10)+'」を出すまで他のカードを出せない']);
+ if(run.request)chips.push(['req','リクエスト','「'+run.request.kw+'」の入ったカードを出すと大歓声']);
+ if(run.wild)chips.push(['wild','暴走'+run.wild.left,'あと'+run.wild.left+'枚は「遊ぶ」アレンジ固定']);
+ if(run.rush)chips.push(['rush','早弾き','あと'+run.rush.beats+'拍以内に出す']);
+ if(run.boss)chips.push(['boss',run.boss.short+' '+run.boss.progress+'/'+run.boss.need,run.boss.goal]);
+ for(const r of run.relics)chips.push(['relic',RELICS[r].name.slice(0,4),RELICS[r].name+'：'+RELICS[r].text,r]);
+ h.querySelector('.ch-chips').innerHTML=chips.map(([k,l,t,r])=>'<button class="ch-chip ch-'+k+'" title="'+t+'" data-tip="'+t+'">'+(r?icon(RELICS[r].glyph):'')+'<span>'+l+'</span></button>').join('');
+ h.querySelectorAll('.ch-chip').forEach(b=>b.onclick=()=>popup(b.dataset.tip,'info',2400));
+ placeHud();
+}
+function placeHud(){
+ if(!hudEl)return;const track=$('#gameView .game-position');const game=$('#gameView');if(!track||!game)return;
+ const gr=game.getBoundingClientRect(),tr=track.getBoundingClientRect();
+ Object.assign(hudEl.style,{top:(tr.top-gr.top)+'px',left:(tr.left-gr.left)+'px',width:tr.width+'px'});
+}
+let popTimer=0;
+function popup(text,tone='info',ms=1300){
+ const game=$('#gameView .queststage')||$('#gameView');if(!game)return;
+ const p=doc.createElement('div');p.className='chaos-pop chaos-pop-'+tone;p.textContent=text;p.style.setProperty('--y',(popTimer++%3)*28+'px');game.append(p);setTimeout(()=>p.remove(),ms);
+}
+
+/* ---------------------------------------------------------------- overlays */
+let layer=null;
+function chaosLayer(){if(layer&&layer.isConnected)return layer;layer=doc.createElement('div');layer.className='chaos-layer';doc.body.append(layer);return layer;}
+function eventCard({title,text,art='bunny',tone='bad',kicker='EVENT',ms=1700}){
+ const el=doc.createElement('div');el.className='chaos-event chaos-'+tone;el.setAttribute('role','status');
+ el.innerHTML='<div class="ce-card"><i class="ce-stripes"></i><img src="'+ART[art]+'" alt=""><div class="ce-text"><small>'+kicker+'</small><b>'+title+'</b><p>'+text+'</p></div></div>';
+ chaosLayer().append(el);if(!reduce()){FX()?.flash(tone==='bad'?'#ff3b6b':'#ffffff',.25);}setTimeout(()=>el.classList.add('out'),ms);setTimeout(()=>el.remove(),ms+400);
+}
+function modal(html,cls=''){
+ overlayOpen=true;const el=doc.createElement('div');el.className='chaos-modal '+cls;el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');el.innerHTML='<div class="cm-box">'+html+'</div>';chaosLayer().append(el);
+ const close=()=>{el.classList.add('out');setTimeout(()=>el.remove(),250);overlayOpen=false;turnStart=performance.now();elapsedBeats=0;};
+ return {el,close};
+}
+function rules(onStart){
+ const m=modal('<p class="cm-kicker">CHAOS MODE</p><h2>カオスなライブへようこそ</h2><ul class="cm-rules"><li><b>テンション</b>が0になるとライブ失敗。カードを出す、リクエストに応える、ボスに勝つと上がります。</li><li>毎ターン<b>制限時間</b>あり。曲のテンポで減っていき、時間切れだとランダムなカードが勝手に出ます。</li><li><b>呪い・テンポ急変・転調・暴走アレンジ</b>などのイベントが割り込みます。</li><li>サビとラストサビには<b>ボス</b>。間には<b>宝箱</b>と<b>ショップ</b>。お宝はこのライブの間だけ効きます。</li></ul><button class="cm-primary" data-cm="go">ライブスタート</button>','cm-rules-box');
+ m.el.querySelector('[data-cm=go]').onclick=()=>{m.close();onStart?.();};
+}
+function relicChoice(title,sub,count=3,onDone){
+ const pool=Object.keys(RELICS).filter(k=>!run.relics.includes(k)||k==='charm');const picks=[];
+ while(picks.length<Math.min(count,pool.length)){const k=pool[Math.floor(Math.random()*pool.length)];if(!picks.includes(k))picks.push(k);}
+ if(!picks.length){onDone?.();return;}
+ const m=modal('<p class="cm-kicker">TREASURE</p><h2>'+title+'</h2><p class="cm-sub">'+sub+'</p><div class="cm-relics">'+picks.map(k=>'<button class="cm-relic" data-relic="'+k+'">'+icon(RELICS[k].glyph,'cm-relic-ico')+'<b>'+RELICS[k].name+'</b><small>'+RELICS[k].text+'</small></button>').join('')+'</div>','cm-treasure');
+ FX()?.play('sparkle');
+ m.el.querySelectorAll('[data-relic]').forEach(b=>b.onclick=()=>{gainRelic(b.dataset.relic);FX()?.burstAt(...centerOf(b),{count:24});m.close();onDone?.();});
+}
+function gainRelic(k){if(k==='charm')run.charm++;if(!run.relics.includes(k))run.relics.push(k);S.coin();popup(RELICS[k].name+' を手に入れた','fan',1600);persist();hud();}
+function shop(onDone){
+ const items=[
+  {id:'heal',name:'エナジードリンク',text:'テンション+25',price:3},
+  {id:'charm',name:'魔除けのピック',text:'呪いを1回はじく',price:3},
+  {id:'relic',name:'謎のお宝',text:'お宝をランダムに1つ',price:5},
+  {id:'time',name:'メトロノーム調整',text:'このライブの制限時間+3拍',price:2}];
+ const m=modal('<p class="cm-kicker">SHOP</p><h2>楽屋のショップ</h2><p class="cm-sub">ファンを使って準備しよう。持っているファン <b class="cm-fans">'+run.fans+'</b></p><div class="cm-items">'+items.map(i=>'<button class="cm-item" data-item="'+i.id+'"><b>'+i.name+'</b><small>'+i.text+'</small><span>'+i.price+'</span></button>').join('')+'</div><button class="cm-primary" data-cm="done">ステージに戻る</button>','cm-shop');
+ const refresh=()=>{m.el.querySelector('.cm-fans').textContent=run.fans;m.el.querySelectorAll('[data-item]').forEach(b=>{const it=items.find(i=>i.id===b.dataset.item);b.disabled=run.fans<it.price||b.dataset.bought==='1';});};refresh();
+ m.el.querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>{const it=items.find(i=>i.id===b.dataset.item);if(run.fans<it.price)return;run.fans-=it.price;run.stats.shop++;b.dataset.bought='1';
+  if(it.id==='heal')addT(25,'回復');if(it.id==='charm')gainRelic('charm');if(it.id==='time'){run.bonusBeats=(run.bonusBeats||0)+3;popup('制限時間+3拍','fan');}
+  if(it.id==='relic'){const pool=Object.keys(RELICS).filter(k=>!run.relics.includes(k));if(pool.length)gainRelic(pool[Math.floor(Math.random()*pool.length)]);}
+  S.coin();FX()?.burstAt(...centerOf(b),{count:14,ring:false});persist();hud();refresh();});
+ m.el.querySelector('[data-cm=done]').onclick=()=>{m.close();onDone?.();};
+}
+const centerOf=el=>{const r=el.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2];};
+
+/* ---------------------------------------------------------------- bosses */
+const BOSSES={
+ chorus:{name:'サビの番人',short:'番人',art:'cat',goal:'サビが終わるまでに、下の段のカード（特殊・入り・フィル）を1枚セットしよう',need:1,kind:'accent'},
+ last:{name:'ラストの番人',short:'番人',art:'fox',goal:'ラストサビの間に、QUICK（残り時間半分以上）で2回カードを出そう',need:2,kind:'quick'}
+};
+function startBoss(id,sec){
+ const b=BOSSES[id];run.boss={id,name:b.name,short:b.short,goal:b.goal,need:b.need,progress:0,kind:b.kind,section:sec};run.stats.events++;persist();
+ S.boss();
+ const m=modal('<div class="cm-boss-art"><img src="'+ART[b.art]+'" alt=""></div><p class="cm-kicker">BOSS</p><h2>'+b.name+'があらわれた</h2><p class="cm-sub">'+b.goal+'</p><p class="cm-note">勝つとテンション+30とお宝。負けるとテンション-25。</p><button class="cm-primary" data-cm="go">受けて立つ</button>','cm-boss');
+ if(!reduce())FX()?.shake($('#gameView .queststage'),2);
+ m.el.querySelector('[data-cm=go]').onclick=()=>m.close();hud();
+}
+function bossProgress(kind){
+ if(!run?.boss||run.boss.kind!==kind)return;run.boss.progress++;popup(run.boss.name+' '+run.boss.progress+'/'+run.boss.need,'fan');
+ if(run.boss.progress>=run.boss.need)endBoss(true);else{persist();hud();}
+}
+function endBoss(won){
+ const b=run.boss;if(!b)return;run.boss=null;run.bossesDone.push(b.id);
+ if(won){run.stats.bosses++;S.cheer();FX()?.banner('BOSS CLEAR',{sub:b.name+'をたおした',tone:'complete',ms:1800});FX()?.confetti(1800);addT(30,'ボス撃破');addFans(5);setTimeout(()=>relicChoice('ごほうびの宝箱','ひとつ選んでね'),1900);}
+ else{S.boo();eventCard({title:b.name+'に負けた',text:'テンション-25',art:'cat',tone:'bad',kicker:'BOSS'});addT(-25,'');}
+ persist();hud();
+}
+
+/* ---------------------------------------------------------------- events */
+function pickKeyword(){
+ const names=handCards().map(cardName);const counts=KEYWORDS.map(k=>[k,names.filter(n=>n.includes(k)).length]).filter(([,c])=>c>0&&c<names.length);
+ if(!counts.length)return null;return counts[Math.floor(Math.random()*counts.length)][0];
+}
+function rollEvent(force){
+ if(!active()||(!force&&(run.curse||run.request||run.wild||run.rush)))return;
+ const r=round(),t=totalTurns();if(!force&&(r<1||r>=t-1))return;
+ if(!force&&Math.random()>.55)return;
+ const pool=[['curse',3],['request',4],['tempo',2],['key',1],['wild',2],['rush',2],['cheer',1]];
+ let sum=pool.reduce((n,[,w])=>n+w,0),x=Math.random()*sum,pick='cheer';for(const [k,w] of pool){if((x-=w)<0){pick=k;break;}}if(force)pick=force;
+ run.stats.events++;
+ switch(pick){
+  case 'curse':{
+   const cards=handCards();if(!cards.length)return;const target=cards[Math.floor(Math.random()*cards.length)];
+   if(run.charm>0){run.charm--;if(!run.charm)run.relics=run.relics.filter(k=>k!=='charm');eventCard({title:'呪いをはじいた',text:'魔除けのピックが守ってくれた',art:'cat',tone:'good',kicker:'CURSE'});S.coin();break;}
+   run.curse=cardName(target);run.stats.curses++;S.curse();eventCard({title:'呪いのカード',text:'「'+run.curse.slice(0,14)+'」を出すまで、ほかのカードは出せない。出すとテンション-8',art:'cat',kicker:'CURSE'});
+   if(!reduce())FX()?.shake($('#gameView .queststage'),1.5);break;}
+  case 'request':{const kw=pickKeyword();if(!kw){run.stats.events--;return;}run.request={kw};S.cheer();eventCard({title:'観客リクエスト',text:'「'+kw+'」の入ったカードが聴きたい！ 次に出すと大歓声',art:'bunny',tone:'good',kicker:'REQUEST'});break;}
+  case 'tempo':{const up=Math.random()<.6,d=up?12:-12;changeTempo(d);break;}
+  case 'key':{changeKey();break;}
+  case 'wild':{run.wild={left:2};FX()?.play('special');eventCard({title:'暴走アレンジ',text:'次の2枚は強制的に「遊ぶ」アレンジ',art:'fox',kicker:'CHAOS'});break;}
+  case 'rush':{const beats=8;run.rush={beats};S.alarm();eventCard({title:'早弾きチャレンジ',text:'次のカードを'+beats+'拍以内に出せばテンション+20',art:'fox',tone:'good',kicker:'RUSH',ms:1300});break;}
+  case 'cheer':{S.cheer();eventCard({title:'客席が大合唱',text:'テンション+10、ファン+1',art:'bunny',tone:'good',kicker:'LUCKY'});addT(10,'');addFans(1);break;}
+ }
+ persist();hud();
+}
+function changeTempo(d){
+ try{const s=root.GuitarStudio.getState();const from=s.bpm,to=clamp(from+d,70,200);if(to===from)return;s.bpm=to;if(s.game)s.game.bpm=to;root.GuitarStudio.setState(s);run.stats.tempo++;
+  eventCard({title:d>0?'テンポ急上昇':'テンポ急降下',text:from+' BPM → '+to+' BPM。曲全体の速さが変わった',art:'fox',kicker:'FLIP'});FX()?.play(d>0?'powerUp':'rewind');}catch(_){}
+}
+function changeKey(){
+ try{const s=root.GuitarStudio.getState();const from=s.capo||0,to=from>=6?from-2:from+(Math.random()<.5?1:2);s.capo=to;root.GuitarStudio.setState(s);run.stats.key++;
+  eventCard({title:'転調',text:'キーが'+(to>from?(to-from)+'つ上がった':(from-to)+'つ下がった')+'（カポ'+to+'）',art:'cat',kicker:'FLIP'});FX()?.play('sparkle');}catch(_){}
+}
+
+/* ---------------------------------------------------------------- turn flow */
+function onTurnPlayed(){
+ const use=pendingUse;pendingUse=null;const name=use?.name||'';const quick=use&&!use.forced&&use.ratio>=.5;
+ const decay=run.relics.includes('phones')?-3:-6;let delta=decay+4+(run.relics.includes('amp')?2:0);
+ addT(delta,'',{quiet:true});
+ if(quick){run.stats.quick++;const b=run.relics.includes('glove')?5:3;addT(b,'QUICK');bossProgress('quick');}
+ if(run.curse){if(name&&name.startsWith(run.curse.slice(0,8))){run.curse=null;addT(-8,'呪いの代償');S.curse();}else if(!handCards().some(c=>cardName(c)===run.curse))run.curse=null;}
+ if(run.request){const ok=name.includes(run.request.kw);if(ok){run.stats.requestsOk++;S.cheer();FX()?.confetti(1400);addT(15*(run.relics.includes('mic')?1.5:1),'リクエスト成功');addFans(2);}else{run.stats.requestsNg++;S.boo();addT(-5,'リクエスト失敗');}run.request=null;}
+ if(run.rush){if(use&&!use.forced&&use.beats<=run.rush.beats){addT(20,'早弾き成功');addFans(2);S.cheer();}else{addT(-5,'早弾き失敗');S.boo();}run.rush=null;}
+ if(run.wild){run.wild.left--;if(run.wild.left<=0){run.wild=null;try{const s=root.GuitarStudio.getState();if(s.game){s.game.variationMode=run.prevVM||'steady';root.GuitarStudio.setState(s);}}catch(_){}}}
+ persist();hud();
+ // section change → boss / treasure / shop
+ const sec=section();
+ if(sec&&sec!==lastSection){
+  const prev=lastSection;lastSection=sec;sectionCount++;
+  if(run.boss&&prev===run.boss.section)endBoss(false);
+  setTimeout(()=>{
+   if(!active())return;
+   if(/^サビ/.test(sec)&&!run.bossesDone.includes('chorus')&&!run.boss){startBoss('chorus',sec);return;}
+   if(/ラストサビ/.test(sec)&&!run.bossesDone.includes('last')&&!run.boss){startBoss('last',sec);return;}
+   if(sectionCount===2||sectionCount===6)relicChoice('宝箱を見つけた','ひとつ選んでね。このライブの間ずっと効きます');
+   else if(sectionCount===4||sectionCount===8)shop();
+   else rollEvent();
+  },900);
+ }else setTimeout(rollEvent,700);
+ turnStart=performance.now();elapsedBeats=0;beatShown=-1;
+}
+function failRun(){
+ if(!run||run.failed)return;run.failed=true;persist();S.fail();
+ const st=run.stats;
+ const m=modal('<p class="cm-kicker cm-red">LIVE FAILED</p><h2>テンションが尽きた…</h2><img class="cm-fail-art" src="'+ART.bunny+'" alt=""><p class="cm-sub">'+round()+'ターン目でダウン。イベント'+st.events+'回、呪い'+st.curses+'回、ボス撃破'+st.bosses+'。</p><p class="cm-note">ここまでの曲は残っています。</p><button class="cm-primary" data-cm="retry">もう一度カオスに挑む</button><button class="cm-secondary" data-cm="normal">ノーマルで最後まで作る</button>','cm-fail');
+ m.el.querySelector('[data-cm=retry]').onclick=()=>{m.close();retry();};
+ m.el.querySelector('[data-cm=normal]').onclick=()=>{m.close();run.active=false;persist();cleanup();};
+ cleanup(true);
+}
+function retry(){
+ try{const s=root.GuitarStudio.getState(),g=s.game,M=root.GuitarComposer;const seed=Math.floor(Math.random()*1e8);
+  s.blocks=[];s.melody=null;s.capo=0;s.game=M.newRun(seed,g?.genre||'ポップ',{tempo:'manual',bpm:run.meta.bpm||g?.bpm||120,deckName:g?.deckName});pendingStart=true;root.GuitarStudio.setState(s);}catch(e){console.warn(e);}
+}
+function cleanup(keepFail){
+ $('#gameView')?.classList.remove('chaos-on','chaos-fever','chaos-danger');hudEl?.remove();
+ $$('.chaos-cursed,.chaos-locked,.chaos-wanted').forEach(c=>c.classList.remove('chaos-cursed','chaos-locked','chaos-wanted'));void keepFail;
+}
+
+/* ---------------------------------------------------------------- timer */
+function timerTick(now){
+ if(!active()||!onBoard()){return;}
+ const paused=overlayOpen||forcing||!$('#sheetBack')?.classList.contains('hidden')||!!$('#gameView .player-cutin')||!!$('#gsTour')||doc.hidden;
+ const spb=60/bpm();turnBeats=24+(run.relics.includes('metronome')?6:0)+(run.bonusBeats||0);
+ if(paused){turnStart=now-elapsedBeats*spb*1000;return;}
+ elapsedBeats=(now-turnStart)/1000/spb;const left=Math.max(0,turnBeats-elapsedBeats),ratio=left/turnBeats;
+ const bar=hudEl?.querySelector('.ch-timer i');if(bar){bar.style.width=(ratio*100)+'%';bar.parentElement.classList.toggle('urgent',left<=4);}
+ $('#gameView')?.classList.toggle('chaos-urgent',left<=4);
+ const whole=Math.ceil(left);if(whole!==beatShown){beatShown=whole;if(left<=4&&left>0)S.tickBeat(true);else if(whole%4===0&&left>0)S.tickBeat(false);}
+ if(run.rush){run.rush.liveBeats=elapsedBeats;}
+ if(left<=0&&!forcing){timeout();}
+}
+async function timeout(){
+ forcing=true;run.stats.timeouts++;S.alarm();FX()?.banner('TIME UP',{sub:'カードが勝手に出る！',tone:'start',ms:1100});addT(-12,'時間切れ');
+ if(!active()){forcing=false;return;}
+ await wait(600);
+ let target=null;const cards=handCards();
+ if(run.curse)target=cards.find(c=>cardName(c)===run.curse);
+ const sel=$('#deckSelection');const useBtn=sel&&!sel.hidden&&sel.querySelector('[data-deck=use]');
+ if(!target&&useBtn&&!useBtn.disabled&&lastCard&&!lastCard.lower){pendingUse={name:lastCard.name,forced:true,ratio:0,beats:99};useBtn.click();}
+ else{target=target||cards[Math.floor(Math.random()*cards.length)];if(target){lastCard={name:cardName(target),lower:false};target.click();for(let i=0;i<30;i++){await wait(100);const u=$('#deckSelection [data-deck=use]');if(u&&!u.disabled){pendingUse={name:lastCard.name,forced:true,ratio:0,beats:99};u.click();break;}}}}
+ await wait(800);forcing=false;turnStart=performance.now();elapsedBeats=0;
+}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+/* ---------------------------------------------------------------- input */
+doc.addEventListener('pointerdown',e=>{
+ const lobbyChaos=e.target.closest?.('[data-chaos=start]');
+ if(lobbyChaos){pendingStart=true;return;}
+ if(e.target.closest?.('#gameView [data-deck=chooseDeck],#gameView [data-deck=continue]'))pendingStart=false;
+ if(!active()||!onBoard())return;
+ const card=e.target.closest?.('#gameView .roguecard');
+ if(card){
+  const name=cardName(card),lower=card.matches('.special,.introcard,.fillcard');
+  if(run.curse&&!lower&&name!==run.curse){e.preventDefault();e.stopPropagation();popup('呪いで出せない！','down');S.curse();card.classList.add('chaos-nope');setTimeout(()=>card.classList.remove('chaos-nope'),400);return;}
+  lastCard={name,lower};
+ }
+ const blockers=e.target.closest?.('#gameView [data-deck=redraw],#gameView [data-deck=swap],#gameView [data-deck=undo],#gameView [data-deck=random],#gameView [data-deck=finish]');
+ if(blockers&&run.curse){e.preventDefault();e.stopPropagation();popup('呪いで使えない！','down');S.curse();return;}
+ if(blockers&&blockers.matches('[data-deck=finish]')){e.preventDefault();e.stopPropagation();popup('カオスでは全ておまかせできない','info');return;}
+ const use=e.target.closest?.('#deckSelection [data-deck=use]');
+ if(use&&!use.disabled&&!forcing){
+  const spb=60/bpm(),left=Math.max(0,turnBeats-elapsedBeats);
+  if(lastCard?.lower){bossProgress('accent');popup('セット！','fan');FX()?.play('sparkle');}
+  else pendingUse={name:lastCard?.name||'',forced:false,ratio:left/turnBeats,beats:elapsedBeats};void spb;
+ }
+},true);
+// block the click too when the pointerdown was blocked
+doc.addEventListener('click',e=>{
+ if(!active()||!onBoard())return;
+ const card=e.target.closest?.('#gameView .roguecard');
+ if(card&&run.curse&&!card.matches('.special,.introcard,.fillcard')&&cardName(card)!==run.curse&&!forcing){e.preventDefault();e.stopPropagation();}
+ const b=e.target.closest?.('#gameView [data-deck=redraw],#gameView [data-deck=swap],#gameView [data-deck=undo],#gameView [data-deck=random],#gameView [data-deck=finish]');
+ if(b&&(run.curse||b.matches('[data-deck=finish]'))){e.preventDefault();e.stopPropagation();}
+},true);
+
+/* ---------------------------------------------------------------- loop */
+function decorateCards(){
+ if(!active()||!onBoard())return;
+ for(const c of handCards()){const n=cardName(c);c.classList.toggle('chaos-cursed',!!run.curse&&n===run.curse);c.classList.toggle('chaos-locked',!!run.curse&&n!==run.curse);c.classList.toggle('chaos-wanted',!!run.request&&n.includes(run.request.kw));}
+ // wild arrange: force "遊ぶ" in the card detail
+ if(run.wild){const sel=$('#deckSelection');const p=sel&&!sel.hidden&&sel.querySelector('[data-deck-variation=playful]');if(p&&p.getAttribute('aria-pressed')!=='true'){if(!run.prevVM){try{run.prevVM=root.GuitarStudio.getState().game?.variationMode||'steady';}catch(_){run.prevVM='steady';}}p.click();}
+  sel?.querySelectorAll('[data-deck-variation]').forEach(b=>b.classList.toggle('chaos-locked',b.dataset.deckVariation!=='playful'));}
+}
+function injectLobby(){
+ const acts=$('#gameView .lobby-actions');if(!acts||acts.querySelector('[data-chaos=start]')||!visible($('#gameView [data-deck=chooseDeck]')))return;
+ const b=doc.createElement('button');b.type='button';b.className='chaos-start';b.dataset.chaos='start';b.innerHTML='<span class="cs-glitch" data-text="CHAOS MODE">CHAOS MODE</span><small>イベントと呪いだらけのライブ</small>';
+ b.onclick=()=>{pendingStart=true;FX()?.play('special');$('#gameView [data-deck=chooseDeck]')?.click();};
+ acts.append(b);
+}
+let lastSeedChecked=null;
+function loop(now){
+ injectLobby();
+ if(onBoard()){
+  const r=round();
+  if(r!=null&&lastRound==null){ // board just appeared
+   const seed=gameSeed();
+   if(seed!=null&&seed!==lastSeedChecked){lastSeedChecked=seed;const saved=load()[seed];
+    if(pendingStart&&r===0){pendingStart=false;run=newRun(seed,{bpm:bpm()});persist();lastSection=section();sectionCount=0;turnStart=performance.now();elapsedBeats=0;
+     rules(()=>{FX()?.banner('CHAOS LIVE',{sub:'テンションを切らすな',tone:'start',ms:1400});FX()?.play('start');turnStart=performance.now();});}
+    else if(saved&&saved.active&&!saved.failed){run=saved;lastSection=section();turnStart=performance.now();popup('カオスモードの続きから','info');}
+    else run=null;
+   }
+   lastRound=r;
+  }else if(r!=null&&lastRound!=null&&r>lastRound){lastRound=r;if(active())onTurnPlayed();}
+  else if(r!=null&&r<lastRound)lastRound=r; // undo
+  if(active()){timerTick(now);decorateCards();if(!hudEl||!hudEl.isConnected)hud();else placeHud();}
+ }else{
+  if(visible($('#gameView .game-completion'))&&active()&&!run.cleared){run.cleared=true;run.active=false;persist();cleanup();root.GuitarShiaComment?.setChaos?.(run);}
+  if(!visible($('#gameView .handtable'))){lastRound=null;lastSeedChecked=null;}
+  hudEl?.remove();$('#gameView')?.classList.remove('chaos-on','chaos-fever','chaos-danger','chaos-urgent');
+ }
+ requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+let heartT=0;setInterval(()=>{if(active()&&onBoard()&&run.tension<=25&&!overlayOpen&&!doc.hidden){heartT++;if(heartT%2===0)S.heart();}},700);
+root.addEventListener('resize',placeHud);
+
+root.GuitarChaos={active,run:()=>run,RELICS,addT,rollEvent,startBoss,shop,relicChoice,failRun,_force:(k)=>{if(!run)return;run.curse=null;run.request=null;run.wild=null;run.rush=null;rollEvent(k);}};
+})(typeof window!=='undefined'?window:globalThis);
+</script><script>/* しあしあのひとこと: when a GAME song is finished, しあしあ comments on how it turned out.
+   No scoring: the comment describes the song (tempo, deck, what stands out) in a dry, playful voice.
+   The same song always gets the same first comment; tapping the bubble asks for another one. */
+(function(root){'use strict';
+const doc=root.document;if(!doc)return;
+const $=s=>doc.querySelector(s);
+const visible=el=>!!el&&el.isConnected&&el.offsetParent!==null;
+let chaosRun=null,shownFor=null,variant=0;
+function rng(seed){let x=(seed>>>0)||1;return()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return (x>>>0)/4294967296;};}
+const pick=(r,a)=>a[Math.floor(r()*a.length)];
+function analyze(){
+ const api=root.GuitarStudio;if(!api)return null;const s=api.getState(),o=api.compile(),ev=o.events.filter(e=>e.vel>0);
+ const gtr=ev.filter(e=>e.track!==1),perc=ev.filter(e=>e.track===1).length,bends=ev.filter(e=>e.bend).length,harm=ev.filter(e=>e.kind==='harmonic').length,mutes=ev.filter(e=>e.kind==='mute'||e.kind==='ghost'||e.kind==='cut').length;
+ const blocks=s.blocks||[],playful=blocks.filter(b=>b.phraseVariation?.mode==='playful').length,subtle=blocks.filter(b=>b.phraseVariation?.mode==='subtle').length;
+ const effects=blocks.reduce((n,b)=>n+(b.effects?.length||0),0),high=gtr.filter(e=>e.note>=76).length,low=gtr.filter(e=>e.note<=45).length;
+ return {gseed:s.game?.seed,seed:(s.game?.seed||0)+blocks.length,bpm:o.bpm,bars:o.bars,deck:s.game?.deckName||'',genre:s.game?.genre||'',secs:Math.round(o.total/960*60/o.bpm),density:gtr.length/Math.max(1,o.bars),perc,bends,harm,mutes,playful,subtle,effects,high,low,notes:gtr.length,melody:!!(s.melody&&s.melody.enabled!==false),capo:s.capo||0};
+}
+function compose(a,n=0){
+ const r=rng(a.seed*7+n*131+3);const g=a.deck&&a.deck!=='おまかせ'?a.deck:(a.genre||'');
+ const open=a.bpm<90?[a.bpm+'BPMの'+g+'。夜にひとりで聴きたい速さ。','ゆっくりめの'+a.bpm+'BPM。急がないの、いいね。','…'+a.bpm+'BPM。のんびりしてて、ちょっと眠くなる。いい意味で。']
+  :a.bpm<=128?[a.bpm+'BPM、ちょうどいい'+g+'。歩きながら聴けそう。','ほどよい'+a.bpm+'BPM。体がゆれるやつ。',g+'で'+a.bpm+'BPM。…うん、ノれる。']
+  :[a.bpm+'BPMの'+g+'…けっこう走ってる。息切れしないでね。','速っ。'+a.bpm+'BPMは指が追いつかないかも。','この'+a.bpm+'BPM、ライブだったら客席が跳ねてる。'];
+ const feats=[];
+ if(a.perc>=a.bars*1.2)feats.push([a.perc/a.bars,['ボディを叩く音が'+a.perc+'回。ギターなのに半分ドラム。','打音多め。ギターをぶっ叩いてる感じが好き。']]);
+ if(a.bends>=6)feats.push([a.bends/4,['ベンドが'+a.bends+'回も。ギターがずっと歌ってる。','くいっと上げる音、いっぱい入ってる。泣きのギターだ。']]);
+ if(a.density>=14)feats.push([a.density/6,['1小節に'+Math.round(a.density)+'音くらい。指、つらなかった？','音がぎっしり。にぎやかで楽しい。']]);
+ if(a.density<7)feats.push([3,['音数が少なめで、すき間がきれい。わざとでしょ。','空白が多いのに、ちゃんと曲になってる。センスある。']]);
+ if(a.playful>=3)feats.push([a.playful,['「遊ぶ」を'+a.playful+'回。だいぶ自由にやったね。','アレンジが暴れてる。こういうの、嫌いじゃない。']]);
+ if(a.harm>=3)feats.push([2.5,['キラキラした倍音が混ざってる。耳がくすぐったい。']]);
+ if(a.high>a.low*2&&a.high>20)feats.push([2,['高い音が多くて、明るい感じ。']]);
+ if(a.low>a.high*1.5&&a.low>20)feats.push([2,['低音がしっかりしてて、どっしり聴ける。']]);
+ if(a.effects>=4)feats.push([2.2,['特殊カードを'+a.effects+'個も使ってる。メリハリがある。']]);
+ if(a.capo>0)feats.push([1.8,['キーが'+a.capo+'つ上がってて、ちょっと明るく聞こえる。']]);
+ if(a.melody)feats.push([1.5,['メロディも乗ってるから、もう歌えそう。']]);
+ if(chaosRun&&chaosRun.seed===a.gseed){const st=chaosRun.stats||{};
+  if(st.curses>=2)feats.push([9,['呪われながら'+a.bars+'小節。よく最後まで弾いたね。','呪いのカードを'+st.curses+'回も出さされて、それでも曲になってる。']]);
+  if(st.tempo>=1)feats.push([8,['テンポが'+st.tempo+'回も変わったのに、ちゃんと曲になってるの、すごい。']]);
+  if(st.bosses>=2)feats.push([8,['番人をふたりともたおした。今日のライブ、伝説かも。']]);
+  if(st.timeouts>=3)feats.push([7,['時間切れ'+st.timeouts+'回…。まあ、事故もライブの味。']]);
+  if(st.maxT>=95)feats.push([6,['テンション最高'+st.maxT+'。会場、沸いてた。']]);}
+ feats.sort((x,y)=>y[0]-x[0]);
+ const mid=feats.length?pick(r,feats[Math.min(feats.length-1,Math.floor(r()*Math.min(2,feats.length)))][1]):pick(r,['クセがなくて、何回でも聴けるタイプ。','素直でいい曲。こういうのが一番むずかしい。']);
+ const close=pick(r,['これ、MIDIで持ち帰って仕上げたら化けるかも。','…まあ、悪くない。いや、けっこう好き。','次はもっと変なのも聴いてみたいな。','サビのとこ、もう一回聴いていい？','タイトルつけるなら、なんにする？','保存しといて。あとでまた聴くから。']);
+ return [pick(r,open),mid,close];
+}
+function render(){
+ const done=$('#gameView .game-completion');if(!visible(done))return;
+ const stage=$('#gameView .queststage');if(!stage)return;
+ const key=(root.GuitarStudio.getState().game?.seed||0)+':'+(root.GuitarStudio.getState().blocks?.length||0);
+ let el=stage.querySelector('.shia-comment');
+ if(el&&shownFor===key)return;
+ const a=analyze();if(!a)return;shownFor=key;variant=0;
+ if(!el){el=doc.createElement('button');el.type='button';el.className='shia-comment';el.setAttribute('aria-label','しあしあのひとこと（タップで別のひとこと）');stage.append(el);el.onclick=()=>{variant++;write(el,compose(a,variant));root.GuitarGameFX?.play?.('pop');};}
+ write(el,compose(a,0));
+}
+function write(el,lines){
+ el.innerHTML='<img src="assets/special-bunny-v130.webp" alt=""><span class="sc-body"><b>しあしあ</b><span class="sc-text"></span><small>タップで別のひとこと</small></span>';
+ const t=el.querySelector('.sc-text'),text=lines.join(' ');el.dataset.full=text;
+ if(root.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches){t.textContent=text;return;}
+ let i=0;const step=()=>{if(!t.isConnected)return;t.textContent=text.slice(0,i);if(i++<text.length)setTimeout(step,28);};setTimeout(step,900);
+}
+function current(){const el=$('#gameView .shia-comment');return el?.dataset.full||'';}
+setInterval(render,600);
+root.GuitarShiaComment={analyze,compose,current,setChaos(r){chaosRun=r;shownFor=null;}};
 })(typeof window!=='undefined'?window:globalThis);
 </script></body></html>
