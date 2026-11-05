@@ -3414,6 +3414,78 @@ body:has(.app[data-view=play]){overflow-y:hidden;overscroll-behavior-y:none}
 .sc-text{font-size:13px;line-height:1.55;min-height:2.8em}
 .sc-body small{font-size:10px;color:#8b87a8}
 @media (prefers-reduced-motion:reduce){.chaos-event,.cm-box,#gameView.chaos-fever .queststage,#gameView.chaos-danger .queststage,#gameView.chaos-urgent .queststage{animation:none}}
+
+/* v145 polish: GAME hand layout fixes and the redraw deal animation. Loaded last. */
+
+/* 全ておまかせ: two short vertical columns (全て / おまかせ) so the label always fits the narrow rail */
+#gameView .finishcard{writing-mode:vertical-rl;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:3px 0;overflow:hidden}
+#gameView .finishcard span,#gameView .finishcard strong{display:block;white-space:nowrap;letter-spacing:0;font-size:10px;line-height:12px}
+#gameView .finishcard strong{font-weight:700}
+
+/* Redraw: new cards come from the discard pile face-down and flip over */
+#gameView #deckHand.gs-redeal .roguecard{animation:gs-redeal .62s cubic-bezier(.2,.75,.25,1.12) both;animation-delay:var(--redeal,0s);backface-visibility:hidden}
+@keyframes gs-redeal{
+ 0%{opacity:0;translate:var(--from-x,0) var(--from-y,0);scale:.3;rotate:y 90deg}
+ 12%{opacity:1}
+ 58%{translate:0 -12px;scale:1.06;rotate:y 0deg}
+ 100%{opacity:1;translate:0 0;scale:1;rotate:y 0deg}
+}
+#gameView #deckHand.gs-redeal .roguecard:not(.chaos-cursed):not(.chaos-wanted):after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,transparent 30%,#fff9 48%,transparent 66%);background-size:250% 100%;background-position:120% 0;animation:gs-redeal-shine .5s ease-out both;animation-delay:calc(var(--redeal,0s) + .3s)}
+@keyframes gs-redeal-shine{to{background-position:-60% 0}}
+#gameView .gs-discard .roguecard{will-change:translate,rotate,scale,opacity}
+#gameView.quietmotion #deckHand.gs-redeal .roguecard{animation:none}
+@media(prefers-reduced-motion:reduce){#gameView #deckHand.gs-redeal .roguecard,#gameView #deckHand.gs-redeal .roguecard:after{animation:none}#gameView .gs-discard{display:none}}
+
+/* Tablets and PCs: the side rails get room so the vertical labels do not wrap */
+@media(min-width:700px) and (min-height:601px){
+ #gameView .handtable{grid-template-columns:38px minmax(0,1fr) 38px}
+ #gameView .hand-tools button{gap:4px;padding:4px 1px}
+ #gameView .hand-tools button>span{font-size:11px;line-height:13px;letter-spacing:0;white-space:nowrap}
+ #gameView .finishcard span,#gameView .finishcard strong{font-size:11px;line-height:14px}
+}
+
+/* Landscape phones: wider rails, horizontal labels, and keep the turn counter clear of the section list */
+@media(orientation:landscape) and (max-height:600px){
+ #gameView .handtable{grid-template-columns:46px minmax(0,1fr) 40px}
+ #gameView .hand-tools button{display:grid;grid-template-columns:1fr auto;grid-template-rows:16px auto;align-content:center;padding:2px 3px;gap:1px 2px}
+ #gameView .hand-tools button>i{grid-column:1;grid-row:1;font-size:14px;line-height:16px}
+ #gameView .hand-tools button>b{grid-column:2;grid-row:1;font-size:9px;line-height:13px;min-width:14px}
+ #gameView .hand-tools button>span{grid-column:1/-1;grid-row:2;writing-mode:horizontal-tb;white-space:nowrap;font-size:9px;line-height:11px;letter-spacing:0}
+ #gameView .recommend-stack{grid-template-rows:minmax(0,1fr) minmax(0,1.5fr)}
+ #gameView .finishcard{writing-mode:horizontal-tb;gap:0;padding:1px 0}
+ #gameView .finishcard span,#gameView .finishcard strong{font-size:9px;line-height:11px}
+ #gameView .recommend-stack .recommendcard{gap:3px;padding:3px 0}
+ #gameView .recommend-stack .recommendcard strong{writing-mode:horizontal-tb;white-space:nowrap;font-size:9px;letter-spacing:0}
+ #gameView .recommend-stack .recommendcard small{display:none}
+ #gameView .stage-turn{left:212px;top:22px;transform:scaleY(.76);transform-origin:left top}
+ #gameView .player-special-tag{font-size:6px;letter-spacing:0;overflow:visible;white-space:nowrap}
+}
+
+/* While a GAME hand is on screen, notices appear over the top of the stage instead of covering the cards */
+body:has(#app[data-view=cards] #gameView .handtable) .toast{top:calc(env(safe-area-inset-top) + 104px);bottom:auto;max-width:min(360px,calc(100% - 30px));font-size:12.5px;padding:8px 12px}
+@media(orientation:landscape) and (max-height:600px){body:has(#app[data-view=cards] #gameView .handtable) .toast{top:calc(env(safe-area-inset-top) + 58px)}}
+
+/* Lobby: an old landscape rule put START into a second column, so it slid over the logo */
+#gameView .lobby-actions:not(:has(.lobby-continue))>.lobby-start{grid-column:1/-1}
+#gameView .lobby-actions:has(.lobby-continue)>.lobby-start{grid-column:auto}
+@media(orientation:landscape) and (max-height:600px){
+ #gameView .lobby-fullscreen .lobby-actions{grid-template-columns:1fr 1fr;gap:6px 8px}
+ #gameView .lobby-fullscreen .lobby-actions:has(.lobby-continue){grid-template-columns:1fr 1fr 1fr}
+ #gameView .lobby-fullscreen .lobby-actions>.lobby-start{grid-column:auto}
+ #gameView .lobby-fullscreen .lobby-actions .chaos-start{grid-column:auto;order:2;min-height:46px;height:46px;margin-top:0;border-radius:10px}
+ #gameView .lobby-fullscreen .lobby-actions .chaos-start .cs-glitch{font-size:15px;line-height:18px}
+ #gameView .lobby-fullscreen .lobby-actions .chaos-start small{font-size:8.5px;letter-spacing:0;white-space:nowrap}
+ #gameView .lobby-fullscreen .lobby-actions .author-credit{order:3;margin-top:0}
+}
+
+/* しあしあのひとこと folds into a small tag after it has been read */
+#gameView .shia-comment .sc-open{display:none}
+#gameView .shia-comment{transition:padding .25s,border-radius .25s,max-width .3s}
+#gameView .shia-comment.collapsed{right:auto;max-width:calc(100% - 16px);align-items:center;gap:6px;padding:3px 12px 3px 3px;border-radius:999px;animation:none}
+#gameView .shia-comment.collapsed img{flex-basis:26px;width:26px;height:26px;border-radius:50%}
+#gameView .shia-comment.collapsed .sc-body>*{display:none}
+#gameView .shia-comment.collapsed .sc-body>.sc-open{display:block;font-style:normal;font-size:11.5px;font-weight:800;color:#e7d9ff;white-space:nowrap}
+@media(orientation:landscape) and (max-height:600px){#gameView .shia-comment:not(.collapsed){bottom:auto;top:4px}#gameView .shia-comment .sc-text{font-size:12px;line-height:1.45;min-height:0}}
 </style><script>window.GS_ADS={"client": "", "slots": {"start": "", "complete": ""}};</script></head>
 <body><div class="app" id="app">
 <header class="topbar"><button class="brand" id="projectButton" aria-label="プロジェクトを開く"><img class="brand-wordmark" src="assets/guitar-header-v120.webp" alt="しあしあのguitar studio" width="2172" height="585" draggable="false" decoding="async"></button><div class="topactions"><button class="iconbtn" id="undoButton" aria-label="元に戻す" data-icon="undo"></button><button class="iconbtn" id="songSaveLoad" aria-label="曲データを保存・読み込み" title="曲データを保存・読み込み" data-icon="save"></button><button class="iconbtn" id="exportButton" aria-label="MIDI・WAV・曲データを保存" data-icon="export"></button><button class="iconbtn" id="clearSongButton" aria-label="曲を空にする" title="曲を空にする" data-icon="trash"></button><button class="iconbtn" id="settingsButton" aria-label="設定" data-icon="settings"></button></div></header><span id="storageStatus" class="sr-only" role="status"></span>
@@ -9832,7 +9904,7 @@ const MUSICAL=[
  '#effectListen','#quickPatterns button','#stringStage','#gesturePads .pitch-control',
  '[data-deck=play]','[data-deck=listen]','[data-deck=loop]','.complete-play','.player-special','.stage-dancer',
  '#deckLoop','#midiScroll','#midiKeys','canvas',
- '#gameView [data-deck]','#gameView [data-deck-choice]','#gameView .tempo-option','.game-confirm-back .sheetbody button'
+ '#gameView [data-deck]','#gameView [data-deck-variation]','#gameView [data-deck-choice]','#gameView .tempo-option','.game-confirm-back .sheetbody button'
 ].join(',');
 const CLOSE='#sheetClose,.plansheet-close,.tour-skip,.tour-prev,[data-deck=closeDetail],[data-deck=lobbyBack],[data-deck=tempoBack],[data-gate=game],.textbutton';
 let ctx=null,out=null,last=0;
@@ -9935,6 +10007,15 @@ const SE={
  rewind(){const t=ctx.currentTime+.003;tone(seBus,{type:'sawtooth',f:midi(84),f2:midi(60),t,dur:.25,vol:.05,lp:3000});noise(seBus,{t,dur:.25,vol:.06,type:'bandpass',freq:5000,freq2:800,q:2});},
  sparkle(){const t=ctx.currentTime+.003;[88,91,95,100,103].forEach((n,i)=>tone(seBus,{type:'triangle',f:midi(n),t:t+i*.04,dur:.18,vol:.07}));},
  special(){const t=ctx.currentTime+.003;noise(seBus,{t,dur:.35,vol:.14,type:'bandpass',freq:400,freq2:8000,q:1.4});setTimeout(()=>SE.slam(1.2),330);[76,83,88].forEach((n,i)=>tone(seBus,{type:'square',f:midi(n),t:t+.36+i*.05,dur:.2,vol:.07,lp:6000}));},
+ card(kind='p'){const t=ctx.currentTime+.003,b={p:81,i:79,f:83,s:86,r:88}[kind]||81;
+  noise(seBus,{t,dur:.045,vol:.09,type:'bandpass',freq:2600,freq2:6500,q:1.6});
+  tone(seBus,{type:'sine',f:210,f2:130,t,dur:.07,vol:.07});
+  tone(seBus,{type:'triangle',f:midi(b),t:t+.025,dur:.09,vol:.075});tone(seBus,{type:'square',f:midi(b+7),t:t+.06,dur:.07,vol:.035,lp:4200});
+  if(kind==='s'||kind==='r')[b+12,b+16,b+19].forEach((n,i)=>tone(seBus,{type:'triangle',f:midi(n),t:t+.1+i*.035,dur:.14,vol:.04}));},
+ variation(i=0){const t=ctx.currentTime+.003,n=[76,79,84][i]||76;tone(seBus,{type:'square',f:midi(n),t,dur:.05,vol:.065,lp:4500});tone(seBus,{type:'triangle',f:midi(n+12),t:t+.045,dur:.08,vol:.05});if(i===2)noise(seBus,{t:t+.03,dur:.12,vol:.04,type:'highpass',freq:6000});},
+ discard(n=8){const t=ctx.currentTime+.003;noise(seBus,{t,dur:.26,vol:.11,type:'bandpass',freq:5200,freq2:900,q:1.4});for(let i=0;i<Math.min(n,8);i++)noise(seBus,{t:t+i*.022,dur:.03,vol:.035,type:'bandpass',freq:3200,q:3});},
+ deal(n=8,gap=.05,delay=.2){const t=ctx.currentTime+.003+delay;for(let i=0;i<n;i++){noise(seBus,{t:t+i*gap,dur:.04,vol:.07,type:'bandpass',freq:2400+i*150,freq2:5200,q:2});tone(seBus,{type:'triangle',f:midi(74+(i%4)*2),t:t+i*gap+.01,dur:.05,vol:.035});}
+  const e=t+n*gap+.05;[79,84,88].forEach((m,i)=>tone(seBus,{type:'square',f:midi(m),t:e+i*.045,dur:.08,vol:.055,lp:5200}));},
  section(){const t=ctx.currentTime+.003;[79,84,88].forEach((n,i)=>tone(seBus,{type:'square',f:midi(n),t:t+i*.06,dur:.1,vol:.06,lp:5000}));},
  fanfare(){const t=ctx.currentTime+.02,beat=.16;
   const seq=[[60,64,67,0,1],[60,64,67,1,1],[60,64,67,2,1],[60,64,67,3,3],[56,60,63,6,3],[58,62,65,9,3],[60,64,67,12,8]];
@@ -10024,6 +10105,7 @@ doc.addEventListener('pointerdown',e=>{
  const action=el.dataset.deck;
  if(el.dataset.deckChoice){play('select',(el.parentElement?[...el.parentElement.children].indexOf(el):0)*2);burstAt(...center(el),{count:10,ring:false,spread:.5});return;}
  if(el.classList.contains('tempo-option')){const bpm=+(el.innerText.match(/\d+/)||[120])[0];play('select',Math.round((bpm-80)/20));return;}
+ if(el.dataset.deckVariation!==undefined){play('variation',['steady','subtle','playful'].indexOf(el.dataset.deckVariation));return;}
  switch(action){
   case 'chooseDeck':case 'continue':play('powerUp');burstAt(...center(el),{count:18});break;
   case 'chooseTempo':case 'begin':play('confirm');break;
@@ -10032,7 +10114,7 @@ doc.addEventListener('pointerdown',e=>{
   case 'custom':case 'edit':case 'new':play('pop');break;
   case 'use':{play('slam',el.classList.contains('player-special-use')?1.3:1);const stage=$('#gameView .queststage');if(stage){setTimeout(()=>{const [x,y]=center(stage);burstAt(x,y*0.98,{count:28});shake(stage,1);},120);}break;}
   case 'swap':play('shuffle');break;
-  case 'redraw':play('shuffle');{const hand=$('#gameView .pattern-fan');if(hand)burstAt(...center(hand),{count:14,ring:false,colors:['#e3cf93','#ffffff']});}break;
+  case 'redraw':redrawArm(el);break;
   case 'undo':play('rewind');break;
   case 'random':play('sparkle');burstAt(...center(el),{count:16,ring:false,colors:['#e3cf93','#fff6c8','#ffffff']});break;
   case 'finish':play('pop',3);break;
@@ -10065,6 +10147,46 @@ function watch(){
 }
 setInterval(watch,300);
 doc.addEventListener('visibilitychange',()=>{if(doc.hidden)bgmStop(true);});
+
+/* ------------------------------------------------------- card pick + redraw */
+// Picking a card: a paper flick plus a blip whose colour follows the card type.
+// Runs on click (after the chaos layer had its chance to block the card).
+doc.addEventListener('click',e=>{
+ const card=e.target.closest?.('#gameView #deckHand .roguecard, #gameView .stock-hand .roguecard');if(!card||card.disabled)return;
+ const kind=card.classList.contains('player-rare')?'r':card.classList.contains('special')?'s':card.classList.contains('introcard')?'i':card.classList.contains('fillcard')?'f':'p';
+ play('card',kind);
+ if(!reduce()&&card.animate)card.animate([{filter:'brightness(1.5)'},{filter:'brightness(1)'}],{duration:260,easing:'ease-out'});
+});
+// Redraw: the old hand is thrown onto the discard pile (the redraw button), then the new hand
+// is dealt from it face-down and flipped over one card at a time.
+let redrawShot=null;
+function redrawArm(btn){
+ const g=root.GuitarStudio?.getState?.().game,hand=$('#gameView #deckHand');if(!g||!hand)return;
+ redrawShot={redraws:g.redraws,btn:btn.getBoundingClientRect(),hand:hand.cloneNode(true),rect:hand.getBoundingClientRect()};
+ setTimeout(()=>{redrawShot=null;},1500);
+}
+doc.addEventListener('click',e=>{
+ if(!e.target.closest?.('[data-deck=redraw]'))return;const shot=redrawShot;redrawShot=null;if(!shot)return;
+ const g=root.GuitarStudio?.getState?.().game;if(!g||g.redraws>=shot.redraws)return; // blocked or failed: nothing changed
+ const pile=[shot.btn.left+shot.btn.width/2,shot.btn.top+shot.btn.height/2];
+ const hand=$('#gameView #deckHand');const fresh=hand?[...hand.querySelectorAll('.roguecard:not(.parked)')]:[];
+ const old=[...shot.hand.querySelectorAll('.roguecard:not(.parked)')];
+ play('discard',old.length);play('deal',fresh.length,.055,.24);
+ if(reduce()||!hand)return;
+ // The old hand: a non-interactive copy laid over the new one, its cards thrown onto the pile.
+ const ghost=shot.hand,host=hand.parentElement;ghost.removeAttribute('id');ghost.classList.remove('dealing','gs-redeal');ghost.classList.add('gs-discard');ghost.setAttribute('aria-hidden','true');ghost.inert=true;
+ const hr=host.getBoundingClientRect();Object.assign(ghost.style,{position:'absolute',left:(shot.rect.left-hr.left)+'px',top:(shot.rect.top-hr.top)+'px',width:shot.rect.width+'px',height:shot.rect.height+'px',margin:'0',zIndex:'30',pointerEvents:'none'});
+ if(getComputedStyle(host).position==='static')host.style.position='relative';
+ host.append(ghost);
+ old.forEach((n,i)=>{n.classList.remove('chosen');const r=n.getBoundingClientRect(),dx=pile[0]-(r.left+r.width/2),dy=pile[1]-(r.top+r.height/2),spin=(i%2?1:-1)*(16+i*4);
+  n.animate([{translate:'0 0',rotate:'0deg',scale:'1',opacity:1},{translate:'0 -14px',rotate:(spin*.15)+'deg',scale:'1.04',opacity:1,offset:.25},{translate:dx+'px '+dy+'px',rotate:spin+'deg',scale:'.2',opacity:0}],{duration:360,delay:i*28,easing:'cubic-bezier(.5,0,.75,.4)',fill:'both'});});
+ setTimeout(()=>ghost.remove(),360+old.length*28+60);
+ hand.classList.remove('dealing');
+ fresh.forEach((c,i)=>{const r=c.getBoundingClientRect();c.style.setProperty('--from-x',(pile[0]-(r.left+r.width/2))+'px');c.style.setProperty('--from-y',(pile[1]-(r.top+r.height/2))+'px');c.style.setProperty('--redeal',(.24+i*.055)+'s');});
+ void hand.offsetWidth;hand.classList.add('gs-redeal');
+ setTimeout(()=>{hand.classList.remove('gs-redeal');fresh.forEach(c=>{c.style.removeProperty('--from-x');c.style.removeProperty('--from-y');c.style.removeProperty('--redeal');});
+  const pf=$('#gameView .pattern-fan');if(pf)burstAt(...center(pf),{count:12,ring:false,colors:['#e3cf93','#ffffff']});},240+fresh.length*55+620);
+});
 
 /* --------------------------------------------------------------- settings */
 function decorate(){
@@ -10459,7 +10581,7 @@ function compose(a,n=0){
  const feats=[];
  if(a.perc>=a.bars*1.2)feats.push([a.perc/a.bars,['ボディを叩く音が'+a.perc+'回。ギターなのに半分ドラム。','打音多め。ギターをぶっ叩いてる感じが好き。']]);
  if(a.bends>=6)feats.push([a.bends/4,['ベンドが'+a.bends+'回も。ギターがずっと歌ってる。','くいっと上げる音、いっぱい入ってる。泣きのギターだ。']]);
- if(a.density>=14)feats.push([a.density/6,['1小節に'+Math.round(a.density)+'音くらい。指、つらなかった？','音がぎっしり。にぎやかで楽しい。']]);
+ if(a.density>=14)feats.push([a.density/6,['1小節に'+Math.round(a.density)+'音くらい。指、つらくなかった？','音がぎっしり。にぎやかで楽しい。']]);
  if(a.density<7)feats.push([3,['音数が少なめで、すき間がきれい。わざとでしょ。','空白が多いのに、ちゃんと曲になってる。センスある。']]);
  if(a.playful>=3)feats.push([a.playful,['「遊ぶ」を'+a.playful+'回。だいぶ自由にやったね。','アレンジが暴れてる。こういうの、嫌いじゃない。']]);
  if(a.harm>=3)feats.push([2.5,['キラキラした倍音が混ざってる。耳がくすぐったい。']]);
@@ -10486,15 +10608,18 @@ function render(){
  let el=stage.querySelector('.shia-comment');
  if(el&&shownFor===key)return;
  const a=analyze();if(!a)return;shownFor=key;variant=0;
- if(!el){el=doc.createElement('button');el.type='button';el.className='shia-comment';el.setAttribute('aria-label','しあしあのひとこと（タップで別のひとこと）');stage.append(el);el.onclick=()=>{variant++;write(el,compose(a,variant));root.GuitarGameFX?.play?.('pop');};}
+ if(!el){el=doc.createElement('button');el.type='button';el.className='shia-comment';el.setAttribute('aria-label','しあしあのひとこと（タップで別のひとこと）');stage.append(el);el.onclick=()=>{if(el.classList.contains('collapsed')){el.classList.remove('collapsed');armCollapse(el,4000);root.GuitarGameFX?.play?.('pop');return;}variant++;write(el,compose(a,variant));root.GuitarGameFX?.play?.('pop');};}
  write(el,compose(a,0));
 }
 function write(el,lines){
- el.innerHTML='<img src="assets/special-bunny-v130.webp" alt=""><span class="sc-body"><b>しあしあ</b><span class="sc-text"></span><small>タップで別のひとこと</small></span>';
+ el.innerHTML='<img src="assets/special-bunny-v130.webp" alt=""><span class="sc-body"><b>しあしあ</b><span class="sc-text"></span><small>タップで別のひとこと</small><i class="sc-open">しあしあのひとこと</i></span>';
  const t=el.querySelector('.sc-text'),text=lines.join(' ');el.dataset.full=text;
- if(root.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches){t.textContent=text;return;}
- let i=0;const step=()=>{if(!t.isConnected)return;t.textContent=text.slice(0,i);if(i++<text.length)setTimeout(step,28);};setTimeout(step,900);
+ if(root.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches){t.textContent=text;armCollapse(el,9000);return;}
+ el.classList.remove('collapsed');clearTimeout(el._collapse);
+ let i=0;const step=()=>{if(!t.isConnected)return;t.textContent=text.slice(0,i);if(i++<text.length)setTimeout(step,28);else armCollapse(el,7000);};setTimeout(step,900);
 }
+// After a while the bubble folds into a small tag so the stage stays visible; tapping it opens it again.
+function armCollapse(el,ms){clearTimeout(el._collapse);el._collapse=setTimeout(()=>{if(el.isConnected)el.classList.add('collapsed');},ms);}
 function current(){const el=$('#gameView .shia-comment');return el?.dataset.full||'';}
 setInterval(render,600);
 root.GuitarShiaComment={analyze,compose,current,setChaos(r){chaosRun=r;shownFor=null;}};
