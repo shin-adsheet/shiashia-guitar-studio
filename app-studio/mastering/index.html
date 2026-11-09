@@ -149,11 +149,13 @@ aside { display: grid; gap: 12px; position: sticky; top: calc(env(safe-area-inse
 @media (prefers-reduced-motion: reduce) { .bar > i { transition: none; } }
 .site-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; padding: 14px 2px 0; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
 .site-foot a { color: var(--accent); }
+.micro { display: inline-block; margin: 0 0 6px; padding: 3px 12px; border-radius: 999px; border: 1px solid var(--accent); color: var(--accent); font-family: var(--f-display); font-weight: 900; font-size: 13px; letter-spacing: .06em; transform: rotate(-2deg); }
 </style>
 
 <div class="wrap" id="app">
   <header class="top">
     <div class="brand">
+      <p class="micro">素人はこれで十分。</p>
       <h1>ずぼらなマスタリングツール</h1>
       <p>曲を入れるだけで、あとは自動で仕上げます。気になるところだけスライダーで動かしてください。</p>
     </div>
