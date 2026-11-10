@@ -53,7 +53,7 @@ img{display:block;max-width:100%}
 .pill svg{width:18px;height:18px}
 .pill:focus-visible,.btn:focus-visible,.work a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 
-section.block{padding:84px 0 20px}
+section.block{padding-top:84px;padding-bottom:20px}
 .label{display:flex;align-items:center;gap:12px;margin:0 0 22px;font-size:13px;font-weight:800;color:var(--gold)}
 .label:after{content:"";flex:1;height:1px;background:var(--line)}
 h2{margin:0 0 14px;font-size:clamp(28px,6vw,44px);line-height:1.2;font-weight:900;letter-spacing:-.01em}
@@ -160,6 +160,8 @@ a.app:hover{transform:translateY(-4px);border-color:#ffffff40}
 .shot.sheet .t span{padding:4px 8px}
 @media (max-width:820px){.apps{grid-template-columns:1fr}}
 </style>
+<script src="../assets/ads-config.js"></script>
+<script src="../assets/ads.js" defer></script>
 </head>
 <body>
 
@@ -235,8 +237,10 @@ a.app:hover{transform:translateY(-4px);border-color:#ffffff40}
  </section>
 </main>
 
+<div class="wrap"><aside class="adbox" data-ad="app-studio" hidden><span class="adlabel">広告</span><div class="adarea"></div></aside></div>
+
 <footer>
- <div class="wrap"><span>&copy; しあしあ</span><span><a href="../">しあしあのトップ</a>　<a href="../guitar/privacy.html">プライバシーポリシー</a></span></div>
+ <div class="wrap"><span>&copy; しあしあ</span><span><a href="../">しあしあのトップ</a>　<a href="../privacy.html">プライバシーポリシー</a></span></div>
 </footer>
 
 <script>
