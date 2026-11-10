@@ -54,7 +54,7 @@ p{word-break:normal;line-break:strict}
 .nav a:after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;border-radius:2px;background:var(--ac);transform:scaleX(0);transition:transform .25s var(--ease)}
 .nav a:hover:after,.nav a.on:after{transform:scaleX(1)}
 @media(max-width:980px){.nav{display:none}}
-.cta{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;background:var(--ac);color:#fff;text-decoration:none;font-size:14px;font-weight:900;white-space:nowrap;border:2px solid var(--ink);box-shadow:0 4px 0 var(--ink);transition:transform .2s var(--pop),box-shadow .2s}
+.cta{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 18px;border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-size:14px;font-weight:900;white-space:nowrap;border:2px solid var(--ink);box-shadow:0 4px 0 var(--ink);transition:transform .2s var(--pop),box-shadow .2s}
 .cta:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
 
 /* ---------- hero ---------- */
@@ -199,18 +199,10 @@ html.bt .bump.sm{scale:1.025}
 .sk p{margin:0;font-size:14px;line-height:1.85;color:#2c3b38}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 .tags span{padding:2px 9px;border-radius:6px;background:var(--bg2);border:1px solid var(--line);font-size:12px;font-weight:700;white-space:nowrap}
-.sk .ask-link{margin-top:auto;padding-top:6px;font-size:13.5px;font-weight:900;color:var(--ac-dk);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
-.sk .ask-link:hover{text-decoration:underline}
-.sk .ask-link svg{width:16px;height:16px}
 .drawn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
 .drawn a{display:block;aspect-ratio:16/10;border-radius:8px;overflow:hidden;border:1.5px solid var(--ink);background:var(--zunda-lt)}
 .drawn img{width:100%;height:100%;object-fit:cover;transition:transform .4s var(--ease)}
 .drawn a:hover img{transform:scale(1.08)}
-.asks{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.ask{position:relative;display:inline-block;background:#fff;border:2px solid var(--ink);border-radius:16px;padding:9px 16px;font-weight:900;font-size:14.5px;line-height:1.6;color:var(--ink);text-decoration:none;transition:transform .2s var(--pop),background .2s}
-.ask:after{content:"";position:absolute;left:24px;bottom:-8px;width:12px;height:12px;background:inherit;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg)}
-.ask:hover{transform:translateY(-3px) rotate(-1deg);background:var(--zunda-lt)}
-.asks-note{margin:16px 0 0;font-size:13px;color:var(--sub)}
 
 /* ---------- movie ---------- */
 .mvsec{padding-bottom:clamp(20px,4vw,40px)}
@@ -223,11 +215,14 @@ html.bt .bump.sm{scale:1.025}
 .ch b{display:block;font-size:17px;font-weight:900;line-height:1.4}
 .ch small{display:block;font-size:13px;font-weight:700;color:var(--sub)}
 .ch .go{margin-left:auto;font-size:13px;font-weight:900;white-space:nowrap;color:var(--ac-dk)}
-.player{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;margin-top:22px;align-items:start}
+.player{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;margin-top:18px;align-items:start}
 @media(max-width:900px){.player{grid-template-columns:1fr}}
 .yt{position:relative;aspect-ratio:16/9;border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:#000;box-shadow:0 8px 0 var(--ink)}
 .yt img{width:100%;height:100%;object-fit:cover}
 .yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt .reel{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.yt .loop{position:absolute;left:12px;top:12px;display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:6px;background:rgba(15,29,27,.78);color:#fff;font-size:11.5px;font-weight:900;letter-spacing:.04em;pointer-events:none}
+.yt .loop:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--pink);animation:blink 1.2s steps(1) infinite}
 .yt .pb{position:absolute;inset:0;display:grid;place-items:center;border:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.65));cursor:pointer;padding:0}
 .yt .pb span{width:76px;height:76px;border-radius:50%;background:var(--red);border:2px solid #fff;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .2s var(--pop)}
 .yt .pb:hover span{transform:scale(1.08)}
@@ -246,8 +241,8 @@ html.bt .bump.sm{scale:1.025}
 .pi .th em{position:absolute;right:4px;bottom:4px;padding:0 5px;border-radius:4px;background:rgba(0,0,0,.75);color:#fff;font:700 10.5px/1.6 Lato,sans-serif;font-style:normal}
 .pi b{display:block;font-size:14px;font-weight:900;line-height:1.45}
 .pi small{display:block;font-size:11.5px;font-weight:700;color:var(--sub);line-height:1.5;margin-top:2px}
-.nico{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:26px}
-@media(max-width:960px){.nico{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.nico{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}
+@media(max-width:760px){.nico{grid-template-columns:1fr}}
 .nv{display:flex;flex-direction:column;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#fff;color:var(--ink);text-decoration:none;transition:transform .2s var(--pop),box-shadow .2s}
 .nv:hover{transform:translateY(-3px);box-shadow:0 6px 0 var(--ink)}
 .nv .th{position:relative;aspect-ratio:16/9;background:#252525;border-bottom:2px solid var(--ink);overflow:hidden}
@@ -256,8 +251,36 @@ html.bt .bump.sm{scale:1.025}
 .nv .tx{padding:10px 12px 12px}
 .nv b{display:block;font-size:13.5px;font-weight:900;line-height:1.5}
 .nv small{display:block;font-size:11.5px;font-weight:700;color:var(--sub)}
-.subhd{display:flex;align-items:center;gap:10px;margin:34px 0 0;font-size:15px;font-weight:900}
+.subhd{display:flex;align-items:center;gap:10px;margin:36px 0 0;font-size:15px;font-weight:900}
 .subhd:before{content:"";width:12px;height:12px;border-radius:3px;background:var(--c,var(--ink))}
+
+
+.vtabs{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.vtab{display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:0 20px;border-radius:999px;border:2px solid var(--ink);background:#fff;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 4px 0 var(--ink);transition:transform .2s var(--pop),box-shadow .2s,background .2s,color .2s}
+.vtab i{width:11px;height:11px;border-radius:50%;background:var(--c);border:1.5px solid currentColor}
+.vtab:hover{transform:translateY(-2px)}
+.vtab[aria-selected=true]{background:var(--ink);color:#fff;transform:translateY(2px);box-shadow:0 2px 0 var(--ink)}
+.vdesc{margin:14px 0 0;font-size:14.5px;line-height:1.85;color:#2c3b38}
+.shorts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:14px}
+@media(max-width:900px){.shorts{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 10px}.sh{flex:none;width:42vw;max-width:200px;scroll-snap-align:start}}
+.sh{position:relative;display:block;aspect-ratio:9/16;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#111;padding:0;cursor:pointer;text-align:left;color:#fff;transition:transform .2s var(--pop)}
+button.sh:hover{transform:translateY(-3px)}
+.sh img{width:100%;height:100%;object-fit:cover}
+.sh iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.sh .t{position:absolute;left:0;right:0;bottom:0;padding:28px 10px 10px;background:linear-gradient(transparent,rgba(0,0,0,.82));font-size:12.5px;font-weight:900;line-height:1.45}
+.sh .ic{position:absolute;right:8px;top:8px;width:30px;height:30px;border-radius:50%;background:var(--red);border:2px solid #fff;display:grid;place-items:center}
+.sh .ic svg{width:12px;height:12px;margin-left:2px}
+.vc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:14px 0 0;padding:0;list-style:none}
+@media(max-width:860px){.vc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.vc a{display:flex;flex-direction:column;height:100%;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#fff;color:var(--ink);text-decoration:none;transition:transform .2s var(--pop),box-shadow .2s}
+.vc a:hover{transform:translateY(-3px);box-shadow:0 6px 0 var(--ink)}
+.vc .th{position:relative;aspect-ratio:16/9;background:#252525;border-bottom:2px solid var(--ink);overflow:hidden}
+.vc .th img{width:100%;height:100%;object-fit:cover}
+.vc .se{position:absolute;left:6px;top:6px;padding:1px 8px;border-radius:5px;background:#fff;border:1.5px solid var(--ink);font:900 11px/1.6 Lato,"Noto Sans JP",sans-serif}
+.vc .tx{padding:9px 11px 11px}
+.vc b{display:block;font-size:13.5px;font-weight:900;line-height:1.5}
+.vc small{display:block;font-size:11.5px;font-weight:700;color:var(--sub)}
+.vc .win{color:#9a5b00}
 
 /* ---------- works ---------- */
 .works{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px}
@@ -342,9 +365,6 @@ footer a{color:var(--sub)}
 .soc svg{width:15px;height:15px}
 
 /* ---------- floating contact + now playing ---------- */
-.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:60;display:inline-flex;align-items:center;gap:10px;padding:6px 18px 6px 6px;border-radius:999px;border:2px solid var(--ink);background:var(--ac);color:#fff;text-decoration:none;font-weight:900;font-size:15px;box-shadow:0 5px 0 var(--ink);opacity:0;translate:0 24px;pointer-events:none;transition:opacity .25s,translate .35s var(--pop),scale .1s}
-.fab img{width:40px;height:40px;border-radius:50%;border:2px solid var(--ink);object-fit:cover;background:var(--shia-lt)}
-.fab.on{opacity:1;translate:0 0;pointer-events:auto}
 .np{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:61;display:flex;align-items:center;gap:12px;padding:8px 10px 8px 14px;border-radius:16px;border:2px solid var(--ink);background:#fff;box-shadow:0 5px 0 var(--ink);opacity:0;translate:0 24px;pointer-events:none;transition:opacity .25s,translate .35s var(--pop)}
 .np.on{opacity:1;translate:0 0;pointer-events:auto}
 .eq{display:flex;align-items:flex-end;gap:3px;height:22px}
@@ -361,7 +381,6 @@ html.bt .eq i:nth-child(1){height:100%}html.bt .eq i:nth-child(2){height:60%}htm
  .np{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));padding:8px 8px 8px 12px}
  .np .lbl{display:none}
  .np .parts{flex:1;justify-content:center}
- html.playing .fab{opacity:0;pointer-events:none}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -382,9 +401,9 @@ html.bt .eq i:nth-child(1){height:100%}html.bt .eq i:nth-child(2){height:60%}htm
    <span class="say" id="say" role="status" aria-live="polite"></span>
   </div>
   <nav class="nav" aria-label="ページ内リンク">
-   <a href="#awards">実績</a><a href="#skills">できること</a><a href="#movie">動画</a><a href="#works">つくったもの</a><a href="#band">なかま</a>
+   <a href="#movie">動画</a><a href="#awards">実績</a><a href="#skills">できること</a><a href="#works">つくったもの</a><a href="#band">なかま</a>
   </nav>
-  <a class="cta" href="#contact">相談する</a>
+  <a class="cta" href="#contact">お問い合わせ</a>
  </div>
 </header>
 
@@ -398,10 +417,10 @@ html.bt .eq i:nth-child(1){height:100%}html.bt .eq i:nth-child(2){height:60%}htm
     <span class="ln"><span data-split="ぜんぶ、"></span><span class="circ"><span data-split="つくる"></span><svg viewBox="0 0 200 90" aria-hidden="true"><path d="M150 12C108 0 30 6 12 38c-14 28 30 46 92 44 58-2 92-22 86-46-5-18-38-26-76-24"/></svg></span><span data-split="人。"></span></span>
    </h1>
    <p class="lead">遊べるアプリも、聴ける曲とMVも、<br>手描きのイラストも。</p>
-   <p class="lead2">AIと一緒にWebアプリやツールを作り、ボカロPとしてずんだもんの曲とMVを投稿しています。イラストは手描き。「こんなの作れる？」「AIってどう使えばいい？」から、気軽に相談してください。</p>
+   <p class="lead2">AIと一緒にWebアプリやツールを作ったり、ボカロPとしてずんだもんの曲とMVを投稿したりしています。イラストは手描きです。</p>
    <div class="btns">
-    <a class="btn main" href="#contact">お仕事を相談する<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <a class="btn sub" href="#movie">動画を見る</a>
+    <a class="btn main" href="#movie"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>動画を見る</a>
+    <a class="btn sub" href="#contact">お問い合わせ</a>
    </div>
    <ul class="proof" aria-label="おもな実績">
     <li><a href="#awards"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-medal"/></svg>ボカコレ2026夏 NRC賞</a></li>
@@ -420,7 +439,7 @@ html.bt .eq i:nth-child(1){height:100%}html.bt .eq i:nth-child(2){height:60%}htm
    </a>
    <span class="sticker s1 float bump" aria-hidden="true">ずんだもんの曲<small>多めです</small></span>
    <span class="sticker s2 float f2 bump" aria-hidden="true">AIと<small>いっしょに作る</small></span>
-   <span class="sticker s3 float f3 bump" aria-hidden="true">相談<small>無料です</small></span>
+   <span class="sticker s3 float f3 bump" aria-hidden="true">動画<small>YouTube・ニコニコ</small></span>
    <div class="playwrap">
     <span class="hint">このサイト、<br>演奏できます<svg viewBox="0 0 34 30" aria-hidden="true"><path d="M2 6c12-6 26 0 26 14M22 15l6 7 5-8"/></svg></span>
     <button class="playbtn bump" id="play" type="button" aria-pressed="false" aria-label="このサイトを演奏する（音が出ます）">
@@ -431,6 +450,42 @@ html.bt .eq i:nth-child(1){height:100%}html.bt .eq i:nth-child(2){height:60%}htm
  </div>
 </section>
 <div class="tapewrap" aria-hidden="true"><div class="tape"><div class="run" id="tapeRun"></div></div></div>
+
+<!-- ---------- movie ---------- -->
+<section class="sec wrap mvsec" id="movie">
+ <div class="rv">
+  <p class="eyebrow"><i style="--c:var(--pink-lt)"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg></i>MOVIE ／ YouTube・ニコニコ</p>
+  <h2>曲を作って、<br><em>MVまで自分で。<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12c40-8 80 6 120-2s90-6 120 0 40 2 54-2"/></svg></em></h2>
+  <p class="intro">YouTubeとニコニコに、ずんだもんの曲を中心に投稿しています。生成AIを活用して作った動画と、手描き・手づくりの動画があります。</p>
+ </div>
+ <div class="chs rv">
+  <a class="ch" href="https://www.youtube.com/@shiashia-ch" target="_blank" rel="noopener"><span class="lg" style="background:#ff0033"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-yt"/></svg></span><span><b>しあしあ ちゃんねる</b><small>YouTube ・ 登録者600人 ・ 動画30本</small></span><span class="go">チャンネルへ</span></a>
+  <a class="ch" href="https://www.nicovideo.jp/user/15211936" target="_blank" rel="noopener"><span class="lg" style="background:#252525"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><use href="#i-nico"/></svg></span><span><b>しあしあ</b><small>ニコニコ動画 ・ 投稿祭とボカコレに参加</small></span><span class="go">ユーザーページへ</span></a>
+ </div>
+ <div class="vtabs rv" role="tablist" aria-label="動画の種類">
+  <button class="vtab" role="tab" type="button" data-g="ai" aria-selected="true" style="--c:var(--sky)"><i></i>AIを活用した動画</button>
+  <button class="vtab" role="tab" type="button" data-g="hand" aria-selected="false" style="--c:var(--zunda)"><i></i>手描き・手づくりの動画</button>
+ </div>
+ <p class="vdesc rv" id="vdesc">Suno（作曲AI）や歌声AI、画像・動画生成AIを使って作った曲とMVです。</p>
+ <div class="player rv">
+  <div class="yt" id="yt">
+   <img id="ytImg" src="https://i.ytimg.com/vi/H-BUGtK0Pwg/hqdefault.jpg" alt="" width="480" height="360">
+   <video class="reel" id="reel" muted loop playsinline preload="none" poster="assets/home/mv-band.webp" aria-hidden="true" hidden></video>
+   <span class="loop" id="loopTag" hidden>MVの場面をループ中</span>
+   <button class="pb" type="button" id="ytPlay" aria-label="この動画を再生する"><span><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button>
+   <div class="cap"><b id="ytT">Keep it alive</b><small id="ytS">しあしあ・きあきあ・ねあねあのバンドMV</small></div>
+  </div>
+  <div class="plist" id="plist" role="group" aria-label="再生する動画を選ぶ"></div>
+ </div>
+ <p class="subhd rv" style="--c:#ff0033">ショートのMV</p>
+ <div class="shorts rv" id="shorts"></div>
+ <p class="subhd rv" style="--c:#252525">ずんパラ投稿祭の作品（ニコニコ）</p>
+ <div class="nico rv">
+  <a class="nv" href="https://www.nicovideo.jp/watch/sm44164708" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/44164708/44164708.62475447.M" alt="" loading="lazy"><span class="tag">TV放送賞</span></div><div class="tx"><b>進め！ずんパラZ戦士</b><small>ずんパラ投稿祭Z ・ MV部門</small></div></a>
+  <a class="nv" href="https://www.nicovideo.jp/watch/sm45335196" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/45335196/45335196.73635675.M" alt="" loading="lazy"><span class="tag">ずんだもん賞</span></div><div class="tx"><b>かわいがるのだ（TVサイズ）</b><small>ずんパラ投稿祭V3 ・ MV部門</small></div></a>
+  <a class="nv" href="https://www.nicovideo.jp/watch/sm46742922" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/46742922/46742922.62822423.M" alt="" loading="lazy"><span class="tag" style="background:#fff">参加作品</span></div><div class="tx"><b>ずんパラで歌いたい</b><small>ずんパラ投稿祭ふぉ～すっ♡ ・ 参加</small></div></a>
+ </div>
+</section>
 
 <!-- ---------- awards ---------- -->
 <section class="sec wrap" id="awards">
@@ -468,16 +523,23 @@ html.bt .eq i:nth-child(1){height:100%}html.bt .eq i:nth-child(2){height:60%}htm
    <div class="hd"><button class="medal" type="button" aria-label="お祝いする"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rank"/></svg></button><div><span class="ev">ボカコレ2026夏 ルーキー</span><span class="nm">ランキング 一時13位</span></div></div>
    <div class="bd">
     <p class="song">「ずんだもんは歌いたい」<small>最後のルーキー参加で、ランキングに入りました</small></p>
-    <p>ボカコレのルーキー参加は、2026冬の「outdated」に続いて2回目です。</p>
+    <p>ボカコレのルーキー部門には、2025冬から4回続けて参加しています。</p>
     <div class="lk"><a class="pill dk" href="https://x.com/shin_seer/status/2091811300775223734" target="_blank" rel="noopener">当時のポストを見る<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-out"/></svg></a><a class="pill" href="https://www.youtube.com/watch?v=nu3Q78WFrZ8" target="_blank" rel="noopener">YouTubeで見る</a></div>
    </div>
   </article>
  </div>
+ <p class="subhd rv" style="--c:var(--sky)">ボカコレ ルーキーの参加曲</p>
+ <ol class="vc rv">
+  <li><a href="https://www.nicovideo.jp/watch/sm44680380" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/44680380/44680380.43999537.M" alt="" loading="lazy"><span class="se">2025冬</span></div><div class="tx"><b>ずんだもんは性別をはっきりさせたいようです</b><small>ボカコレ2025冬 ルーキー</small></div></a></li>
+  <li><a href="https://www.nicovideo.jp/watch/sm45319322" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/45319322/45319322.49993393.M" alt="" loading="lazy"><span class="se">2025夏</span></div><div class="tx"><b>かわいがるのだ</b><small>ボカコレ2025夏 ルーキー</small></div></a></li>
+  <li><a href="https://www.nicovideo.jp/watch/sm45970606" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/45970606/45970606.78864376.M" alt="" loading="lazy"><span class="se">2026冬</span></div><div class="tx"><b>outdated</b><small>ボカコレ2026冬 ルーキー</small></div></a></li>
+  <li><a href="https://www.nicovideo.jp/watch/sm46705542" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/46705542/46705542.22993806.M" alt="" loading="lazy"><span class="se">2026夏</span></div><div class="tx"><b>ずんだもんは歌いたい</b><small class="win">NRC賞・ランキング一時13位</small></div></a></li>
+ </ol>
  <div class="stats rv">
   <div class="stat"><span class="k">YouTube 登録者</span><div class="v"><span class="num" data-count="600">600</span><small>人</small></div></div>
   <div class="stat"><span class="k">YouTube の動画</span><div class="v"><span class="num" data-count="30">30</span><small>本</small></div></div>
   <div class="stat"><span class="k">投稿祭・ボカコレでの受賞</span><div class="v"><span class="num" data-count="3">3</span><small>回</small></div></div>
-  <div class="stat"><span class="k">ボカコレ ルーキー参加</span><div class="v"><span class="num" data-count="2">2</span><small>回</small></div></div>
+  <div class="stat"><span class="k">ボカコレ ルーキー参加</span><div class="v"><span class="num" data-count="4">4</span><small>回</small></div></div>
  </div>
  <p class="asof">数字は2026年11月時点</p>
 </section>
@@ -486,38 +548,34 @@ html.bt .eq i:nth-child(1){height:100%}html.bt .eq i:nth-child(2){height:60%}htm
 <section class="sec wrap" id="skills">
  <div class="rv">
   <p class="eyebrow"><i style="--c:var(--zunda-lt)"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg></i>SKILLS ／ できること</p>
-  <h2>頼めることは、<br><em>この6つです。<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12c40-8 80 6 120-2s90-6 120 0 40 2 54-2"/></svg></em></h2>
-  <p class="intro">「あったら便利」「あったら楽しい」を形にするのが好きです。それぞれのカードから、その内容を選んだ状態で相談フォームを開けます。</p>
+  <h2>好きで作っていたら、<br><em>できることが増えました。<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12c40-8 80 6 120-2s90-6 120 0 40 2 54-2"/></svg></em></h2>
+  <p class="intro">「あったら便利」「あったら楽しい」を形にするのが好きで、作れるものが少しずつ増えてきました。</p>
  </div>
  <div class="skills">
   <article class="sk rv">
    <div class="ic" style="--c:var(--zunda-lt)"><svg viewBox="0 0 24 24" fill="none" stroke="#0f1d1b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.2"/></svg></div>
    <span class="new">NEW</span>
-   <h3><small>使い方から一緒に</small>AI活用の相談</h3>
-   <p>「AIって結局なにに使えるの？」から相談できます。ChatGPTやClaude、画像・動画・音楽の生成AIを毎日使って作っているので、仕事や制作への取り入れ方を実例ベースで一緒に考えます。</p>
+   <h3><small>毎日の制作で使っています</small>AI活用の相談</h3>
+   <p>ChatGPTやClaude、画像・動画・音楽の生成AIを、毎日の制作で使っています。使い方や、制作への取り入れ方のお話もできます。</p>
    <div class="tags"><span>ChatGPT</span><span>Claude</span><span>画像・動画生成</span><span>Suno</span></div>
-   <a class="ask-link" data-topic="AI活用の相談" href="#contact">この内容で相談する<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </article>
   <article class="sk rv">
    <div class="ic" style="--c:var(--shia-lt)"><svg viewBox="0 0 24 24" fill="none" stroke="#0f1d1b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2.5"/><path d="M8 21h8M9 9l-2 2 2 2M15 9l2 2-2 2"/></svg></div>
    <h3><small>AIと一緒に、すぐ形に</small>Webアプリ・ツール</h3>
    <p>ブラウザで動く便利ツールから、作曲アプリやマスタリングツールのような音楽ツールまで。「こういうの欲しい」を、動くものにします。</p>
    <div class="tags"><span>JavaScript</span><span>Web Audio</span><span>Claude</span></div>
-   <a class="ask-link" data-topic="Webアプリ・ツール" href="#contact">この内容で相談する<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </article>
   <article class="sk rv">
    <div class="ic" style="--c:var(--pink-lt)"><svg viewBox="0 0 24 24" fill="none" stroke="#0f1d1b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10a4 4 0 0 1 4 4v3a3 3 0 0 1-5.4 1.8L14.5 14h-5l-1.1 1.8A3 3 0 0 1 3 14v-3a4 4 0 0 1 4-4z"/><path d="M8 10v3M6.5 11.5h3M15.5 10.5h.01M17.5 12.5h.01"/></svg></div>
    <h3><small>遊べるものを</small>ゲーム</h3>
    <p>カードを選んで遊ぶ作曲ゲームや、声で遊ぶリズムゲーム。効果音・演出・実績まで、触って楽しいところを作り込みます。</p>
    <div class="tags"><span>JavaScript</span><span>Canvas</span><span>効果音づくり</span></div>
-   <a class="ask-link" data-topic="ゲーム" href="#contact">この内容で相談する<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </article>
   <article class="sk rv">
    <div class="ic" style="--c:var(--kia-lt)"><svg viewBox="0 0 24 24" fill="none" stroke="#0f1d1b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></div>
    <h3><small>ボカロPとして</small>曲・MV</h3>
    <p>ずんだもんや知声、初音ミクの曲を作って、MVまで自分で仕上げます。投稿祭では、テレビで放送されたMVもあります。</p>
    <div class="tags"><span>ずんだもん</span><span>Suno</span><span>動画生成AI</span><span>MV編集</span></div>
-   <a class="ask-link" data-topic="曲・MV・映像" href="#contact">この内容で相談する<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </article>
   <article class="sk rv">
    <div class="ic" style="--c:var(--zunda-lt)"><svg viewBox="0 0 24 24" fill="none" stroke="#0f1d1b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.2-4.6L16.5 4.1a2.1 2.1 0 0 1 3 3L8.2 18.4z"/><path d="M14.5 6l3.5 3.5M4 20h6"/></svg></div>
@@ -529,52 +587,13 @@ html.bt .eq i:nth-child(1){height:100%}html.bt .eq i:nth-child(2){height:60%}htm
     <a href="https://www.youtube.com/watch?v=PGWeoti51ys" target="_blank" rel="noopener" aria-label="さぼりたいのだ のイラスト"><img src="https://i.ytimg.com/vi/PGWeoti51ys/hqdefault.jpg" alt="" loading="lazy"></a>
     <a href="https://www.youtube.com/watch?v=i4avJfGIuGY" target="_blank" rel="noopener" aria-label="かわいがるのだ のイラスト"><img src="https://i.ytimg.com/vi/i4avJfGIuGY/hqdefault.jpg" alt="" loading="lazy"></a>
    </div>
-   <a class="ask-link" data-topic="手書きイラスト" href="#contact">この内容で相談する<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </article>
   <article class="sk rv">
    <div class="ic" style="--c:var(--sky-lt)"><svg viewBox="0 0 24 24" fill="none" stroke="#0f1d1b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 8h18M7 12h6M7 16h10"/></svg></div>
    <h3><small>デザインから</small>Webページ</h3>
    <p>サイトやLPのデザインとコーディング。画像生成AIで素材も用意します。このサイトも自分で作りました。</p>
    <div class="tags"><span>HTML/CSS</span><span>デザイン</span><span>画像生成AI</span></div>
-   <a class="ask-link" data-topic="Webページ・LP" href="#contact">この内容で相談する<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </article>
- </div>
- <div class="asks rv" aria-label="こんな相談ができます">
-  <a class="ask" data-topic="AI活用の相談" data-text="AIの使い方を知りたい" href="#contact">AIの使い方を知りたい</a>
-  <a class="ask" data-topic="曲・MV・映像" data-text="ずんだもんの曲を作ってほしい" href="#contact">ずんだもんの曲を作ってほしい</a>
-  <a class="ask" data-topic="曲・MV・映像" data-text="MVを作ってほしい" href="#contact">MVを作ってほしい</a>
-  <a class="ask" data-topic="手書きイラスト" data-text="イラストを描いてほしい" href="#contact">イラストを描いてほしい</a>
-  <a class="ask" data-topic="Webアプリ・ツール" data-text="こんなツールが欲しい" href="#contact">こんなツールが欲しい</a>
-  <a class="ask" data-topic="ゲーム" data-text="ゲームを作ってほしい" href="#contact">ゲームを作ってほしい</a>
- </div>
- <p class="asks-note">吹き出しを押すと、その一言が入った状態でフォームが開きます。</p>
-</section>
-
-<!-- ---------- movie ---------- -->
-<section class="sec wrap mvsec" id="movie">
- <div class="rv">
-  <p class="eyebrow"><i style="--c:var(--pink-lt)"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg></i>MOVIE ／ YouTube・ニコニコ</p>
-  <h2>曲を作って、<br><em>MVまで自分で。<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12c40-8 80 6 120-2s90-6 120 0 40 2 54-2"/></svg></em></h2>
-  <p class="intro">YouTubeとニコニコに、ずんだもんの曲を中心に投稿しています。MVは、曲づくりから手描きイラスト、生成AIの映像、編集まで、ひとりで仕上げています。</p>
- </div>
- <div class="chs rv">
-  <a class="ch" href="https://www.youtube.com/@shiashia-ch" target="_blank" rel="noopener"><span class="lg" style="background:#ff0033"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-yt"/></svg></span><span><b>しあしあ ちゃんねる</b><small>YouTube ・ 登録者600人 ・ 動画30本</small></span><span class="go">チャンネルへ</span></a>
-  <a class="ch" href="https://www.nicovideo.jp/user/15211936" target="_blank" rel="noopener"><span class="lg" style="background:#252525"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><use href="#i-nico"/></svg></span><span><b>しあしあ</b><small>ニコニコ動画 ・ 投稿祭とボカコレに参加</small></span><span class="go">ユーザーページへ</span></a>
- </div>
- <div class="player rv">
-  <div class="yt" id="yt">
-   <img id="ytImg" src="https://i.ytimg.com/vi/nu3Q78WFrZ8/hqdefault.jpg" alt="" width="480" height="360">
-   <button class="pb" type="button" id="ytPlay" aria-label="この動画を再生する"><span><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></button>
-   <div class="cap"><b id="ytT">ずんだもんは歌いたい</b><small id="ytS">ボカコレ2026夏 NRC賞</small></div>
-  </div>
-  <div class="plist" id="plist" role="group" aria-label="再生する動画を選ぶ"></div>
- </div>
- <p class="subhd rv" style="--c:#252525">ニコニコの受賞作品</p>
- <div class="nico rv">
-  <a class="nv" href="https://www.nicovideo.jp/watch/sm44164708" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/44164708/44164708.62475447.M" alt="" loading="lazy"><span class="tag">TV放送賞</span></div><div class="tx"><b>進め！ずんパラZ戦士</b><small>ずんパラ投稿祭Z ・ MV部門</small></div></a>
-  <a class="nv" href="https://www.nicovideo.jp/watch/sm45335196" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/45335196/45335196.73635675.M" alt="" loading="lazy"><span class="tag">ずんだもん賞</span></div><div class="tx"><b>かわいがるのだ（TVサイズ）</b><small>ずんパラ投稿祭V3 ・ MV部門</small></div></a>
-  <a class="nv" href="https://www.nicovideo.jp/watch/sm46705542" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/46705542/46705542.22993806.M" alt="" loading="lazy"><span class="tag">NRC賞</span></div><div class="tx"><b>ずんだもんは歌いたい</b><small>ボカコレ2026夏 ・ ルーキー</small></div></a>
-  <a class="nv" href="https://www.nicovideo.jp/watch/sm46742922" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/46742922/46742922.62822423.M" alt="" loading="lazy"><span class="tag">最新</span></div><div class="tx"><b>ずんパラで歌いたい</b><small>ずんパラ投稿祭ふぉ～すっ♡</small></div></a>
  </div>
 </section>
 
@@ -616,38 +635,33 @@ html.bt .eq i:nth-child(1){height:100%}html.bt .eq i:nth-child(2){height:60%}htm
   <div class="cbox rv">
    <span class="who" aria-hidden="true"><img src="assets/home/avatar-shia.webp" alt=""></span>
    <div class="hd">
-    <p class="eyebrow" style="justify-content:center"><i style="--c:var(--ac-lt)"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></i>CONTACT ／ お仕事の相談</p>
-    <h2>まずは、気軽に<br><em>ひとこと<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12c40-8 80 6 120-2s90-6 120 0 40 2 54-2"/></svg></em>ください。</h2>
-    <p class="intro">アプリのこと、曲や映像のこと、イラストのこと、AIの使い方のこと。まだ内容がまとまっていなくても大丈夫です。</p>
+    <p class="eyebrow" style="justify-content:center"><i style="--c:var(--ac-lt)"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></i>CONTACT ／ お問い合わせ</p>
+    <h2>ご連絡は、<br><em>こちらから。<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12c40-8 80 6 120-2s90-6 120 0 40 2 54-2"/></svg></em></h2>
+    <p class="intro">お仕事のご依頼や、ちょっとした質問はこちらからどうぞ。</p>
    </div>
    <div class="routes">
     <div class="route main" style="--c:var(--ac-lt)">
-     <h3><i><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></i>お仕事の相談</h3>
-     <p>Googleフォームで送れます。質問は6つだけ、2〜3分で終わります。お返事はメールでお送りします。</p>
-     <p class="pick">何の相談か選んで開くこともできます</p>
+     <h3><i><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg></i>お仕事のご依頼</h3>
+     <p>Googleフォームから送れます。お返事はメールでお送りします。</p>
+     <p class="pick">内容を選んで開くこともできます</p>
      <div class="chips">
       <a data-topic="AI活用の相談" href="#contact">AI活用</a><a data-topic="Webアプリ・ツール" href="#contact">アプリ・ツール</a><a data-topic="ゲーム" href="#contact">ゲーム</a><a data-topic="曲・MV・映像" href="#contact">曲・MV</a><a data-topic="手書きイラスト" href="#contact">イラスト</a><a data-topic="Webページ・LP" href="#contact">Webページ</a>
      </div>
-     <a class="btn main" id="formBtn" href="https://docs.google.com/forms/d/e/1FAIpQLSe4HpgTTJd_dx-vgk-s33APtNpMe91YniLl8trsPqNWqEGrnA/viewform" target="_blank" rel="noopener">相談フォームを開く<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+     <a class="btn main" id="formBtn" href="https://docs.google.com/forms/d/e/1FAIpQLSe4HpgTTJd_dx-vgk-s33APtNpMe91YniLl8trsPqNWqEGrnA/viewform" target="_blank" rel="noopener">フォームを開く<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <div class="side">
      <div class="route" style="--c:var(--pink-lt)">
-      <h3><i><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chat"/></svg></i>ちょっと質問なら</h3>
-      <p>マシュマロなら、名前を出さずに気軽に送れます。</p>
+      <h3><i><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chat"/></svg></i>ちょっとした質問</h3>
+      <p>マシュマロなら、名前を出さずに送れます。</p>
       <a class="btn sub" href="https://marshmallow-qa.com/r90uh1kqrhk483?t=deCHaj&amp;utm_medium=url_text&amp;utm_source=promotion" target="_blank" rel="noopener">マシュマロを送る</a>
      </div>
      <div class="route" style="--c:var(--bg2)">
-      <h3><i><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg></i>XのDMでもOK</h3>
+      <h3><i><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-x"/></svg></i>XのDM</h3>
       <p>@shin_seer で、制作のようすも発信しています。</p>
       <a class="btn sub" href="https://x.com/shin_seer" target="_blank" rel="noopener">Xを開く</a>
      </div>
     </div>
    </div>
-   <ul class="oks">
-    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>相談は無料</li>
-    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>オンラインで対応</li>
-    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>無理な営業はしません</li>
-   </ul>
   </div>
  </div>
 </section>
@@ -666,7 +680,6 @@ html.bt .eq i:nth-child(1){height:100%}html.bt .eq i:nth-child(2){height:60%}htm
  </div>
 </footer>
 
-<a class="fab bump" id="fab" href="#contact"><img src="assets/home/avatar-shia.webp" alt="">相談する</a>
 <div class="np" id="np" aria-live="polite">
  <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
  <span class="lbl"><b>しあしあバンド 演奏中</b><small>カードを押すと楽器が増えます</small></span>
@@ -719,16 +732,12 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 
 /* ---------- nav highlight + floating contact button ---------- */
-const navs=[...document.querySelectorAll('.nav a')],fab=document.getElementById('fab');
+const navs=[...document.querySelectorAll('.nav a')];
 const secIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navs.forEach(a=>a.classList.toggle('on',a.hash==='#'+e.target.id));}),{rootMargin:'-45% 0px -50% 0px'});
 ['awards','skills','movie','works','band','contact'].forEach(id=>secIO.observe(document.getElementById(id)));
-let pastHero=false,atContact=false;
-new IntersectionObserver(es=>es.forEach(e=>{pastHero=!e.isIntersecting;fabState();}),{threshold:0}).observe(document.querySelector('.hero .btns'));
-new IntersectionObserver(es=>es.forEach(e=>{atContact=e.isIntersecting;fabState();}),{threshold:.15}).observe(document.getElementById('contact'));
-function fabState(){fab.classList.toggle('on',pastHero&&!atContact);}
 
 /* ---------- talk to the avatar ---------- */
-const lines=['めっちゃ作るけん','相談はタダやけん、気軽にね','ずんだもんの曲、多めです','PLAYを押すと、演奏がはじまるよ','イラストも手で描いとるよ','AIの使い方、一緒に考えよう'];
+const lines=['めっちゃ作るけん','ずんだもんの曲、多めです','PLAYを押すと、演奏がはじまるよ','イラストも手で描いとるよ','AIは毎日使っとるよ','「な」のカード、押してみて'];
 let li=0,sayT;const say=document.getElementById('say');
 document.getElementById('av').addEventListener('click',()=>{say.textContent=lines[li++%lines.length];say.classList.add('on');clearTimeout(sayT);sayT=setTimeout(()=>say.classList.remove('on'),2600);});
 
@@ -742,24 +751,33 @@ let naN=0;const naCnt=document.getElementById('naCnt');
 document.getElementById('naBtn').addEventListener('click',()=>{naN++;naCnt.textContent='な × '+naN;blip(520+Math.random()*300);if(reduce)return;const n=naN%10===0?60:14;for(let i=0;i<n;i++){const s=document.createElement('span');s.className='nafall';s.textContent='な';s.style.cssText='left:'+(Math.random()*100)+'vw;font-size:'+(22+Math.random()*44)+'px;animation-duration:'+(1.6+Math.random()*1.6)+'s;animation-delay:'+(Math.random()*.5)+'s;--r:'+(Math.random()*540-270)+'deg';document.body.appendChild(s);setTimeout(()=>s.remove(),4000);}});
 
 /* ---------- videos: a light YouTube player with a playlist ---------- */
-const VIDS=[
- ['nu3Q78WFrZ8','ずんだもんは歌いたい','ボカコレ2026夏 NRC賞','3:16'],
- ['H-BUGtK0Pwg','Keep it alive','しあしあ・きあきあ・ねあねあのバンドMV','4:46'],
- ['i4avJfGIuGY','かわいがるのだ','TVサイズ版がずんだもん賞','2:12'],
- ['v13JzQmKEJY','outdated','ボカコレ2026冬 ルーキー参加曲','2:29'],
- ['SCMjLWpc22M','ずんパラで歌いたい','ずんパラ投稿祭ふぉ～すっ♡','1:30'],
- ['PGWeoti51ys','さぼりたいのだ','ずんだもん（Voyager）','2:15'],
- ['x8bRONzq5fg','ずんだもんは性別をはっきりさせたいようです','ずんだもん・初音ミク・重音テト','2:03'],
- ['PeqKnZaSf_E','まちのまにまに','フルバージョン','3:30']
-];
-const yt=document.getElementById('yt'),ytImg=document.getElementById('ytImg'),ytT=document.getElementById('ytT'),ytS=document.getElementById('ytS'),plist=document.getElementById('plist');
-let curV=0;
-plist.innerHTML=VIDS.map((v,i)=>'<button class="pi" type="button" data-i="'+i+'" aria-pressed="'+(i===0)+'"><span class="th"><img src="https://i.ytimg.com/vi/'+v[0]+'/mqdefault.jpg" alt="" loading="lazy"><em>'+v[3]+'</em></span><span><b>'+v[1]+'</b><small>'+v[2]+'</small></span></button>').join('');
-function showV(i,autoplay){curV=i;const v=VIDS[i];plist.querySelectorAll('.pi').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.i===i)));const f=yt.querySelector('iframe');if(f)f.remove();ytImg.src='https://i.ytimg.com/vi/'+v[0]+'/hqdefault.jpg';ytT.textContent=v[1];ytS.textContent=v[2];yt.querySelector('.pb').hidden=false;yt.querySelector('.cap').hidden=false;if(autoplay)playV();}
-function playV(){band.stop();const v=VIDS[curV];const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+v[0]+'?autoplay=1&rel=0&playsinline=1';f.title=v[1];f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;yt.appendChild(f);yt.querySelector('.pb').hidden=true;yt.querySelector('.cap').hidden=true;}
+const GROUPS={
+ ai:{desc:'Suno（作曲AI）や歌声AI、画像・動画生成AIを使って作った曲とMVです。',
+  long:[['H-BUGtK0Pwg','Keep it alive','しあしあ・きあきあ・ねあねあのバンドMV','4:46'],['v13JzQmKEJY','outdated','ボカコレ2026冬 ルーキー参加曲','2:29'],['PGWeoti51ys','さぼりたいのだ','Suno ・ ずんだもん（Voyager）','2:15'],['PeqKnZaSf_E','まちのまにまに','Suno ・ フルバージョン','3:30'],['BcWaPMxVhms','【検証】ずんだもん(NEUTRINO)→(Voiceger)','歌声AIの変換を試した検証動画','1:13']],
+  shorts:[['Zcu973HRhUs','ぜぜひひ'],['eKNnWVbCOxw','まちのまにまに'],['D3f7n4Vu0JM','outdated'],['L1cWhso_SfA','3D下書きがこうなった【Keep it alive】'],['AKBpn7PKa1g','MVに生成AIの活用はありorなし？']]},
+ hand:{desc:'イラストも動画も、手で描いて作ったMVです。ずんだもんの曲が中心です。',
+  long:[['nu3Q78WFrZ8','ずんだもんは歌いたい','ボカコレ2026夏 NRC賞','3:16'],['i4avJfGIuGY','かわいがるのだ','TVサイズ版がずんパラ投稿祭V3 ずんだもん賞','2:12'],['SCMjLWpc22M','ずんパラで歌いたい','ずんパラ投稿祭ふぉ～すっ♡ 参加作品','1:30'],['x8bRONzq5fg','ずんだもんは性別をはっきりさせたいようです','ボカコレ2025冬 ルーキー参加曲','2:03']],
+  shorts:[['kWKLgkK3YVE','かわいがるのだ']]}
+};
+const yt=document.getElementById('yt'),ytImg=document.getElementById('ytImg'),ytT=document.getElementById('ytT'),ytS=document.getElementById('ytS'),plist=document.getElementById('plist'),shortsEl=document.getElementById('shorts'),vdesc=document.getElementById('vdesc');
+let grp='ai',curV=0;
+const PLAYICO='<svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+function renderGroup(g){grp=g;const G=GROUPS[g];document.querySelectorAll('.vtab').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.g===g)));vdesc.textContent=G.desc;
+ plist.innerHTML=G.long.map((v,i)=>'<button class="pi" type="button" data-i="'+i+'" aria-pressed="'+(i===0)+'"><span class="th"><img src="https://i.ytimg.com/vi/'+v[0]+'/mqdefault.jpg" alt="" loading="lazy"><em>'+v[3]+'</em></span><span><b>'+v[1]+'</b><small>'+v[2]+'</small></span></button>').join('');
+ shortsEl.innerHTML=G.shorts.map(v=>'<button class="sh" type="button" data-id="'+v[0]+'" aria-label="'+v[1]+' を再生する"><img src="https://i.ytimg.com/vi/'+v[0]+'/oardefault.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/'+v[0]+'/hqdefault.jpg\'"><span class="ic">'+PLAYICO+'</span><span class="t">'+v[1]+'</span></button>').join('');
+ showV(0,false);}
+function showV(i,autoplay){curV=i;const v=GROUPS[grp].long[i];plist.querySelectorAll('.pi').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.i===i)));const f=yt.querySelector('iframe');if(f)f.remove();ytImg.src='https://i.ytimg.com/vi/'+v[0]+'/hqdefault.jpg';ytT.textContent=v[1];ytS.textContent=v[2];yt.querySelector('.pb').hidden=false;yt.querySelector('.cap').hidden=false;reelState();if(autoplay)playV();}
+const reel=document.getElementById('reel'),loopTag=document.getElementById('loopTag');let reelVis=false;
+function reelState(){const on=grp==='ai'&&curV===0&&!yt.querySelector('iframe');reel.hidden=!on;loopTag.hidden=!on;if(on&&!reduce){if(!reel.src)reel.src='assets/home/reel-ai.mp4';if(reelVis){const pr=reel.play();if(pr)pr.catch(()=>{});}}else reel.pause();}
+new IntersectionObserver(es=>es.forEach(e=>{reelVis=e.isIntersecting;reelState();}),{threshold:.2}).observe(yt);
+function embed(id,title){const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1';f.title=title;f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;return f;}
+function playV(){band.stop();const v=GROUPS[grp].long[curV];yt.appendChild(embed(v[0],v[1]));yt.querySelector('.pb').hidden=true;yt.querySelector('.cap').hidden=true;reelState();}
 document.getElementById('ytPlay').addEventListener('click',playV);
 plist.addEventListener('click',e=>{const b=e.target.closest('.pi');if(b)showV(+b.dataset.i,true);});
-document.querySelectorAll('.nv img,.drawn img,.polaroid img').forEach(im=>im.addEventListener('error',()=>{im.style.visibility='hidden';}));
+document.querySelectorAll('.vtab').forEach(t=>t.addEventListener('click',()=>renderGroup(t.dataset.g)));
+shortsEl.addEventListener('click',e=>{const b=e.target.closest('button.sh');if(!b)return;band.stop();const d=document.createElement('div');d.className='sh';d.appendChild(embed(b.dataset.id,b.getAttribute('aria-label')));b.replaceWith(d);});
+renderGroup('ai');
+document.querySelectorAll('.nv img,.vc img,.drawn img,.polaroid img').forEach(im=>im.addEventListener('error',()=>{im.style.visibility='hidden';}));
 
 /* ---------- the surprise: this page is a band ---------- */
 let AC=null,master=null,noiseBuf=null;const plucks={};
