@@ -263,6 +263,39 @@ button.sh:hover{transform:translateY(-3px)}
 .vc small{display:block;font-size:11.5px;font-weight:700;color:var(--sub)}
 .vc .win{color:#9a5b00}
 
+
+/* ---------- now making ---------- */
+.making{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:40px}
+@media(max-width:860px){.making{grid-template-columns:1fr}}
+.mk{display:flex;flex-direction:column;border:2px solid var(--ink);border-radius:20px;background:#fff;box-shadow:0 8px 0 var(--ink);overflow:hidden}
+.mk .vis{position:relative;aspect-ratio:16/8;border-bottom:2px solid var(--ink);overflow:hidden;display:grid;place-items:center}
+.mk .vis b{position:relative;z-index:2;font-weight:900;font-size:clamp(26px,3.6vw,40px);line-height:1.25;text-align:center;letter-spacing:.02em;padding:0 18px}
+.mk .vis small{display:block;font-size:12px;font-weight:900;letter-spacing:.2em;margin-bottom:6px;opacity:.75}
+.vis.mv{background:radial-gradient(circle,#ffd1e6 22%,transparent 23%) 0 0/16px 16px,radial-gradient(circle,#ffd1e6 22%,transparent 23%) 8px 8px/16px 16px,#fff4f9;color:var(--ink)}
+.vis.mv b{text-shadow:3px 3px 0 #fff,-3px -3px 0 #fff,3px -3px 0 #fff,-3px 3px 0 #fff}
+.vis.mv i{position:absolute;right:9%;top:16%;width:64px;height:84px;rotate:-24deg;transform-origin:50% 90%;animation:swing 1.4s cubic-bezier(.5,0,.2,1) infinite alternate}
+.vis.mv i:before{content:"";position:absolute;left:0;top:0;width:64px;height:30px;border-radius:8px;background:var(--pink);border:2px solid var(--ink)}
+.vis.mv i:after{content:"";position:absolute;left:28px;top:28px;width:9px;height:56px;border-radius:3px;background:var(--ink)}
+@keyframes swing{to{rotate:24deg}}
+.vis.rpg{background:linear-gradient(#2b2a4a 1px,transparent 1px) 0 0/12px 12px,linear-gradient(90deg,#2b2a4a 1px,transparent 1px) 0 0/12px 12px,#1b1a33;color:#fff}
+.vis.rpg b{font-family:"Noto Sans JP",sans-serif}
+.vis.rpg .label{position:absolute;z-index:3;right:8%;bottom:16%;padding:4px 12px;background:var(--pink);color:#fff;border:2px solid #fff;border-radius:4px;font-size:13px;font-weight:900;rotate:-8deg;box-shadow:0 3px 0 rgba(0,0,0,.4)}
+.vis.rpg .old{position:absolute;z-index:1;left:8%;top:14%;font:900 13px/1.6 Lato,monospace;letter-spacing:.14em;color:#8f8db8;text-decoration:line-through}
+.mk .bd{display:flex;flex-direction:column;gap:10px;padding:18px 20px 20px;flex:1}
+.mk .kind{display:flex;flex-wrap:wrap;gap:6px}
+.mk .kind span{padding:2px 10px;border-radius:999px;font-size:12px;font-weight:900;background:var(--bg2);border:1px solid var(--line)}
+.mk .kind span.now{background:#fff3d6;color:#9a5b00;border-color:#f2d9a6}
+.mk h3{margin:0;font-size:22px;font-weight:900;line-height:1.45}
+.mk p{margin:0;font-size:14.5px;line-height:1.9;color:#2c3b38}
+.steps{display:flex;margin:6px 0 0;padding:0;list-style:none;counter-reset:st}
+.steps li{position:relative;flex:1;padding-top:22px;font-size:11.5px;font-weight:900;color:var(--sub);text-align:center;line-height:1.4}
+.steps li:before{content:"";position:absolute;left:50%;top:4px;width:12px;height:12px;margin-left:-6px;border-radius:50%;border:2px solid var(--ink);background:#fff;z-index:1}
+.steps li:after{content:"";position:absolute;left:-50%;right:50%;top:9px;height:2px;background:var(--line)}
+.steps li:first-child:after{display:none}
+.steps li.done{color:var(--ink)}.steps li.done:before{background:var(--ac)}.steps li.done:after{background:var(--ac)}
+.steps li.now{color:#9a5b00}.steps li.now:before{background:var(--yel);animation:blink 1.2s steps(1) infinite}.steps li.now:after{background:var(--ac)}
+.mk .note{font-size:12.5px;color:var(--sub)}
+
 /* ---------- works ---------- */
 .works{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px}
 @media(max-width:960px){.works{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -357,7 +390,7 @@ footer a{color:var(--sub)}
    <span class="say" id="say" role="status" aria-live="polite"></span>
   </div>
   <nav class="nav" aria-label="ページ内リンク">
-   <a href="#movie">動画</a><a href="#awards">実績</a><a href="#skills">できること</a><a href="#works">つくったもの</a><a href="#band">なかま</a>
+   <a href="#movie">動画</a><a href="#making">制作中</a><a href="#awards">実績</a><a href="#skills">できること</a><a href="#works">つくったもの</a><a href="#band">なかま</a>
   </nav>
   <a class="cta" href="#contact">お問い合わせ</a>
  </div>
@@ -430,6 +463,41 @@ footer a{color:var(--sub)}
   <a class="nv" href="https://www.nicovideo.jp/watch/sm44164708" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/44164708/44164708.62475447.M" alt="" loading="lazy"><span class="tag">TV放送賞</span></div><div class="tx"><b>進め！ずんパラZ戦士</b><small>ずんパラ投稿祭Z ・ MV部門</small></div></a>
   <a class="nv" href="https://www.nicovideo.jp/watch/sm45335196" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/45335196/45335196.73635675.M" alt="" loading="lazy"><span class="tag">ずんだもん賞</span></div><div class="tx"><b>かわいがるのだ（TVサイズ）</b><small>ずんパラ投稿祭V3 ・ MV部門</small></div></a>
   <a class="nv" href="https://www.nicovideo.jp/watch/sm46742922" target="_blank" rel="noopener"><div class="th"><img src="https://nicovideo.cdn.nimg.jp/thumbnails/46742922/46742922.62822423.M" alt="" loading="lazy"><span class="tag" style="background:#fff">参加作品</span></div><div class="tx"><b>ずんパラで歌いたい</b><small>ずんパラ投稿祭ふぉ～すっ♡ ・ 参加</small></div></a>
+ </div>
+</section>
+
+<!-- ---------- now making ---------- -->
+<section class="sec wrap" id="making">
+ <div class="rv">
+  <p class="eyebrow"><i style="--c:var(--yel)"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg></i>NOW MAKING ／ いま作っているもの</p>
+  <h2>新しいMVとゲームを、<br><em>作っています。<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12c40-8 80 6 120-2s90-6 120 0 40 2 54-2"/></svg></em></h2>
+  <p class="intro">どちらもまだ公開前です。できあがったら、このページとXでお知らせします。</p>
+ </div>
+ <div class="making">
+  <article class="mk rv">
+   <div class="vis mv" aria-hidden="true"><i></i><b><small>NEW MV</small>メガトン<br>ハンマーちゃん</b></div>
+   <div class="bd">
+    <div class="kind"><span class="now">仕上げ中</span><span>MV</span><span>AIを活用</span></div>
+    <h3>メガトンハンマーちゃん</h3>
+    <p>Sunoで作った曲に、Blenderで組んだ3Dの箱庭と、イラストのキャラクター、動画生成AIのアクションシーンを重ねたMVです。歌詞は映像に合わせて立体的に動くタイポグラフィにして、英語字幕も付けています。</p>
+    <ol class="steps" aria-label="進み具合">
+     <li class="done">曲</li><li class="done">3Dプレビズ</li><li class="done">映像</li><li class="now">歌詞・仕上げ</li><li>公開</li>
+    </ol>
+    <div class="tags"><span>Suno</span><span>Blender</span><span>Vidu・Grok</span><span>歌詞タイポ</span></div>
+   </div>
+  </article>
+  <article class="mk rv">
+   <div class="vis rpg" aria-hidden="true"><span class="old">ROYAL QUEST</span><b><small>NEW GAME</small>ドSなAIが<br>改造したRPG</b><span class="label">改造ずみなの</span></div>
+   <div class="bd">
+    <div class="kind"><span class="now">開発中</span><span>RPG</span><span>Steamで発売予定</span></div>
+    <h3>ドSなAIが改造したRPG</h3>
+    <p>王道のRPGを、いたずら好きのAI「あいちゃん」が勝手に改造してしまった、という設定のゲームです。理不尽だけど、ちゃんと考えれば解けるバランスを目指しています。曲やドット絵も自分で用意して、スマホでもPCでも遊べるように作っています。</p>
+    <ol class="steps" aria-label="進み具合">
+     <li class="done">企画</li><li class="done">試作</li><li class="now">本編づくり</li><li>仕上げ</li><li>発売</li>
+    </ol>
+    <p class="note">発売日は、完成してから決めます。</p>
+   </div>
+  </article>
  </div>
 </section>
 
@@ -547,6 +615,7 @@ footer a{color:var(--sub)}
  <div class="works">
   <a class="work rv" href="guitar/"><div class="art"><img src="assets/shot-game.webp" alt="" loading="lazy" style="object-position:50% 30%"></div><div class="body"><span class="kind">Webアプリ・作曲ゲーム</span><h3>しあしあのguitar studio</h3><p>カードを選んで遊ぶだけで、ギターの曲とMIDIができるiPhone向けアプリ。カオスモードつき。</p><div class="meta"><span class="badge b-live">公開中・無料</span><span class="go">遊んでみる</span></div></div></a>
   <a class="work rv" href="app-studio/mastering/"><div class="art"><img src="assets/home/app-master.webp" alt="" loading="lazy"></div><div class="body"><span class="kind">音楽ツール</span><h3>ずぼらなマスタリングツール</h3><p>素人はこれで十分。曲を入れるだけで自動で仕上げ。気になるところだけスライダーで直せます。</p><div class="meta"><span class="badge b-live">公開中・無料</span><span class="go">使ってみる</span></div></div></a>
+  <a class="work rv" href="app-studio/ebimome/"><div class="art"><img src="assets/home/app-ebimome.webp" alt="" loading="lazy"></div><div class="body"><span class="kind">映像ツール</span><h3>エビ揉めメーカー</h3><p>画像を入れるだけで、エビを揉む動画ができる。オリジナル曲とふせんコメントつきで、そのまま録画して保存できます。</p><div class="meta"><span class="badge b-live">公開中・無料</span><span class="go">使ってみる</span></div></div></a>
   <article class="work rv"><div class="art"><img src="assets/home/app-kaiwai.webp" alt="" loading="lazy"></div><div class="body"><span class="kind">映像ツール</span><h3>しあしあの界隈曲ムービーメーカー</h3><p>四角が拍で埋まる「界隈曲」のMVを、曲に合わせて組み立てて書き出せるエディター。</p><div class="meta"><span class="badge b-wip">制作中</span></div></div></article>
   <article class="work rv"><div class="art"><img src="assets/home/app-lyric.webp" alt="" loading="lazy"></div><div class="body"><span class="kind">映像ツール</span><h3>Lyric Motion Lab</h3><p>ボカロMVの歌詞アニメを、イージング重視のプリセットから作れるツール。</p><div class="meta"><span class="badge b-wip">制作中</span></div></div></article>
   <article class="work rv"><button class="art na" type="button" id="naBtn" aria-label="な を降らせる"><span style="left:14%;top:16%">な</span><span style="right:16%;top:24%;font-size:22px">な</span><span style="left:22%;bottom:14%;font-size:20px">な</span><b>な</b><span class="cnt" id="naCnt"></span></button><div class="body"><span class="kind">ゲーム</span><h3>名をたくさん伝えれる画期的ツール</h3><p>「な」と言い続けてクリアを目指す、ちょっとおかしなリズムゲーム。上の「な」は押せます。</p><div class="meta"><span class="badge b-wip">制作中</span></div></div></article>
@@ -663,7 +732,7 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 /* ---------- nav highlight + floating contact button ---------- */
 const navs=[...document.querySelectorAll('.nav a')];
 const secIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navs.forEach(a=>a.classList.toggle('on',a.hash==='#'+e.target.id));}),{rootMargin:'-45% 0px -50% 0px'});
-['awards','skills','movie','works','band','contact'].forEach(id=>secIO.observe(document.getElementById(id)));
+['movie','making','awards','skills','works','band','contact'].forEach(id=>secIO.observe(document.getElementById(id)));
 
 /* ---------- talk to the avatar ---------- */
 const lines=['めっちゃ作るけん','ずんだもんの曲、多めです','イラストも手で描いとるよ','AIは毎日使っとるよ','「な」のカード、押してみて','メダルも押せるよ'];
