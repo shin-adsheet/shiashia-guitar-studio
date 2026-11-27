@@ -342,20 +342,47 @@ a.work:hover{transform:translateY(-4px);box-shadow:0 8px 0 var(--ink)}
 @keyframes nafall{to{transform:translateY(calc(100vh + 120px)) rotate(var(--r))}}
 
 /* ---------- band ---------- */
-.band{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px}
+.fliphint{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:7px 14px;border:2px dashed var(--ink);border-radius:999px;font-size:13px;font-weight:800;background:#fff}
+.fliphint svg{width:16px;height:16px}
+.band{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:22px}
 @media(max-width:760px){.band{grid-template-columns:1fr}}
-.member{position:relative;display:block;width:100%;padding:0;text-align:left;border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:#fff;transition:transform .25s var(--pop),box-shadow .25s}
-.member:hover{transform:translateY(-4px) rotate(-.6deg);box-shadow:0 8px 0 var(--ink)}
-.member .ph{aspect-ratio:4/5;overflow:hidden;background:#141225}
+.member{position:relative;perspective:1400px;cursor:pointer;transition:transform .25s var(--pop)}
+.member:hover{transform:translateY(-4px) rotate(-.6deg)}
+.member .flip{display:grid;transform-style:preserve-3d;transition:transform .7s var(--pop)}
+.member.on-back .flip{transform:rotateY(180deg)}
+.member .face{grid-area:1/1;position:relative;display:flex;flex-direction:column;border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:#fff;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:box-shadow .25s}
+.member:hover .face{box-shadow:0 8px 0 var(--ink)}
+.member .back{transform:rotateY(180deg);background:var(--cl);padding:18px 18px 16px;background-image:radial-gradient(color-mix(in srgb,var(--c) 22%,transparent) 1.4px,transparent 1.6px);background-size:16px 16px}
+.member .ph{aspect-ratio:4/5;flex:1 0 auto;overflow:hidden;background:#141225}
 @media(max-width:760px){.member .ph{aspect-ratio:16/11}}
 .member .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;transition:transform .6s var(--ease)}
 .member:hover .ph img{transform:scale(1.05)}
-.member .tx{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;border-top:2px solid var(--ink)}
+.member .tx{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;border-top:2px solid var(--ink);margin-top:auto}
 .member b{font-size:21px;font-weight:900}
 .member small{font-size:12.5px;font-weight:700;color:var(--sub)}
-.member .part{display:inline-flex;align-items:center;gap:6px;padding:3px 11px;border-radius:999px;font-size:12px;font-weight:900;color:#fff;white-space:nowrap}
-.member .part svg{width:13px;height:13px}
-.member .bub{position:absolute;right:12px;top:12px;padding:6px 12px;border-radius:14px;background:#fff;border:2px solid var(--ink);font-size:13px;font-weight:900}
+.member .part{display:inline-flex;align-items:center;gap:6px;padding:3px 11px;border-radius:999px;font-size:12px;font-weight:900;color:#fff;white-space:nowrap;background:var(--c)}
+.member .bub{position:absolute;right:12px;top:12px;padding:6px 12px;border-radius:14px;background:#fff;border:2px solid var(--ink);font-size:13px;font-weight:900;rotate:2deg}
+.member .bub::after{content:"";position:absolute;left:18px;bottom:-8px;width:12px;height:12px;background:#fff;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);rotate:45deg;border-radius:0 0 3px 0}
+.member .turn{position:absolute;left:12px;top:12px;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:#fff;font:inherit;font-size:12px;font-weight:900;cursor:pointer;transition:scale .15s}
+.member .turn:hover{scale:1.06}
+.member .turn svg{width:14px;height:14px}
+.member .back-btn{position:static;align-self:flex-start;margin-top:auto;background:#fff;color:var(--ink)}
+.member .bh{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:2px dashed var(--ink)}
+.member .bh .mini{width:54px;height:54px;flex:none;border-radius:50%;border:2px solid var(--ink);overflow:hidden;background:#141225}
+.member .bh .mini img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;scale:1.6;translate:0 18%}
+.member .bh span:nth-child(2){flex:1;display:flex;flex-direction:column;line-height:1.25}
+.member .bh small{font-size:10.5px;letter-spacing:.14em;font-weight:900;color:var(--c)}
+.member dl{margin:12px 0 0;display:grid;gap:7px}
+.member dl div{display:grid;grid-template-columns:64px 1fr;gap:8px;align-items:baseline;font-size:13.5px}
+.member dt{font-size:11.5px;font-weight:900;color:var(--sub);padding:2px 0;border-radius:6px;text-align:center;background:#fff;border:1.5px solid var(--ink)}
+.member dd{margin:0;font-weight:800;line-height:1.5}
+.member .ap{margin:16px 0 8px;font-size:12px;font-weight:900;letter-spacing:.06em}
+.member .apps{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+.member .wm{position:absolute;right:-6px;bottom:-14px;font-size:76px;font-weight:900;letter-spacing:-.02em;line-height:1;color:transparent;-webkit-text-stroke:2px color-mix(in srgb,var(--c) 45%,transparent);pointer-events:none;user-select:none}
+.member .app{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border:2px solid var(--ink);border-radius:10px;background:#fff;font:inherit;font-size:13px;font-weight:900;color:var(--ink);text-decoration:none;cursor:pointer;transition:transform .15s var(--pop),box-shadow .15s}
+.member .app:hover{transform:translateY(-2px);box-shadow:0 3px 0 var(--ink)}
+.member .app small{font-size:10.5px;color:#fff;background:var(--c);padding:1px 6px;border-radius:6px}
+@media(prefers-reduced-motion:reduce){.member .flip{transition:none}}
 
 /* ---------- contact ---------- */
 .contact{padding:clamp(96px,12vw,150px) 0 clamp(80px,10vw,120px)}
@@ -647,7 +674,6 @@ footer a{color:var(--sub)}
   <a class="work rv" href="app-studio/mastering/"><div class="art"><img src="assets/home/app-master.webp" alt="" loading="lazy"></div><div class="body"><span class="kind">音楽ツール</span><h3>ずぼらなマスタリングツール</h3><p>素人はこれで十分。曲を入れるだけで自動で仕上げ。気になるところだけスライダーで直せます。</p><div class="meta"><span class="badge b-live">公開中・無料</span><span class="go">使ってみる</span></div></div></a>
   <a class="work rv" href="app-studio/ebimome/"><div class="art"><img src="assets/home/app-ebimome.webp" alt="" loading="lazy"></div><div class="body"><span class="kind">映像ツール</span><h3>エビ揉めメーカー</h3><p>画像を入れるだけで、エビを揉む動画ができる。オリジナル曲とふせんコメントつきで、そのまま録画して保存できます。</p><div class="meta"><span class="badge b-live">公開中・無料</span><span class="go">使ってみる</span></div></div></a>
   <article class="work rv"><div class="art"><img src="assets/home/app-kaiwai.webp" alt="" loading="lazy"></div><div class="body"><span class="kind">映像ツール</span><h3>しあしあの界隈曲ムービーメーカー</h3><p>四角が拍で埋まる「界隈曲」のMVを、曲に合わせて組み立てて書き出せるエディター。</p><div class="meta"><span class="badge b-wip">制作中</span></div></div></article>
-  <article class="work rv"><div class="art"><img src="assets/home/app-lyric.webp" alt="" loading="lazy"></div><div class="body"><span class="kind">映像ツール</span><h3>Lyric Motion Lab</h3><p>ボカロMVの歌詞アニメを、イージング重視のプリセットから作れるツール。</p><div class="meta"><span class="badge b-wip">制作中</span></div></div></article>
   <article class="work rv"><button class="art na" type="button" id="naBtn" aria-label="な を降らせる"><span style="left:14%;top:16%">な</span><span style="right:16%;top:24%;font-size:22px">な</span><span style="left:22%;bottom:14%;font-size:20px">な</span><b>な</b><span class="cnt" id="naCnt"></span></button><div class="body"><span class="kind">ゲーム</span><h3>名をたくさん伝えれる画期的ツール</h3><p>「な」と言い続けてクリアを目指す、ちょっとおかしなリズムゲーム。上の「な」は押せます。</p><div class="meta"><span class="badge b-wip">制作中</span></div></div></article>
   <a class="work rv" href="app-studio/"><div class="art" style="display:grid;place-items:center;background:#11101d"><img src="assets/studio-logo.webp" alt="" loading="lazy" style="width:70%;height:auto;object-fit:contain"></div><div class="body"><span class="kind">アプリの紹介ページ</span><h3>APP STUDIO</h3><p>しあしあのアプリをまとめて紹介するページ。遊べるもの・使えるものはここから。</p><div class="meta"><span class="badge b-live">公開中</span><span class="go">ページを見る</span></div></div></a>
  </div>
@@ -660,10 +686,62 @@ footer a{color:var(--sub)}
   <h2>アプリにも、MVにも、<br><em>この3人が出てきます。<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12c40-8 80 6 120-2s90-6 120 0 40 2 54-2"/></svg></em></h2>
   <p class="intro">しあしあはギター、ねあねあはドラム、きあきあはベース。曲やMV、アプリの中に、ときどき顔を出します。</p>
  </div>
+ <p class="fliphint rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>カードを押すと、うらがわのプロフィールが見られます</p>
  <div class="band">
-  <article class="member rv"><div class="ph"><img src="assets/home/member-shia.webp" alt="ギターを弾くしあしあ" loading="lazy" width="480" height="600"></div><span class="bub">めっちゃ作るけん</span><div class="tx"><span><b>しあしあ</b><br><small>うさぎ。アプリの案内役</small></span><span class="part" style="background:var(--shia)">ギター</span></div></article>
-  <article class="member rv"><div class="ph"><img src="assets/home/member-nea.webp" alt="ドラムをたたくねあねあ" loading="lazy" width="480" height="600"></div><div class="tx"><span><b>ねあねあ</b><br><small>バンドのリズム担当</small></span><span class="part" style="background:var(--nea)">ドラム</span></div></article>
-  <article class="member rv"><div class="ph"><img src="assets/home/member-kia.webp" alt="ベースを弾くきあきあ" loading="lazy" width="480" height="600"></div><div class="tx"><span><b>きあきあ</b><br><small>きつね。いつも元気</small></span><span class="part" style="background:var(--kia)">ベース</span></div></article>
+  <article class="member rv" style="--c:var(--shia);--cl:var(--shia-lt)">
+   <div class="flip">
+    <div class="face front">
+     <div class="ph"><img src="assets/home/member-shia.webp" alt="ギターを弾くしあしあ" loading="lazy" width="480" height="600"></div>
+     <span class="bub">めっちゃ作るけん</span>
+     <div class="tx"><span><b>しあしあ</b><br><small>うさぎ。アプリの案内役</small></span><span class="part">ギター</span></div>
+     <button class="turn" type="button" aria-label="しあしあのプロフィールを見る">プロフィール<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></button>
+    </div>
+    <div class="face back" aria-hidden="true">
+     <div class="bh"><span class="mini"><img src="assets/home/member-shia.webp" alt="" loading="lazy"></span><span><small>PROFILE</small><b>しあしあ</b></span><span class="part">ギター</span></div>
+     <dl><div><dt>どうぶつ</dt><dd>うさぎ</dd></div><div><dt>担当</dt><dd>ギターと、アプリの案内</dd></div><div><dt>ことば</dt><dd>筑後弁に、博多弁がまざる</dd></div><div><dt>ひみつ</dt><dd>手はいつもセーターの袖の中</dd></div></dl>
+     <p class="ap">出てくる作品</p>
+     <div class="apps"><button type="button" class="app" data-v="H-BUGtK0Pwg" tabindex="-1">Keep it alive<small>MV</small></button><a class="app" href="guitar/" tabindex="-1">guitar studio<small>アプリ</small></a><a class="app" href="app-studio/ebimome/" tabindex="-1">エビ揉めメーカー<small>ツール</small></a></div>
+     <span class="wm" aria-hidden="true">SHIA</span>
+     <button class="turn back-btn" type="button" tabindex="-1" aria-label="しあしあの写真にもどる">もどる<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></button>
+    </div>
+   </div>
+  </article>
+  <article class="member rv" style="--c:var(--nea);--cl:var(--nea-lt)">
+   <div class="flip">
+    <div class="face front">
+     <div class="ph"><img src="assets/home/member-nea.webp" alt="ドラムをたたくねあねあ" loading="lazy" width="480" height="600"></div>
+     <span class="bub">テンポはまかせて</span>
+     <div class="tx"><span><b>ねあねあ</b><br><small>バンドのリズム担当</small></span><span class="part">ドラム</span></div>
+     <button class="turn" type="button" aria-label="ねあねあのプロフィールを見る">プロフィール<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></button>
+    </div>
+    <div class="face back" aria-hidden="true">
+     <div class="bh"><span class="mini"><img src="assets/home/member-nea.webp" alt="" loading="lazy"></span><span><small>PROFILE</small><b>ねあねあ</b></span><span class="part">ドラム</span></div>
+     <dl><div><dt>担当</dt><dd>ドラム</dd></div><div><dt>せたけ</dt><dd>3人でいちばん小さい</dd></div><div><dt>ふく</dt><dd>髪と同じ色のシャツと短パン</dd></div><div><dt>ひみつ</dt><dd>黒いアームカバーは指先まで</dd></div></dl>
+     <p class="ap">出てくる作品</p>
+     <div class="apps"><button type="button" class="app" data-v="H-BUGtK0Pwg" tabindex="-1">Keep it alive<small>MV</small></button><a class="app" href="app-studio/ebimome/" tabindex="-1">エビ揉めメーカー<small>ツール</small></a></div>
+     <span class="wm" aria-hidden="true">NEA</span>
+     <button class="turn back-btn" type="button" tabindex="-1" aria-label="ねあねあの写真にもどる">もどる<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></button>
+    </div>
+   </div>
+  </article>
+  <article class="member rv" style="--c:var(--kia);--cl:var(--kia-lt)">
+   <div class="flip">
+    <div class="face front">
+     <div class="ph"><img src="assets/home/member-kia.webp" alt="ベースを弾くきあきあ" loading="lazy" width="480" height="600"></div>
+     <span class="bub">いくよー！</span>
+     <div class="tx"><span><b>きあきあ</b><br><small>きつね。いつも元気</small></span><span class="part">ベース</span></div>
+     <button class="turn" type="button" aria-label="きあきあのプロフィールを見る">プロフィール<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></button>
+    </div>
+    <div class="face back" aria-hidden="true">
+     <div class="bh"><span class="mini"><img src="assets/home/member-kia.webp" alt="" loading="lazy"></span><span><small>PROFILE</small><b>きあきあ</b></span><span class="part">ベース</span></div>
+     <dl><div><dt>どうぶつ</dt><dd>きつね</dd></div><div><dt>担当</dt><dd>ベース</dd></div><div><dt>せいかく</dt><dd>いつも元気</dd></div><div><dt>ふく</dt><dd>黄色のタンクトップに、こげ茶のズボン</dd></div></dl>
+     <p class="ap">出てくる作品</p>
+     <div class="apps"><button type="button" class="app" data-v="H-BUGtK0Pwg" tabindex="-1">Keep it alive<small>MV</small></button><a class="app" href="app-studio/ebimome/" tabindex="-1">エビ揉めメーカー<small>ツール</small></a></div>
+     <span class="wm" aria-hidden="true">KIA</span>
+     <button class="turn back-btn" type="button" tabindex="-1" aria-label="きあきあの写真にもどる">もどる<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></button>
+    </div>
+   </div>
+  </article>
  </div>
 </section>
 
@@ -781,8 +859,8 @@ document.getElementById('naBtn').addEventListener('click',()=>{naN++;naCnt.textC
 /* ---------- videos: a light YouTube player with a playlist ---------- */
 const GROUPS={
  ai:{desc:'Suno（作曲AI）や歌声AI、画像・動画生成AIを使って作った曲とMVです。',
-  long:[['wmUWhWM0omo','メガトンハンマーちゃん','新作MV ・ 3Dの箱庭と動画生成AI','3:17'],['H-BUGtK0Pwg','Keep it alive','しあしあ・きあきあ・ねあねあのバンドMV','4:46'],['v13JzQmKEJY','outdated','ボカコレ2026冬 ルーキー参加曲','2:29'],['PGWeoti51ys','さぼりたいのだ','Suno ・ ずんだもん（Voyager）','2:15'],['PeqKnZaSf_E','まちのまにまに','Suno ・ フルバージョン','3:30'],['BcWaPMxVhms','【検証】ずんだもん(NEUTRINO)→(Voiceger)','歌声AIの変換を試した検証動画','1:13']],
-  shorts:[['Zcu973HRhUs','ぜぜひひ'],['eKNnWVbCOxw','まちのまにまに'],['D3f7n4Vu0JM','outdated'],['L1cWhso_SfA','3D下書きがこうなった【Keep it alive】'],['AKBpn7PKa1g','MVに生成AIの活用はありorなし？']]},
+  long:[['wmUWhWM0omo','メガトンハンマーちゃん','新作MV ・ 3Dの箱庭と動画生成AI','3:17'],['H-BUGtK0Pwg','Keep it alive','しあしあ・きあきあ・ねあねあのバンドMV','4:46'],['v13JzQmKEJY','outdated','ボカコレ2026冬 ルーキー参加曲','2:29'],['PGWeoti51ys','さぼりたいのだ','Suno ・ ずんだもん（Voyager）','2:15'],['BcWaPMxVhms','【検証】ずんだもん(NEUTRINO)→(Voiceger)','歌声AIの変換を試した検証動画','1:13']],
+  shorts:[['eKNnWVbCOxw','まちのまにまに（MV）'],['Zcu973HRhUs','ぜぜひひ'],['D3f7n4Vu0JM','outdated'],['L1cWhso_SfA','3D下書きがこうなった【Keep it alive】'],['AKBpn7PKa1g','MVに生成AIの活用はありorなし？']]},
  hand:{desc:'イラストも動画も、手で描いて作ったMVです。ずんだもんの曲が中心です。',
   long:[['nu3Q78WFrZ8','ずんだもんは歌いたい','ボカコレ2026夏 NRC賞','3:16'],['i4avJfGIuGY','かわいがるのだ','TVサイズ版がずんパラ投稿祭V3 ずんだもん賞','2:12'],['SCMjLWpc22M','ずんパラで歌いたい','ずんパラ投稿祭ふぉ～すっ♡ 参加作品','1:30'],['x8bRONzq5fg','ずんだもんは性別をはっきりさせたいようです','ボカコレ2025冬 ルーキー参加曲','2:03']],
   shorts:[['kWKLgkK3YVE','かわいがるのだ']]}
@@ -806,6 +884,14 @@ document.querySelectorAll('.vtab').forEach(t=>t.addEventListener('click',()=>ren
 shortsEl.addEventListener('click',e=>{const b=e.target.closest('button.sh');if(!b)return;const d=document.createElement('div');d.className='sh';d.appendChild(embed(b.dataset.id,b.getAttribute('aria-label')));b.replaceWith(d);});
 renderGroup('ai');
 document.getElementById('nmPlay').addEventListener('click',()=>{const b=document.getElementById('nmYt');b.appendChild(embed('wmUWhWM0omo','メガトンハンマーちゃん'));b.querySelector('.pb').hidden=true;});
+document.querySelectorAll('.member').forEach(m=>{
+ const front=m.querySelector('.front'),back=m.querySelector('.back');
+ const set=on=>{m.classList.toggle('on-back',on);back.setAttribute('aria-hidden',String(!on));front.setAttribute('aria-hidden',String(on));
+  back.querySelectorAll('a,button').forEach(x=>x.tabIndex=on?0:-1);front.querySelectorAll('button').forEach(x=>x.tabIndex=on?-1:0);
+  (on?back.querySelector('.back-btn'):front.querySelector('.turn')).focus({preventScroll:true});};
+ m.addEventListener('click',e=>{if(e.target.closest('a,.app'))return;set(!m.classList.contains('on-back'));});
+});
+document.querySelectorAll('.member .app[data-v]').forEach(b=>b.addEventListener('click',()=>{const i=GROUPS.ai.long.findIndex(v=>v[0]===b.dataset.v);if(i<0)return;renderGroup('ai');showV(i,false);document.getElementById('movie').scrollIntoView({behavior:reduce?'auto':'smooth'});}));
 document.querySelectorAll('.nv img,.vc img,.drawn img').forEach(im=>im.addEventListener('error',()=>{im.style.visibility='hidden';}));
 
 </script>
